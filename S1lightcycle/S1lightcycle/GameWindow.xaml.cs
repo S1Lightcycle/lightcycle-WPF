@@ -1,0 +1,113 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using System.Windows.Threading;
+using S1LightcycleNET;
+
+namespace S1lightcycle {
+    /// <summary>
+    /// Interaction logic for GameWindow.xaml
+    /// </summary>
+    public partial class GameWindow : Window {
+         
+        public GameWindow() {
+            InitializeComponent();
+            this.KeyDown += new KeyEventHandler(Grid_KeyDown);
+        }
+
+        public void DrawGrid(int gridSize) {
+            //vertical grid
+            for (int i = 0; (i * gridSize) <= this.Width; i++) {
+                DrawGridLine(i * gridSize, i * gridSize, 0, this.Height);
+            }
+            //horizontal grid
+            for (int j = 0; (j * gridSize) <= this.Height; j++) {
+                DrawGridLine(0, this.Width, j * gridSize, j * gridSize);
+            }
+        }
+
+        public void DrawGridLine(double x1, double x2, double y1, double y2) {
+            Line gridLine = new Line();
+            gridLine.Stroke = System.Windows.Media.Brushes.LightSteelBlue;
+            gridLine.StrokeThickness = 3;
+
+            gridLine.X1 = x1;
+            gridLine.X2 = x2;
+            gridLine.Y1 = y1;
+            gridLine.Y2 = y2;
+
+            GameFieldCanvas.Children.Add(gridLine);
+        }
+
+        public void DrawWall(Coordinate coordinates) {
+            Rectangle newWall = new Rectangle();
+
+            newWall.Fill = System.Windows.Media.Brushes.Black;
+            newWall.Width = 30;
+            newWall.Height = 30;
+
+            Canvas.SetTop(newWall, coordinates.XCoord);
+            Canvas.SetLeft(newWall, coordinates.YCoord);
+
+            GameFieldCanvas.Children.Add(newWall);
+        }
+
+        private void Grid_KeyDown(object sender, KeyEventArgs e) {
+            switch (e.Key) {
+                case Key.Down:
+                    Console.WriteLine("player1: " + e.Key.ToString());
+                    //if (player1.curDirection == Direction.direction.up) return;
+                    //player1.curDirection = Direction.direction.down;
+                    break;
+                case Key.Up:
+                    Console.WriteLine("player1: " + e.Key.ToString());
+                    //if (player1.curDirection == Direction.direction.down) return;
+                    //player1.curDirection = Direction.direction.up;
+                    break;
+                case Key.Right:
+                    Console.WriteLine("player1: " + e.Key.ToString());
+                    //if (player1.curDirection == Direction.direction.left) return;
+                    //player1.curDirection = Direction.direction.right;
+                    break;
+                case Key.Left:
+                    Console.WriteLine("player1: " + e.Key.ToString());
+                    //if (player1.curDirection == Direction.direction.right) return;
+                    //player1.curDirection = Direction.direction.left;
+                    break;
+                case Key.D:
+                    //if (player2.curDirection == Direction.direction.left) return;
+                    //player2.curDirection = Direction.direction.right;
+                    break;
+                case Key.A:
+                    //if (player2.curDirection == Direction.direction.right) return;
+                    //player2.curDirection = Direction.direction.left;
+                    break;
+                case Key.S:
+                    //if (player2.curDirection == Direction.direction.up) return;
+                    //player2.curDirection = Direction.direction.down;
+                    break;
+                case Key.W:
+                    //if (player2.curDirection == Direction.direction.down) return;
+                    //player2.curDirection = Direction.direction.up;
+                    break;
+                default:
+                    Console.WriteLine("Not yet supported.");
+                    break;
+            } 
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+            new MainWindow().Show();
+        }
+    }
+}
