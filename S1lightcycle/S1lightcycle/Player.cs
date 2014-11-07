@@ -12,7 +12,7 @@ namespace S1lightcycle {
         int[] wall;
         public Direction.direction curDirection;
         public Grid curPos;
-        string color;
-        
+        public WallColor color;
+
     }
 }

@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="WallColor.cs" />
     <Page Include="GameWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,7 +117,7 @@
     <Resource Include="Resources\tron-legacy-light-cycles_130105.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="D:\FH\itm\itm3\s1\object_tracking_non_thread\Lightcycle_ObjectTracking\S1LightcycleNET\S1LightcycleNET.csproj">
+    <ProjectReference Include="..\..\ObjectTracking\S1LightcycleNET\S1LightcycleNET.csproj">
       <Project>{a76a9be5-b8d5-4cb0-bc5f-865e872adc79}</Project>
       <Name>S1LightcycleNET</Name>
     </ProjectReference>

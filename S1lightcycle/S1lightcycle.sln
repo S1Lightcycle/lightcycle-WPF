@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1lightcycle", "S1lightcycle\S1lightcycle.csproj", "{0BE440B8-1FA0-4088-96AF-4907701A2FD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1LightcycleNET", "D:\FH\itm\itm3\s1\object_tracking_non_thread\Lightcycle_ObjectTracking\S1LightcycleNET\S1LightcycleNET.csproj", "{A76A9BE5-B8D5-4CB0-BC5F-865E872ADC79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S1LightcycleNET", "..\ObjectTracking\S1LightcycleNET\S1LightcycleNET.csproj", "{A76A9BE5-B8D5-4CB0-BC5F-865E872ADC79}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

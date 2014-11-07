@@ -37,11 +37,13 @@ namespace S1lightcycle {
             player1 = new Player();
             player1.curDirection = Direction.direction.right;
             player1.curPos = new Grid(1,1);
+            player1.color = WallColor.Blue;
             //GenerateWall(player1, player1.curPos);
 
             player2 = new Player();
             player2.curDirection = Direction.direction.left;
             player2.curPos = new Grid(2, 2);
+            player2.color = WallColor.Red;
             //GenerateWall(player2, player2.curPos);
 
             //set timer -> Update method
@@ -125,7 +127,7 @@ namespace S1lightcycle {
             //PrintCoordinates(coordinates);
 #endif
             
-            gameWindow.DrawWall(coordinates);
+            gameWindow.DrawWall(coordinates, player.color);
             
             walls.Add(new Grid (coordinates.XCoord / robotSize, coordinates.YCoord / robotSize));
         }
