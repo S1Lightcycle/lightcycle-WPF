@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using S1LightcycleNET;
 using System.Windows.Threading;
+using System.Diagnostics;
 
 namespace S1lightcycle {
     public class Controller {
@@ -10,13 +11,14 @@ namespace S1lightcycle {
         private DispatcherTimer timer;
         private ObjectTracker objTracker;
         private GameWindow gameWindow;
-        public int gameHeight = 480;
-        public int gameWidth = 640;
+        private HashSet<Grid> walls;
+        private Stopwatch stopWatch;
         private int countTicks = 0;
         private int timerIntervall = 1;    // in ms  berechnen 
         private int robotSize = 30;        //test value; robotsize = gridsize
-        private HashSet<Grid> walls;
-        System.Diagnostics.Stopwatch stopWatch;
+
+        public int GameHeight = 480;
+        public int GameWidth = 640;
 
         private static Controller instance;
         private Controller()
@@ -41,24 +43,18 @@ namespace S1lightcycle {
 
             //init window
             gameWindow = new GameWindow();
-            gameWindow.Height = gameHeight;
-            gameWindow.Width = gameWidth;
+            gameWindow.Height = GameHeight;
+            gameWindow.Width = GameWidth;
             gameWindow.Show();
 
             gameWindow.DrawGrid(robotSize);
             
             //init players
-            player1 = new Player();
-            player1.curDirection = Direction.Right;
-            player1.curPos = new Grid(1,1);
-            player1.color = WallColor.Blue;
-            //GenerateWall(player1, player1.curPos);
+            player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
+            //GenerateWall(player1, player1.CurPos);
 
-            player2 = new Player();
-            player2.curDirection = Direction.Left;
-            player2.curPos = new Grid(2, 2);
-            player2.color = WallColor.Red;
-            //GenerateWall(player2, player2.curPos);
+            player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red);
+            //GenerateWall(player2, player2.CurPos);
 
             //set timer -> Update method
             timer = new DispatcherTimer();
@@ -66,7 +62,7 @@ namespace S1lightcycle {
             timer.Interval = new TimeSpan(0, 0, 0, 0, timerIntervall); //TimeSpan days/hours/minutes/seconds/milliseconds
             timer.Start();
 
-            stopWatch = new System.Diagnostics.Stopwatch();
+            stopWatch = new Stopwatch();
 
             //Start object tracking
             InitTracking();
@@ -91,16 +87,16 @@ namespace S1lightcycle {
                 CheckCollision(player1);
                 GenerateWall(player1, firstCarPos);
                 //determine player position on grid
-                player1.curPos.column = firstCarPos.XCoord / robotSize;
-                player1.curPos.row = firstCarPos.YCoord / robotSize;
+                player1.CurPos.column = firstCarPos.XCoord / robotSize;
+                player1.CurPos.row = firstCarPos.YCoord / robotSize;
             }
 
             if (IsValidPosition(player2, secondCarPos)) {
                 CheckCollision(player2);
                 GenerateWall(player2, secondCarPos);
                 //determine player position on grid
-                player2.curPos.column = secondCarPos.XCoord / robotSize;
-                player2.curPos.row = secondCarPos.YCoord / robotSize;
+                player2.CurPos.column = secondCarPos.XCoord / robotSize;
+                player2.CurPos.row = secondCarPos.YCoord / robotSize;
             }
             countTicks += 1;
             stopWatch.Stop();
@@ -125,11 +121,11 @@ namespace S1lightcycle {
         private bool IsValidPosition(Player player, Coordinate coordinates) {
             if (coordinates == null) return false;
             //coordinates are outside the canvas (gamefield)
-            if (coordinates.XCoord < 0 || coordinates.XCoord > gameWidth) return false;
-            if (coordinates.YCoord < 0 || coordinates.YCoord > gameHeight) return false;
+            if (coordinates.XCoord < 0 || coordinates.XCoord > GameWidth) return false;
+            if (coordinates.YCoord < 0 || coordinates.YCoord > GameHeight) return false;
 
             //old position equals new position -> no redrawing needed
-            if (player.curPos.column == (coordinates.XCoord/robotSize) && player.curPos.row == (coordinates.YCoord/robotSize)) {
+            if (player.CurPos.column == (coordinates.XCoord/robotSize) && player.CurPos.row == (coordinates.YCoord/robotSize)) {
                 return false;
             }
             return true;
@@ -143,13 +139,13 @@ namespace S1lightcycle {
             //PrintCoordinates(coordinates);
 #endif
             
-            gameWindow.DrawWall(coordinates, player.color);
+            gameWindow.DrawWall(coordinates, player.Color);
             
             walls.Add(new Grid (coordinates.XCoord / robotSize, coordinates.YCoord / robotSize));
         }
 
         private void CheckCollision(Player player) {
-            if (walls.Contains(player.curPos)) {
+            if (walls.Contains(player.CurPos)) {
                 //collision detected -> Game Over
                 //gameWindow.Close();
                 Console.WriteLine("Collision detected");

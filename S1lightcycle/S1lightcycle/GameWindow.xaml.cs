@@ -68,39 +68,39 @@ namespace S1lightcycle {
             switch (e.Key) {
                 case Key.Down:
                     Console.WriteLine("player1: " + e.Key.ToString());
-                    //if (player1.curDirection == Direction.direction.up) return;
-                    //player1.curDirection = Direction.direction.down;
+                    //if (player1.CurDirection == Direction.direction.up) return;
+                    //player1.CurDirection = Direction.direction.down;
                     break;
                 case Key.Up:
                     Console.WriteLine("player1: " + e.Key.ToString());
-                    //if (player1.curDirection == Direction.direction.down) return;
-                    //player1.curDirection = Direction.direction.up;
+                    //if (player1.CurDirection == Direction.direction.down) return;
+                    //player1.CurDirection = Direction.direction.up;
                     break;
                 case Key.Right:
                     Console.WriteLine("player1: " + e.Key.ToString());
-                    //if (player1.curDirection == Direction.direction.left) return;
-                    //player1.curDirection = Direction.direction.right;
+                    //if (player1.CurDirection == Direction.direction.left) return;
+                    //player1.CurDirection = Direction.direction.right;
                     break;
                 case Key.Left:
                     Console.WriteLine("player1: " + e.Key.ToString());
-                    //if (player1.curDirection == Direction.direction.right) return;
-                    //player1.curDirection = Direction.direction.left;
+                    //if (player1.CurDirection == Direction.direction.right) return;
+                    //player1.CurDirection = Direction.direction.left;
                     break;
                 case Key.D:
-                    //if (player2.curDirection == Direction.direction.left) return;
-                    //player2.curDirection = Direction.direction.right;
+                    //if (player2.CurDirection == Direction.direction.left) return;
+                    //player2.CurDirection = Direction.direction.right;
                     break;
                 case Key.A:
-                    //if (player2.curDirection == Direction.direction.right) return;
-                    //player2.curDirection = Direction.direction.left;
+                    //if (player2.CurDirection == Direction.direction.right) return;
+                    //player2.CurDirection = Direction.direction.left;
                     break;
                 case Key.S:
-                    //if (player2.curDirection == Direction.direction.up) return;
-                    //player2.curDirection = Direction.direction.down;
+                    //if (player2.CurDirection == Direction.direction.up) return;
+                    //player2.CurDirection = Direction.direction.down;
                     break;
                 case Key.W:
-                    //if (player2.curDirection == Direction.direction.down) return;
-                    //player2.curDirection = Direction.direction.up;
+                    //if (player2.CurDirection == Direction.direction.down) return;
+                    //player2.CurDirection = Direction.direction.up;
                     break;
                 default:
                     Console.WriteLine("Not yet supported.");
