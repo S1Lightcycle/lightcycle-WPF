@@ -19,6 +19,9 @@ namespace S1lightcycle {
     public partial class OptionWindow : Window {
         public OptionWindow() {
             InitializeComponent();
+            this.LearningRate.Text = Properties.Settings.Default.LearningRate.ToString();
+            this.MinBlobSize.Text = Properties.Settings.Default.MinBlobSize.ToString();
+            this.MaxBlobsize.Text = Properties.Settings.Default.MaxBlobSize.ToString();
         }
     }
 }
