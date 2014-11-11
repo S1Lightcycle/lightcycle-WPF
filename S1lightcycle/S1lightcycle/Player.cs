@@ -4,9 +4,8 @@ namespace S1lightcycle {
         string name;
         int points;
         int[] wall;
-        public Direction.direction curDirection;
+        public Direction curDirection;
         public Grid curPos;
         public WallColor color;
-
     }
 }

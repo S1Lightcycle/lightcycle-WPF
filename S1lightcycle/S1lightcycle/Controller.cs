@@ -49,13 +49,13 @@ namespace S1lightcycle {
             
             //init players
             player1 = new Player();
-            player1.curDirection = Direction.direction.right;
+            player1.curDirection = Direction.Right;
             player1.curPos = new Grid(1,1);
             player1.color = WallColor.Blue;
             //GenerateWall(player1, player1.curPos);
 
             player2 = new Player();
-            player2.curDirection = Direction.direction.left;
+            player2.curDirection = Direction.Left;
             player2.curPos = new Grid(2, 2);
             player2.color = WallColor.Red;
             //GenerateWall(player2, player2.curPos);
@@ -163,7 +163,7 @@ namespace S1lightcycle {
             Console.WriteLine("-----------");
         }
         
-        private void SetRobotDirection(Player player, Direction.direction dir) {
+        private void SetRobotDirection(Player player, Direction dir) {
             //TODO: send new direction to dfrobot
         }
     }
