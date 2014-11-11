@@ -27,7 +27,7 @@ namespace S1lightcycle {
         }
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e) {
-            new Controller().InitGame();
+            Controller.Instance.InitGame();
             this.Close();
         }
 

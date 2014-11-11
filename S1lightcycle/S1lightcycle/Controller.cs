@@ -21,6 +21,23 @@ namespace S1lightcycle {
         private HashSet<Grid> walls;
         System.Diagnostics.Stopwatch stopWatch;
 
+        private static Controller instance;
+        private Controller()
+        {
+        }
+
+        public static Controller Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Controller();
+                }
+                return instance;
+            }
+        }
+
         public void InitGame() {
             //init wall - collision
             walls = new HashSet<Grid>();
@@ -104,7 +121,6 @@ namespace S1lightcycle {
 
             return new Coordinate(x, y);
         }
-
 
         private bool IsValidPosition(Player player, Coordinate coordinates) {
             if (coordinates == null) return false;
