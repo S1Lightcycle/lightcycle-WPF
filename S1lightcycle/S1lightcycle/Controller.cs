@@ -52,7 +52,6 @@ namespace S1lightcycle {
             //init players
             player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
             //GenerateWall(player1, player1.CurPos);
-
             player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red);
             //GenerateWall(player2, player2.CurPos);
 
@@ -68,11 +67,15 @@ namespace S1lightcycle {
             InitTracking();
         }
 
-        private void InitTracking() {
-            objTracker = new ObjectTracker();
-            objTracker.LEARNING_RATE = Properties.Settings.Default.LearningRate;
-            objTracker.BLOB_MAX_SIZE = Properties.Settings.Default.MaxBlobSize;
-            objTracker.BLOB_MIN_SIZE = Properties.Settings.Default.MinBlobSize;
+        private void InitTracking()
+        {
+            objTracker = new ObjectTracker()
+            {
+                LEARNING_RATE = Properties.Settings.Default.LearningRate,
+                BLOB_MAX_SIZE = Properties.Settings.Default.MaxBlobSize,
+                BLOB_MIN_SIZE = Properties.Settings.Default.MinBlobSize
+            };
+
             //start objTracker (threaded)
         }
 

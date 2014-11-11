@@ -2,8 +2,8 @@
 namespace S1lightcycle {
     public class Player {
         public Direction CurDirection;
-        public Grid CurPos;
         public WallColor Color;
+        public Grid CurPos;
 
         public Player() { }
 
