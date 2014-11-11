@@ -9,27 +9,27 @@ namespace S1lightcycle {
     public partial class OptionWindow : Window {
         public OptionWindow() {
             InitializeComponent();
-            this.LearningRate.Text = Properties.Settings.Default.LearningRate.ToString();
-            this.MinBlobSize.Text = Properties.Settings.Default.MinBlobSize.ToString();
-            this.MaxBlobsize.Text = Properties.Settings.Default.MaxBlobSize.ToString();
+            this.LearningRateBox.Text = Properties.Settings.Default.LearningRate.ToString();
+            this.MinBlobSizeBox.Text = Properties.Settings.Default.MinBlobSize.ToString();
+            this.MaxBlobSizeBox.Text = Properties.Settings.Default.MaxBlobSize.ToString();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             double learningRate = 0;
-            if ((LearningRate.Text != "") && (Double.TryParse(LearningRate.Text, out learningRate)))
+            if ((LearningRateBox.Text != "") && (Double.TryParse(LearningRateBox.Text, out learningRate)))
             {
                 Properties.Settings.Default.LearningRate = learningRate;
             }
 
             int minBlobSize = 0;
-            if ((MinBlobSize.Text != "") && (Int32.TryParse(MinBlobSize.Text, out minBlobSize)))
+            if ((MinBlobSizeBox.Text != "") && (Int32.TryParse(MinBlobSizeBox.Text, out minBlobSize)))
             {
                 Properties.Settings.Default.MinBlobSize = minBlobSize;
             }
 
             int maxBlobSize = 0;
-            if ((MaxBlobsize.Text != "") && (Int32.TryParse(MaxBlobsize.Text, out maxBlobSize)))
+            if ((MaxBlobSizeBox.Text != "") && (Int32.TryParse(MaxBlobSizeBox.Text, out maxBlobSize)))
             {
                 Properties.Settings.Default.MaxBlobSize = maxBlobSize;
             }

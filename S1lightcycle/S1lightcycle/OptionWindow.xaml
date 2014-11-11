@@ -7,9 +7,9 @@
         <Label Content="Min Blobsize" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="129"/>
         <Label Content="Max Blobsize" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="129"/>
         <Label Content="{Binding ElementName=learningRateSlider,Path=Value}" HorizontalAlignment="Left" Margin="300,14,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="144,10,0,0" TextWrapping="Wrap" Name ="LearningRate" Text="" VerticalAlignment="Top" Width="70"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="144,43,0,0" TextWrapping="Wrap" Name ="MinBlobSize" Text="" VerticalAlignment="Top" Width="70"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="144,74,0,0" TextWrapping="Wrap" Name ="MaxBlobsize" Text="" VerticalAlignment="Top" Width="70"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="144,10,0,0" TextWrapping="Wrap" Name ="LearningRateBox" Text="" VerticalAlignment="Top" Width="70"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="144,43,0,0" TextWrapping="Wrap" Name ="MinBlobSizeBox" Text="" VerticalAlignment="Top" Width="70"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="144,74,0,0" TextWrapping="Wrap" Name ="MaxBlobSizeBox" Text="" VerticalAlignment="Top" Width="70"/>
         <Label Content="Player 1 Color" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" Width="129"/>
         <Label Content="Player 2 Color" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top" Width="129"/>
         <ComboBox HorizontalAlignment="Left" Margin="144,103,0,0" VerticalAlignment="Top" Width="70"/>
