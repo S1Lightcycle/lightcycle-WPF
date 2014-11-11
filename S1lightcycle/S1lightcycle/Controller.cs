@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using S1LightcycleNET;
 using System.Windows.Threading;
 
@@ -77,6 +74,9 @@ namespace S1lightcycle {
 
         private void InitTracking() {
             objTracker = new ObjectTracker();
+            objTracker.LEARNING_RATE = Properties.Settings.Default.LearningRate;
+            objTracker.BLOB_MAX_SIZE = Properties.Settings.Default.MaxBlobSize;
+            objTracker.BLOB_MIN_SIZE = Properties.Settings.Default.MinBlobSize;
             //start objTracker (threaded)
         }
 

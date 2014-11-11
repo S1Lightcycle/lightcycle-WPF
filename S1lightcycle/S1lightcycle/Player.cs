@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using S1LightcycleNET;
-
+﻿
 namespace S1lightcycle {
     public class Player {
         string name;
