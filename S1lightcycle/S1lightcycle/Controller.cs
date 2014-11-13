@@ -14,7 +14,7 @@ namespace S1lightcycle {
         private HashSet<Grid> walls;
         private Stopwatch stopWatch;
         private int countTicks = 0;
-        private int timerIntervall = 50;    // in ms  berechnen 
+        private int timerIntervall = 10;    // in ms  berechnen 
         private int robotSize = 30;        //test value; robotsize = gridsize
 
         public int GameHeight = 480;
@@ -123,7 +123,7 @@ namespace S1lightcycle {
             x = (x / robotSize) * robotSize;
             y = (y / robotSize) * robotSize;
 
-            return new Coordinate(x, y);
+            return new Coordinate(y, x);
         }
 
         private bool IsValidPosition(Player player, Coordinate coordinates) {
