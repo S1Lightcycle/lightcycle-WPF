@@ -14,7 +14,7 @@ namespace S1lightcycle {
         private HashSet<Grid> walls;
         private Stopwatch stopWatch;
         private int countTicks = 0;
-        private int timerIntervall = 1;    // in ms  berechnen 
+        private int timerIntervall = 50;    // in ms  berechnen 
         private int robotSize = 30;        //test value; robotsize = gridsize
 
         public int GameHeight = 480;
@@ -77,29 +77,34 @@ namespace S1lightcycle {
             };
 
             //start objTracker (threaded)
+            objTracker.startTracking();
         }
 
         /* Thread priority definieren */
         private void Update(object sender, EventArgs e) {
             stopWatch.Start();
-            objTracker.track();
-            Coordinate firstCarPos = DoPositionCompensation(objTracker.FirstCar.Coord);
-            Coordinate secondCarPos = DoPositionCompensation(objTracker.SecondCar.Coord);
+            //objTracker.track();
 
-            if (IsValidPosition(player1, firstCarPos)) {
-                CheckCollision(player1);
-                GenerateWall(player1, firstCarPos);
-                //determine player position on grid
-                player1.CurPos.column = firstCarPos.XCoord / robotSize;
-                player1.CurPos.row = firstCarPos.YCoord / robotSize;
+            if (objTracker.FirstCar.Coord.Count > 0) {
+                Coordinate firstCarPos = DoPositionCompensation(objTracker.FirstCar.Coord.Dequeue());
+                if (IsValidPosition(player1, firstCarPos)) {
+                    CheckCollision(player1);
+                    GenerateWall(player1, firstCarPos);
+                    //determine player position on grid
+                    player1.CurPos.column = firstCarPos.XCoord / robotSize;
+                    player1.CurPos.row = firstCarPos.YCoord / robotSize;
+                }
             }
 
-            if (IsValidPosition(player2, secondCarPos)) {
-                CheckCollision(player2);
-                GenerateWall(player2, secondCarPos);
-                //determine player position on grid
-                player2.CurPos.column = secondCarPos.XCoord / robotSize;
-                player2.CurPos.row = secondCarPos.YCoord / robotSize;
+            if (objTracker.SecondCar.Coord.Count > 0) {
+                Coordinate secondCarPos = DoPositionCompensation(objTracker.SecondCar.Coord.Dequeue());
+                if (IsValidPosition(player2, secondCarPos)) {
+                    CheckCollision(player2);
+                    GenerateWall(player2, secondCarPos);
+                    //determine player position on grid
+                    player2.CurPos.column = secondCarPos.XCoord / robotSize;
+                    player2.CurPos.row = secondCarPos.YCoord / robotSize;
+                }
             }
             countTicks += 1;
             stopWatch.Stop();
