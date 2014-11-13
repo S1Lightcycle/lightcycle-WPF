@@ -76,14 +76,12 @@ namespace S1lightcycle {
                 BLOB_MIN_SIZE = Properties.Settings.Default.MinBlobSize
             };
 
-            //start objTracker (threaded)
-            objTracker.startTracking();
+            objTracker.StartTracking();
         }
 
         /* Thread priority definieren */
         private void Update(object sender, EventArgs e) {
             stopWatch.Start();
-            //objTracker.track();
 
             if (objTracker.FirstCar.Coord.Count > 0) {
                 Coordinate firstCarPos = DoPositionCompensation(objTracker.FirstCar.Coord.Dequeue());
