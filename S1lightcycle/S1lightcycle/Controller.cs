@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using S1LightcycleNET;
 using System.Windows.Threading;
 using System.Diagnostics;
@@ -123,6 +124,7 @@ namespace S1lightcycle {
         private void GoToResults()
         {
             timer.Stop();
+            objTracker.StopTracking();
             resultWindow = new ResultWindow();
             gameWindow.Close();
             resultWindow.Show();
@@ -156,21 +158,22 @@ namespace S1lightcycle {
 
         private void GenerateWall(Player player, Coordinate coordinates) {
             if (coordinates == null) return;
-
-#if DEBUG
-            //Console.WriteLine("tick-counter: " + countTicks);
-            //PrintCoordinates(coordinates);
-#endif
-            
             gameWindow.DrawWall(coordinates, player.Color);
             
             walls.Add(new Grid (coordinates.XCoord / robotSize, coordinates.YCoord / robotSize));
         }
 
-        private bool DidCollide(Player player) {
-            if (walls.Contains(player.CurPos)) {
-                Console.WriteLine("Collision detected");
-                return true;
+        private bool DidCollide(Player player)
+        {
+
+            var collision = (from wall in walls
+                where (wall.column == player.CurPos.column) &&
+                      (wall.row == player.CurPos.row)
+                select wall).FirstOrDefault();
+
+            if (collision == null)
+            {
+                return false;
             }
             return true;
         }
@@ -180,10 +183,6 @@ namespace S1lightcycle {
             Console.Write("x: " + coordinates.XCoord + " | ");
             Console.Write("y: " + coordinates.YCoord);
             Console.WriteLine("-----------");
-        }
-        
-        private void SetRobotDirection(Player player, Direction dir) {
-            //TODO: send new direction to dfrobot
         }
     }
 }
