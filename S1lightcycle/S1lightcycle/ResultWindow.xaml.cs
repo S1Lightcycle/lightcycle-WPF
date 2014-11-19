@@ -55,9 +55,8 @@ namespace S1lightcycle
 
         private void NewGame_Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            this.Close();
-            main.Show();
+            Application.Current.MainWindow.Show();
+			this.Close();
         }
 
         private void Quit_Button_Click(object sender, RoutedEventArgs e)

@@ -109,7 +109,7 @@ namespace S1lightcycle {
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
-            new MainWindow().Show();
+            Application.Current.MainWindow.Show();
         }
     }
 }
