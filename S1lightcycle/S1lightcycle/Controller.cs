@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using S1LightcycleNET;
 using System.Windows.Threading;
 using System.Diagnostics;
@@ -86,7 +87,7 @@ namespace S1lightcycle {
             if (objTracker.FirstCar.Coord.Count > 0) {
                 Coordinate firstCarPos = DoPositionCompensation(objTracker.FirstCar.Coord.Dequeue());
                 if (IsValidPosition(player1, firstCarPos)) {
-                    CheckCollision(player1);
+                    DidCollide(player1);
                     GenerateWall(player1, firstCarPos);
                     //determine player position on grid
                     player1.CurPos.column = firstCarPos.XCoord / robotSize;
@@ -97,7 +98,7 @@ namespace S1lightcycle {
             if (objTracker.SecondCar.Coord.Count > 0) {
                 Coordinate secondCarPos = DoPositionCompensation(objTracker.SecondCar.Coord.Dequeue());
                 if (IsValidPosition(player2, secondCarPos)) {
-                    CheckCollision(player2);
+                    DidCollide(player2);
                     GenerateWall(player2, secondCarPos);
                     //determine player position on grid
                     player2.CurPos.column = secondCarPos.XCoord / robotSize;
@@ -150,12 +151,17 @@ namespace S1lightcycle {
             walls.Add(new Grid (coordinates.XCoord / robotSize, coordinates.YCoord / robotSize));
         }
 
-        private void CheckCollision(Player player) {
-            if (walls.Contains(player.CurPos)) {
-                //collision detected -> Game Over
-                //gameWindow.Close();
-                Console.WriteLine("Collision detected");
+        private bool DidCollide(Player player) {
+            var collision = (from wall in walls
+                             where (wall.column == player.CurPos.column) &&
+                                   (wall.row == player.CurPos.row)
+                             select wall).FirstOrDefault();
+
+            if (collision == null)
+            {
+                return false;
             }
+            return true;
         }
 
         private void PrintCoordinates(Coordinate coordinates) {
