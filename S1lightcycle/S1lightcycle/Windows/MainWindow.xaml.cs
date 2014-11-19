@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace S1lightcycle {
+namespace S1lightcycle.Windows {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

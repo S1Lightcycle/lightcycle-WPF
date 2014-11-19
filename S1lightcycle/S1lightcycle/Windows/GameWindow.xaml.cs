@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Windows.Shapes;
 using S1LightcycleNET;
 
-namespace S1lightcycle {
+namespace S1lightcycle.Windows {
     /// <summary>
     /// Interaction logic for GameWindow.xaml
     /// </summary>

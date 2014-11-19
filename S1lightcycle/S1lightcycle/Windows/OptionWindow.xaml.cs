@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 
-namespace S1lightcycle {
+namespace S1lightcycle.Windows {
     /// <summary>
     /// Interaction logic for OptionWindow.xaml
     /// </summary>

@@ -1,4 +1,4 @@
-﻿<Window x:Class="S1lightcycle.GameWindow"
+﻿<Window x:Class="S1lightcycle.Windows.GameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Lightcycle" Height="700" Width="700" Closing="Window_Closing">
