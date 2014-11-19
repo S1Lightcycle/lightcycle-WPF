@@ -10,12 +10,11 @@ namespace S1lightcycle {
 
         public Player() { }
 
-        public Player(Direction dir, Grid curPos, WallColor color, Robot robot)
+        public Player(Direction dir, Grid curPos, WallColor color)
         {
             CurDirection = dir;
             CurPos = curPos;
             Color = color;
-            Robot = robot;
         }
     }
 }

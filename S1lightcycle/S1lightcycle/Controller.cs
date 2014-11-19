@@ -51,9 +51,9 @@ namespace S1lightcycle {
             gameWindow.DrawGrid(robotSize);
             
             //init players
-            player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue, objTracker.FirstCar);
+            player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
             //GenerateWall(player1, player1.CurPos);
-            player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red, objTracker.SecondCar);
+            player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red);
             //GenerateWall(player2, player2.CurPos);
 
             //set timer -> Update method
@@ -76,6 +76,9 @@ namespace S1lightcycle {
                 BLOB_MAX_SIZE = Properties.Settings.Default.MaxBlobSize,
                 BLOB_MIN_SIZE = Properties.Settings.Default.MinBlobSize
             };
+
+            player1.Robot = objTracker.FirstCar;
+            player2.Robot = objTracker.SecondCar;
 
             objTracker.StartTracking();
         }
