@@ -51,9 +51,9 @@ namespace S1lightcycle {
             gameWindow.DrawGrid(robotSize);
             
             //init players
-            player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
+            player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue, objTracker.FirstCar);
             //GenerateWall(player1, player1.CurPos);
-            player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red);
+            player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red, objTracker.SecondCar);
             //GenerateWall(player2, player2.CurPos);
 
             //set timer -> Update method
@@ -84,35 +84,29 @@ namespace S1lightcycle {
         private void Update(object sender, EventArgs e) {
             stopWatch.Start();
 
-            /*TODO: associate car with player
-             *TODO: get rid of code duplication here
-             * */
-            if (objTracker.FirstCar.Coord.Count > 0) {
-                Coordinate firstCarPos = DoPositionCompensation(objTracker.FirstCar.Coord.Dequeue());
-                if (IsValidPosition(player1, firstCarPos)) {
-                    DidCollide(player1);
-                    GenerateWall(player1, firstCarPos);
-                    //determine player position on grid
-                    player1.CurPos.column = firstCarPos.XCoord / robotSize;
-                    player1.CurPos.row = firstCarPos.YCoord / robotSize;
-                }
-            }
+            UpdateCar(player1);
+            UpdateCar(player2);
 
-            if (objTracker.SecondCar.Coord.Count > 0) {
-                Coordinate secondCarPos = DoPositionCompensation(objTracker.SecondCar.Coord.Dequeue());
-                if (IsValidPosition(player2, secondCarPos)) {
-                    DidCollide(player2);
-                    GenerateWall(player2, secondCarPos);
-                    //determine player position on grid
-                    player2.CurPos.column = secondCarPos.XCoord / robotSize;
-                    player2.CurPos.row = secondCarPos.YCoord / robotSize;
-                }
-            }
             countTicks += 1;
             stopWatch.Stop();
             
-            Console.WriteLine("ellapsed time in ms: " + stopWatch.ElapsedMilliseconds);
+            Console.WriteLine("elapsed time in ms: " + stopWatch.ElapsedMilliseconds);
             stopWatch.Reset();
+        }
+
+        private void UpdateCar(Player player)
+        {
+            if (player.Robot.Coord.Count > 0)
+            {
+                Coordinate carPos = DoPositionCompensation(player.Robot.Coord.Dequeue());
+                if (IsValidPosition(player, carPos))
+                {
+                    DidCollide(player);
+                    GenerateWall(player, carPos);
+                    player.CurPos.column = carPos.XCoord/robotSize;
+                    player.CurPos.row = carPos.YCoord/robotSize;
+                }
+            }
         }
 
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
