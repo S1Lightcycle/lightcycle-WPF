@@ -90,6 +90,7 @@ namespace S1lightcycle {
                     if (DidCollide(player1))
                     {
                         GoToResults();
+                        return;
                     }
                     GenerateWall(player1, firstCarPos);
                     //determine player position on grid
@@ -104,6 +105,7 @@ namespace S1lightcycle {
                     if (DidCollide(player2))
                     {
                         GoToResults();
+                        return;
                     }
                     GenerateWall(player2, secondCarPos);
                     //determine player position on grid
@@ -120,6 +122,7 @@ namespace S1lightcycle {
 
         private void GoToResults()
         {
+            timer.Stop();
             resultWindow = new ResultWindow();
             gameWindow.Close();
             resultWindow.Show();
@@ -169,7 +172,7 @@ namespace S1lightcycle {
                 Console.WriteLine("Collision detected");
                 return true;
             }
-            return false;
+            return true;
         }
 
         private void PrintCoordinates(Coordinate coordinates) {

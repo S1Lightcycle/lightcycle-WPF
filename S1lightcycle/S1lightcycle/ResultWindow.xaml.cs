@@ -48,9 +48,8 @@ namespace S1lightcycle
 
         private void Revanche_Button_Click(object sender, RoutedEventArgs e)
         {
-            GameWindow game = new GameWindow();
+            Controller.Instance.InitGame();
             this.Close();
-            game.Show();
         }
 
         private void NewGame_Button_Click(object sender, RoutedEventArgs e)
