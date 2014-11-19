@@ -166,8 +166,8 @@ namespace S1lightcycle {
 
         private bool DidCollide(Player player) {
             if (walls.Contains(player.CurPos)) {
-                return true;
                 Console.WriteLine("Collision detected");
+                return true;
             }
             return false;
         }
