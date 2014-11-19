@@ -11,8 +11,8 @@ namespace S1lightcycle {
         private Player player2;
         private DispatcherTimer timer;
         private ObjectTracker objTracker;
-        private GameWindow gameWindow;
-        private ResultWindow resultWindow;
+        private Windows.GameWindow gameWindow;
+        private Windows.ResultWindow resultWindow;
         private HashSet<Grid> walls;
         private Stopwatch stopWatch;
         private int countTicks = 0;
@@ -44,7 +44,7 @@ namespace S1lightcycle {
             walls = new HashSet<Grid>();
 
             //init window
-            gameWindow = new GameWindow();
+            gameWindow = new Windows.GameWindow();
             gameWindow.Height = GameHeight;
             gameWindow.Width = GameWidth;
             gameWindow.Show();
@@ -125,7 +125,7 @@ namespace S1lightcycle {
         {
             timer.Stop();
             objTracker.StopTracking();
-            resultWindow = new ResultWindow();
+            resultWindow = new Windows.ResultWindow();
             gameWindow.Close();
             resultWindow.Show();
         }
