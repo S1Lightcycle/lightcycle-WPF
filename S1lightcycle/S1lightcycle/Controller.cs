@@ -165,17 +165,15 @@ namespace S1lightcycle {
 
         private bool DidCollide(Player player)
         {
-
-            var collision = (from wall in walls
-                where (wall.column == player.CurPos.column) &&
-                      (wall.row == player.CurPos.row)
-                select wall).FirstOrDefault();
-
-            if (collision == null)
+            foreach (Grid wall in walls)
             {
-                return false;
+                if ((wall.column.Equals(player.CurPos.column)) && (wall.row.Equals((player.CurPos.column))))
+                {
+                    return true;
+                }
             }
-            return true;
+
+            return false;
         }
 
         private void PrintCoordinates(Coordinate coordinates) {
