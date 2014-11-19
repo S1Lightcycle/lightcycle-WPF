@@ -84,6 +84,9 @@ namespace S1lightcycle {
         private void Update(object sender, EventArgs e) {
             stopWatch.Start();
 
+            /*TODO: associate car with player
+             *TODO: get rid of code duplication here
+             * */
             if (objTracker.FirstCar.Coord.Count > 0) {
                 Coordinate firstCarPos = DoPositionCompensation(objTracker.FirstCar.Coord.Dequeue());
                 if (IsValidPosition(player1, firstCarPos)) {
