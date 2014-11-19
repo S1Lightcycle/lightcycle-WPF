@@ -11,6 +11,7 @@ namespace S1lightcycle {
         private DispatcherTimer timer;
         private ObjectTracker objTracker;
         private GameWindow gameWindow;
+        private ResultWindow resultWindow;
         private HashSet<Grid> walls;
         private Stopwatch stopWatch;
         private int countTicks = 0;
@@ -86,7 +87,10 @@ namespace S1lightcycle {
             if (objTracker.FirstCar.Coord.Count > 0) {
                 Coordinate firstCarPos = DoPositionCompensation(objTracker.FirstCar.Coord.Dequeue());
                 if (IsValidPosition(player1, firstCarPos)) {
-                    CheckCollision(player1);
+                    if (DidCollide(player1))
+                    {
+                        GoToResults();
+                    }
                     GenerateWall(player1, firstCarPos);
                     //determine player position on grid
                     player1.CurPos.column = firstCarPos.XCoord / robotSize;
@@ -97,7 +101,10 @@ namespace S1lightcycle {
             if (objTracker.SecondCar.Coord.Count > 0) {
                 Coordinate secondCarPos = DoPositionCompensation(objTracker.SecondCar.Coord.Dequeue());
                 if (IsValidPosition(player2, secondCarPos)) {
-                    CheckCollision(player2);
+                    if (DidCollide(player2))
+                    {
+                        GoToResults();
+                    }
                     GenerateWall(player2, secondCarPos);
                     //determine player position on grid
                     player2.CurPos.column = secondCarPos.XCoord / robotSize;
@@ -109,6 +116,13 @@ namespace S1lightcycle {
             
             Console.WriteLine("ellapsed time in ms: " + stopWatch.ElapsedMilliseconds);
             stopWatch.Reset();
+        }
+
+        private void GoToResults()
+        {
+            resultWindow = new ResultWindow();
+            gameWindow.Close();
+            resultWindow.Show();
         }
 
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
@@ -150,12 +164,12 @@ namespace S1lightcycle {
             walls.Add(new Grid (coordinates.XCoord / robotSize, coordinates.YCoord / robotSize));
         }
 
-        private void CheckCollision(Player player) {
+        private bool DidCollide(Player player) {
             if (walls.Contains(player.CurPos)) {
-                //collision detected -> Game Over
-                //gameWindow.Close();
+                return true;
                 Console.WriteLine("Collision detected");
             }
+            return false;
         }
 
         private void PrintCoordinates(Coordinate coordinates) {
