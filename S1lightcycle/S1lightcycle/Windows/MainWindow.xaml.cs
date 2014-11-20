@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace S1lightcycle {
+namespace S1lightcycle.Windows {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -15,7 +15,7 @@ namespace S1lightcycle {
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e) {
             Controller.Instance.InitGame();
-            this.Close();
+            this.Hide();
         }
 
         private void btnOptions_Click(object sender, RoutedEventArgs e) {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using S1LightcycleNET;
 using System.Windows.Threading;
 using System.Diagnostics;
@@ -10,8 +11,8 @@ namespace S1lightcycle {
         private Player player2;
         private DispatcherTimer timer;
         private ObjectTracker objTracker;
-        private GameWindow gameWindow;
-        private ResultWindow resultWindow;
+        private Windows.GameWindow gameWindow;
+        private Windows.ResultWindow resultWindow;
         private HashSet<Grid> walls;
         private Stopwatch stopWatch;
         private int countTicks = 0;
@@ -43,7 +44,7 @@ namespace S1lightcycle {
             walls = new HashSet<Grid>();
 
             //init window
-            gameWindow = new GameWindow();
+            gameWindow = new Windows.GameWindow();
             gameWindow.Height = GameHeight;
             gameWindow.Width = GameWidth;
             gameWindow.Show();
@@ -90,6 +91,7 @@ namespace S1lightcycle {
                     if (DidCollide(player1))
                     {
                         GoToResults();
+                        return;
                     }
                     GenerateWall(player1, firstCarPos);
                     //determine player position on grid
@@ -104,6 +106,7 @@ namespace S1lightcycle {
                     if (DidCollide(player2))
                     {
                         GoToResults();
+                        return;
                     }
                     GenerateWall(player2, secondCarPos);
                     //determine player position on grid
@@ -120,7 +123,9 @@ namespace S1lightcycle {
 
         private void GoToResults()
         {
-            resultWindow = new ResultWindow();
+            timer.Stop();
+            objTracker.StopTracking();
+            resultWindow = new Windows.ResultWindow();
             gameWindow.Close();
             resultWindow.Show();
         }
@@ -153,22 +158,21 @@ namespace S1lightcycle {
 
         private void GenerateWall(Player player, Coordinate coordinates) {
             if (coordinates == null) return;
-
-#if DEBUG
-            //Console.WriteLine("tick-counter: " + countTicks);
-            //PrintCoordinates(coordinates);
-#endif
-            
             gameWindow.DrawWall(coordinates, player.Color);
             
             walls.Add(new Grid (coordinates.XCoord / robotSize, coordinates.YCoord / robotSize));
         }
 
-        private bool DidCollide(Player player) {
-            if (walls.Contains(player.CurPos)) {
-                return true;
-                Console.WriteLine("Collision detected");
+        private bool DidCollide(Player player)
+        {
+            foreach (Grid wall in walls)
+            {
+                if ((wall.column.Equals(player.CurPos.column)) && (wall.row.Equals((player.CurPos.column))))
+                {
+                    return true;
+                }
             }
+
             return false;
         }
 
@@ -177,10 +181,6 @@ namespace S1lightcycle {
             Console.Write("x: " + coordinates.XCoord + " | ");
             Console.Write("y: " + coordinates.YCoord);
             Console.WriteLine("-----------");
-        }
-        
-        private void SetRobotDirection(Player player, Direction dir) {
-            //TODO: send new direction to dfrobot
         }
     }
 }
