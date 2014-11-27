@@ -87,24 +87,24 @@ namespace S1lightcycle {
         private void Update(object sender, EventArgs e) {
             stopWatch.Start();
 
-            UpdateCar(player1);
-            UpdateCar(player2);
+            UpdatePlayerPosition(player1);
+            UpdatePlayerPosition(player2);
 
             countTicks += 1;
             stopWatch.Stop();
             
-            Console.WriteLine("elapsed time in ms: " + stopWatch.ElapsedMilliseconds);
+            //Console.WriteLine("elapsed time in ms: " + stopWatch.ElapsedMilliseconds);
             stopWatch.Reset();
         }
 
-        private void UpdateCar(Player player)
+        private void UpdatePlayerPosition(Player player)
         {
             if (player.Robot.Coord.Count > 0)
             {
-                Coordinate carPos = DoPositionCompensation(player.Robot.Coord.Dequeue());
+                Coordinate carPos = GetValidPosition(player.Robot.Coord.Dequeue());
                 if (IsValidPosition(player, carPos))
                 {
-                    DidCollide(player);
+                    if (IsCollision(player)) Console.WriteLine("collision");
                     GenerateWall(player, carPos);
                     player.CurPos.column = carPos.XCoord/robotSize;
                     player.CurPos.row = carPos.YCoord/robotSize;
@@ -112,7 +112,7 @@ namespace S1lightcycle {
             }
         }
 
-        private Coordinate DoPositionCompensation(Coordinate coordinates) {
+        private Coordinate GetValidPosition(Coordinate coordinates) {
             int x = coordinates.XCoord;
             int y = coordinates.YCoord;
             int center = robotSize / 2;
@@ -145,15 +145,9 @@ namespace S1lightcycle {
             walls.Add(new Grid (coordinates.XCoord / robotSize, coordinates.YCoord / robotSize));
         }
 
-        private bool DidCollide(Player player) 
+        private bool IsCollision(Player player) 
         {
-            foreach (Grid wall in walls)
-            {
-                if ((wall.column.Equals(player.CurPos.column)) && (wall.row.Equals(player.CurPos.row)))
-                {
-                    return true;
-                }
-            }
+            if (walls.Contains(player.CurPos)) return true;
             return false;
         }
 
