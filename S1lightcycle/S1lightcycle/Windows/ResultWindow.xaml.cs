@@ -16,22 +16,22 @@ namespace S1lightcycle.Windows
         public int Player1Result { 
             get 
             {
-                return Int32.Parse(this.Player1ResultBox.Text);
+                return Int32.Parse(this.Player1ResultBox.Content.ToString());
             }
             set
             {
-                this.Player1ResultBox.Text = value.ToString();
+                this.Player1ResultBox.Content = value.ToString();
             }
         }
 
         public int Player2Result {
             get
             {
-                return Int32.Parse(this.Player2ResultBox.Text);
+                return Int32.Parse(this.Player2ResultBox.Content.ToString());
             }
             set
             {
-                this.Player2ResultBox.Text = value.ToString();
+                this.Player2ResultBox.Content = value.ToString();
             }
         }
 
