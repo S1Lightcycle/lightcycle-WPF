@@ -124,7 +124,6 @@ namespace S1lightcycle {
         private void GoToResults()
         {
             timer.Stop();
-            objTracker.StopTracking();
             resultWindow = new Windows.ResultWindow();
             gameWindow.Close();
             resultWindow.Show();
