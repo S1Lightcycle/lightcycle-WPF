@@ -36,5 +36,10 @@ namespace S1lightcycle.Windows {
             Properties.Settings.Default.Save();
             base.OnClosing(e);
         }
+
+        private void OK_Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
