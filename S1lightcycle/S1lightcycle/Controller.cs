@@ -22,9 +22,14 @@ namespace S1lightcycle {
         public int GameHeight = 480;
         public int GameWidth = 640;
 
+        public uint Player1Points { get; private set; }
+        public uint Player2Points { get; private set; }
+
         private static Controller instance;
         private Controller()
         {
+            Player1Points = 0;
+            Player2Points = 0;
         }
 
         public static Controller Instance
@@ -90,6 +95,7 @@ namespace S1lightcycle {
                 if (IsValidPosition(player1, firstCarPos)) {
                     if (DidCollide(player1))
                     {
+                        Player2Points++;
                         GoToResults();
                         return;
                     }
@@ -105,6 +111,7 @@ namespace S1lightcycle {
                 if (IsValidPosition(player2, secondCarPos)) {
                     if (DidCollide(player2))
                     {
+                        Player1Points++;
                         GoToResults();
                         return;
                     }
@@ -180,6 +187,12 @@ namespace S1lightcycle {
             Console.Write("x: " + coordinates.XCoord + " | ");
             Console.Write("y: " + coordinates.YCoord);
             Console.WriteLine("-----------");
+        }
+
+        public void ResetPlayerPoints()
+        {
+            Player1Points = 0;
+            Player2Points = 0;
         }
     }
 }

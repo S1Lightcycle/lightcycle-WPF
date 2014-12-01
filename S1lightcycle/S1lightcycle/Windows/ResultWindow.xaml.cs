@@ -11,28 +11,8 @@ namespace S1lightcycle.Windows
         public ResultWindow()
         {
             InitializeComponent();
-        }
-
-        public int Player1Result { 
-            get 
-            {
-                return Int32.Parse(this.Player1ResultBox.Content.ToString());
-            }
-            set
-            {
-                this.Player1ResultBox.Content = value.ToString();
-            }
-        }
-
-        public int Player2Result {
-            get
-            {
-                return Int32.Parse(this.Player2ResultBox.Content.ToString());
-            }
-            set
-            {
-                this.Player2ResultBox.Content = value.ToString();
-            }
+            Player1ResultLabel.Content = Controller.Instance.Player1Points;
+            Player2ResultLabel.Content = Controller.Instance.Player2Points;
         }
 
         private void Revanche_Button_Click(object sender, RoutedEventArgs e)
@@ -43,6 +23,7 @@ namespace S1lightcycle.Windows
 
         private void NewGame_Button_Click(object sender, RoutedEventArgs e)
         {
+            Controller.Instance.ResetPlayerPoints();
             Application.Current.MainWindow.Show();
 			this.Close();
         }
