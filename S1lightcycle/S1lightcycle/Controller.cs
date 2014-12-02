@@ -7,17 +7,17 @@ using System.Diagnostics;
 
 namespace S1lightcycle {
     public class Controller {
-        private Player player1;
-        private Player player2;
-        private DispatcherTimer timer;
-        private ObjectTracker objTracker;
-        private Windows.GameWindow gameWindow;
-        private Windows.ResultWindow resultWindow;
-        private HashSet<Grid> walls;
-        private Stopwatch stopWatch;
-        private int countTicks = 0;
-        private int timerIntervall = 10;    // in ms  berechnen 
-        private int robotSize = 30;        //test value; robotsize = gridsize
+        private Player _player1;
+        private Player _player2;
+        private DispatcherTimer _timer;
+        private ObjectTracker _objTracker;
+        private Windows.GameWindow _gameWindow;
+        private Windows.ResultWindow _resultWindow;
+        private HashSet<Grid> _walls;
+        private Stopwatch _stopWatch;
+        private int _countTicks = 0;
+        private const int TimerIntervall = 10;    // in ms  berechnen 
+        private const int RobotSize = 30;        //test value; robotsize = gridsize
 
         public int GameHeight = 480;
         public int GameWidth = 640;
@@ -46,29 +46,29 @@ namespace S1lightcycle {
 
         public void InitGame() {
             //init wall - collision
-            walls = new HashSet<Grid>();
+            _walls = new HashSet<Grid>();
 
             //init window
-            gameWindow = new Windows.GameWindow();
-            gameWindow.Height = GameHeight;
-            gameWindow.Width = GameWidth;
-            gameWindow.Show();
+            _gameWindow = new Windows.GameWindow();
+            _gameWindow.Height = GameHeight;
+            _gameWindow.Width = GameWidth;
+            _gameWindow.Show();
 
-            gameWindow.DrawGrid(robotSize);
+            _gameWindow.DrawGrid(RobotSize);
             
             //init players
-            player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
-            //GenerateWall(player1, player1.CurPos);
-            player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red);
-            //GenerateWall(player2, player2.CurPos);
+            _player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
+            //GenerateWall(_player1, _player1.CurPos);
+            _player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red);
+            //GenerateWall(_player2, _player2.CurPos);
 
-            //set timer -> Update method
-            timer = new DispatcherTimer();
-            timer.Tick += new EventHandler(Update);
-            timer.Interval = new TimeSpan(0, 0, 0, 0, timerIntervall); //TimeSpan days/hours/minutes/seconds/milliseconds
-            timer.Start();
+            //set _timer -> Update method
+            _timer = new DispatcherTimer();
+            _timer.Tick += new EventHandler(Update);
+            _timer.Interval = new TimeSpan(0, 0, 0, 0, TimerIntervall); //TimeSpan days/hours/minutes/seconds/milliseconds
+            _timer.Start();
 
-            stopWatch = new Stopwatch();
+            _stopWatch = new Stopwatch();
 
             //Start object tracking
             InitTracking();
@@ -76,75 +76,75 @@ namespace S1lightcycle {
 
         private void InitTracking()
         {
-            objTracker = new ObjectTracker()
+            _objTracker = new ObjectTracker()
             {
                 LEARNING_RATE = Properties.Settings.Default.LearningRate,
                 BLOB_MAX_SIZE = Properties.Settings.Default.MaxBlobSize,
                 BLOB_MIN_SIZE = Properties.Settings.Default.MinBlobSize
             };
 
-            objTracker.StartTracking();
+            _objTracker.StartTracking();
         }
 
         /* Thread priority definieren */
         private void Update(object sender, EventArgs e) {
-            stopWatch.Start();
+            _stopWatch.Start();
 
-            if (objTracker.FirstCar.Coord.Count > 0) {
-                Coordinate firstCarPos = DoPositionCompensation(objTracker.FirstCar.Coord.Dequeue());
-                if (IsValidPosition(player1, firstCarPos)) {
-                    if (DidCollide(player1))
+            if (_objTracker.FirstCar.Coord.Count > 0) {
+                Coordinate firstCarPos = DoPositionCompensation(_objTracker.FirstCar.Coord.Dequeue());
+                if (IsValidPosition(_player1, firstCarPos)) {
+                    if (DidCollide(_player1))
                     {
                         Player2Points++;
                         GoToResults();
                         return;
                     }
-                    GenerateWall(player1, firstCarPos);
+                    GenerateWall(_player1, firstCarPos);
                     //determine player position on grid
-                    player1.CurPos.column = firstCarPos.XCoord / robotSize;
-                    player1.CurPos.row = firstCarPos.YCoord / robotSize;
+                    _player1.CurPos.column = firstCarPos.XCoord / RobotSize;
+                    _player1.CurPos.row = firstCarPos.YCoord / RobotSize;
                 }
             }
 
-            if (objTracker.SecondCar.Coord.Count > 0) {
-                Coordinate secondCarPos = DoPositionCompensation(objTracker.SecondCar.Coord.Dequeue());
-                if (IsValidPosition(player2, secondCarPos)) {
-                    if (DidCollide(player2))
+            if (_objTracker.SecondCar.Coord.Count > 0) {
+                Coordinate secondCarPos = DoPositionCompensation(_objTracker.SecondCar.Coord.Dequeue());
+                if (IsValidPosition(_player2, secondCarPos)) {
+                    if (DidCollide(_player2))
                     {
                         Player1Points++;
                         GoToResults();
                         return;
                     }
-                    GenerateWall(player2, secondCarPos);
+                    GenerateWall(_player2, secondCarPos);
                     //determine player position on grid
-                    player2.CurPos.column = secondCarPos.XCoord / robotSize;
-                    player2.CurPos.row = secondCarPos.YCoord / robotSize;
+                    _player2.CurPos.column = secondCarPos.XCoord / RobotSize;
+                    _player2.CurPos.row = secondCarPos.YCoord / RobotSize;
                 }
             }
-            countTicks += 1;
-            stopWatch.Stop();
+            _countTicks += 1;
+            _stopWatch.Stop();
             
-            Console.WriteLine("ellapsed time in ms: " + stopWatch.ElapsedMilliseconds);
-            stopWatch.Reset();
+            Console.WriteLine("ellapsed time in ms: " + _stopWatch.ElapsedMilliseconds);
+            _stopWatch.Reset();
         }
 
         private void GoToResults()
         {
-            timer.Stop();
-            resultWindow = new Windows.ResultWindow();
-            gameWindow.Close();
-            resultWindow.Show();
+            _timer.Stop();
+            _resultWindow = new Windows.ResultWindow();
+            _gameWindow.Close();
+            _resultWindow.Show();
         }
 
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
             int x = coordinates.XCoord;
             int y = coordinates.YCoord;
-            int center = robotSize / 2;
+            int center = RobotSize / 2;
 
             if (x == -1 || y == -1) return null;
 
-            x = (x / robotSize) * robotSize;
-            y = (y / robotSize) * robotSize;
+            x = (x / RobotSize) * RobotSize;
+            y = (y / RobotSize) * RobotSize;
 
             return new Coordinate(y, x);
         }
@@ -156,7 +156,7 @@ namespace S1lightcycle {
             if (coordinates.YCoord < 0 || coordinates.YCoord > GameHeight) return false;
 
             //old position equals new position -> no redrawing needed
-            if (player.CurPos.column == (coordinates.XCoord/robotSize) && player.CurPos.row == (coordinates.YCoord/robotSize)) {
+            if (player.CurPos.column == (coordinates.XCoord/RobotSize) && player.CurPos.row == (coordinates.YCoord/RobotSize)) {
                 return false;
             }
             return true;
@@ -164,14 +164,14 @@ namespace S1lightcycle {
 
         private void GenerateWall(Player player, Coordinate coordinates) {
             if (coordinates == null) return;
-            gameWindow.DrawWall(coordinates, player.Color);
+            _gameWindow.DrawWall(coordinates, player.Color);
             
-            walls.Add(new Grid (coordinates.XCoord / robotSize, coordinates.YCoord / robotSize));
+            _walls.Add(new Grid (coordinates.XCoord / RobotSize, coordinates.YCoord / RobotSize));
         }
 
         private bool DidCollide(Player player)
         {
-            foreach (Grid wall in walls)
+            foreach (Grid wall in _walls)
             {
                 if ((wall.column.Equals(player.CurPos.column)) && (wall.row.Equals((player.CurPos.column))))
                 {
