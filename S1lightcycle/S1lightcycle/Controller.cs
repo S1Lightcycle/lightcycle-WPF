@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
+using S1lightcycle.Windows;
 using S1LightcycleNET;
 using System.Windows.Threading;
 using System.Diagnostics;
@@ -25,7 +27,7 @@ namespace S1lightcycle {
         public uint Player1Points { get; private set; }
         public uint Player2Points { get; private set; }
 
-        private static Controller instance;
+        private static Controller _instance;
         private Controller()
         {
             Player1Points = 0;
@@ -36,11 +38,11 @@ namespace S1lightcycle {
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new Controller();
+                    _instance = new Controller();
                 }
-                return instance;
+                return _instance;
             }
         }
 
@@ -78,9 +80,9 @@ namespace S1lightcycle {
         {
             _objTracker = new ObjectTracker()
             {
-                LEARNING_RATE = Properties.Settings.Default.LearningRate,
-                BLOB_MAX_SIZE = Properties.Settings.Default.MaxBlobSize,
-                BLOB_MIN_SIZE = Properties.Settings.Default.MinBlobSize
+                LearningRate = Properties.Settings.Default.LearningRate,
+                BlobMaxSize = Properties.Settings.Default.MaxBlobSize,
+                BlobMinSize = Properties.Settings.Default.MinBlobSize
             };
 
             _objTracker.StartTracking();
@@ -101,8 +103,8 @@ namespace S1lightcycle {
                     }
                     GenerateWall(_player1, firstCarPos);
                     //determine player position on grid
-                    _player1.CurPos.column = firstCarPos.XCoord / RobotSize;
-                    _player1.CurPos.row = firstCarPos.YCoord / RobotSize;
+                    _player1.CurPos.Column = firstCarPos.XCoord / RobotSize;
+                    _player1.CurPos.Row = firstCarPos.YCoord / RobotSize;
                 }
             }
 
@@ -117,8 +119,8 @@ namespace S1lightcycle {
                     }
                     GenerateWall(_player2, secondCarPos);
                     //determine player position on grid
-                    _player2.CurPos.column = secondCarPos.XCoord / RobotSize;
-                    _player2.CurPos.row = secondCarPos.YCoord / RobotSize;
+                    _player2.CurPos.Column = secondCarPos.XCoord / RobotSize;
+                    _player2.CurPos.Row = secondCarPos.YCoord / RobotSize;
                 }
             }
             _countTicks += 1;
@@ -156,7 +158,7 @@ namespace S1lightcycle {
             if (coordinates.YCoord < 0 || coordinates.YCoord > GameHeight) return false;
 
             //old position equals new position -> no redrawing needed
-            if (player.CurPos.column == (coordinates.XCoord/RobotSize) && player.CurPos.row == (coordinates.YCoord/RobotSize)) {
+            if (player.CurPos.Column == (coordinates.XCoord/RobotSize) && player.CurPos.Row == (coordinates.YCoord/RobotSize)) {
                 return false;
             }
             return true;
@@ -171,12 +173,9 @@ namespace S1lightcycle {
 
         private bool DidCollide(Player player)
         {
-            foreach (Grid wall in _walls)
+            if (_walls.Contains(player.CurPos))
             {
-                if ((wall.column.Equals(player.CurPos.column)) && (wall.row.Equals((player.CurPos.column))))
-                {
-                    return true;
-                }
+                return true;
             }
 
             return false;

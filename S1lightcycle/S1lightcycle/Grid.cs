@@ -1,12 +1,12 @@
 ﻿
 namespace S1lightcycle {
     public class Grid {
-        public int row;
-        public int column;
+        public int Row;
+        public int Column;
 
         public Grid(int x, int y) {
-            this.row = x;
-            this.column = y;
+            this.Row = x;
+            this.Column = y;
         }
     }
 }
