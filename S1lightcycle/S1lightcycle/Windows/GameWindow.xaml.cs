@@ -10,6 +10,9 @@ namespace S1lightcycle.Windows {
     /// Interaction logic for GameWindow.xaml
     /// </summary>
     public partial class GameWindow : Window {
+
+        public int GridWidth { get; private set; }
+        public int GridHeight { get; private set; }
          
         public GameWindow() {
             InitializeComponent();
@@ -20,10 +23,13 @@ namespace S1lightcycle.Windows {
             //vertical grid
             for (int i = 0; (i * gridSize) <= this.Width; i++) {
                 DrawGridLine(i * gridSize, i * gridSize, 0, this.Height);
+                GridWidth = i;
             }
+
             //horizontal grid
             for (int j = 0; (j * gridSize) <= this.Height; j++) {
                 DrawGridLine(0, this.Width, j * gridSize, j * gridSize);
+                GridHeight = j;
             }
         }
 

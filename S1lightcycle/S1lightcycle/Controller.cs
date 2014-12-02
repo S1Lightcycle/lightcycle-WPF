@@ -15,7 +15,7 @@ namespace S1lightcycle {
         private ObjectTracker _objTracker;
         private Windows.GameWindow _gameWindow;
         private Windows.ResultWindow _resultWindow;
-        private HashSet<Grid> _walls;
+        private bool[][] _walls;
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
@@ -47,9 +47,6 @@ namespace S1lightcycle {
         }
 
         public void InitGame() {
-            //init wall - collision
-            _walls = new HashSet<Grid>();
-
             //init window
             _gameWindow = new Windows.GameWindow();
             _gameWindow.Height = GameHeight;
@@ -57,7 +54,10 @@ namespace S1lightcycle {
             _gameWindow.Show();
 
             _gameWindow.DrawGrid(RobotSize);
-            
+
+            //init wall - collision
+            initWalls();
+
             //init players
             _player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
             //GenerateWall(_player1, _player1.CurPos);
@@ -74,6 +74,19 @@ namespace S1lightcycle {
 
             //Start object tracking
             InitTracking();
+        }
+
+        private void initWalls()
+        {
+            _walls = new bool[_gameWindow.GridWidth + 1][];
+            for (int i = 0; i < _walls.Length; i++)
+            {
+                _walls[i] = new bool[_gameWindow.GridHeight + 1];
+                for (int j = 0; j < _walls[i].Length; j++)
+                {
+                    _walls[i][j] = false;
+                }
+            }
         }
 
         private void InitTracking()
@@ -141,7 +154,6 @@ namespace S1lightcycle {
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
             int x = coordinates.XCoord;
             int y = coordinates.YCoord;
-            int center = RobotSize / 2;
 
             if (x == -1 || y == -1) return null;
 
@@ -168,17 +180,12 @@ namespace S1lightcycle {
             if (coordinates == null) return;
             _gameWindow.DrawWall(coordinates, player.Color);
             
-            _walls.Add(new Grid (coordinates.XCoord / RobotSize, coordinates.YCoord / RobotSize));
+            _walls[player.CurPos.Column][player.CurPos.Row] = true;
         }
 
         private bool DidCollide(Player player)
         {
-            if (_walls.Contains(player.CurPos))
-            {
-                return true;
-            }
-
-            return false;
+            return _walls[player.CurPos.Column][player.CurPos.Row];
         }
 
         private void PrintCoordinates(Coordinate coordinates) {
