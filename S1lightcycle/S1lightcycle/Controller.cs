@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.Timers;
 using S1lightcycle.Windows;
 using S1LightcycleNET;
 using System.Windows.Threading;
@@ -26,6 +27,9 @@ namespace S1lightcycle {
 
         public uint Player1Points { get; private set; }
         public uint Player2Points { get; private set; }
+
+        private Timer _countDownTimer;
+        private bool _isCountDownOver;
 
         private static Controller _instance;
         private Controller()
@@ -70,6 +74,11 @@ namespace S1lightcycle {
             _timer.Interval = new TimeSpan(0, 0, 0, 0, TimerIntervall); //TimeSpan days/hours/minutes/seconds/milliseconds
             _timer.Start();
 
+            _countDownTimer = new Timer(2000);
+            _countDownTimer.Elapsed += new ElapsedEventHandler(CountDownOver);
+            _countDownTimer.Enabled = true;
+            _isCountDownOver = false;
+
             _stopWatch = new Stopwatch();
 
             //Start object tracking
@@ -77,6 +86,14 @@ namespace S1lightcycle {
             {
                 InitTracking();
             }
+        }
+
+        private void CountDownOver(object sender, ElapsedEventArgs e)
+        {
+            _isCountDownOver = true;
+            _countDownTimer.Enabled = false;
+            this._objTracker.FirstCar.Coord.Clear();
+            this._objTracker.SecondCar.Coord.Clear();
         }
 
         private void InitWalls()
@@ -106,44 +123,51 @@ namespace S1lightcycle {
 
         /* Thread priority definieren */
         private void Update(object sender, EventArgs e) {
-            _stopWatch.Start();
+            if (_isCountDownOver == true)
+            {
+                _stopWatch.Start();
 
-            if (_objTracker.FirstCar.Coord.Count > 0) {
-                Coordinate firstCarPos = DoPositionCompensation(_objTracker.FirstCar.Coord.Dequeue());
-                if (IsValidPosition(_player1, firstCarPos)) {
-                    if (DidCollide(_player1))
+                if (_objTracker.FirstCar.Coord.Count > 0)
+                {
+                    Coordinate firstCarPos = DoPositionCompensation(_objTracker.FirstCar.Coord.Dequeue());
+                    if (IsValidPosition(_player1, firstCarPos))
                     {
-                        Player2Points++;
-                        GoToResults();
-                        return;
+                        if (DidCollide(_player1))
+                        {
+                            Player2Points++;
+                            GoToResults();
+                            return;
+                        }
+                        GenerateWall(_player1, firstCarPos);
+                        //determine player position on grid
+                        _player1.CurPos.Column = firstCarPos.XCoord/RobotSize;
+                        _player1.CurPos.Row = firstCarPos.YCoord/RobotSize;
                     }
-                    GenerateWall(_player1, firstCarPos);
-                    //determine player position on grid
-                    _player1.CurPos.Column = firstCarPos.XCoord / RobotSize;
-                    _player1.CurPos.Row = firstCarPos.YCoord / RobotSize;
                 }
-            }
 
-            if (_objTracker.SecondCar.Coord.Count > 0) {
-                Coordinate secondCarPos = DoPositionCompensation(_objTracker.SecondCar.Coord.Dequeue());
-                if (IsValidPosition(_player2, secondCarPos)) {
-                    if (DidCollide(_player2))
+                if (_objTracker.SecondCar.Coord.Count > 0)
+                {
+                    Coordinate secondCarPos = DoPositionCompensation(_objTracker.SecondCar.Coord.Dequeue());
+                    if (IsValidPosition(_player2, secondCarPos))
                     {
-                        Player1Points++;
-                        GoToResults();
-                        return;
+                        if (DidCollide(_player2))
+                        {
+                            Player1Points++;
+                            GoToResults();
+                            return;
+                        }
+                        GenerateWall(_player2, secondCarPos);
+                        //determine player position on grid
+                        _player2.CurPos.Column = secondCarPos.XCoord/RobotSize;
+                        _player2.CurPos.Row = secondCarPos.YCoord/RobotSize;
                     }
-                    GenerateWall(_player2, secondCarPos);
-                    //determine player position on grid
-                    _player2.CurPos.Column = secondCarPos.XCoord / RobotSize;
-                    _player2.CurPos.Row = secondCarPos.YCoord / RobotSize;
                 }
+                _countTicks += 1;
+                _stopWatch.Stop();
+
+                Console.WriteLine("ellapsed time in ms: " + _stopWatch.ElapsedMilliseconds);
+                _stopWatch.Reset();
             }
-            _countTicks += 1;
-            _stopWatch.Stop();
-            
-            Console.WriteLine("ellapsed time in ms: " + _stopWatch.ElapsedMilliseconds);
-            _stopWatch.Reset();
         }
 
         private void GoToResults()
