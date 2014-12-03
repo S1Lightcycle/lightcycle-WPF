@@ -24,7 +24,6 @@ namespace S1lightcycle
             _timer = new DispatcherTimer();
             _timer.Tick += new EventHandler(Update);
             _timer.Interval = new TimeSpan(0, 0, 0, 0, TimerIntervall); //TimeSpan days/hours/minutes/seconds/milliseconds
-            _timer.Start();
         }
 
         private void CountDownOver(object sender, ElapsedEventArgs e)

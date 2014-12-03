@@ -66,6 +66,9 @@ namespace S1lightcycle {
             {
                 InitTracking();
             }
+            _player1.Robot = _objTracker.FirstCar;
+            _player2.Robot = _objTracker.SecondCar;
+            _timer.Start();
         }
 
         private void InitPlayers()
@@ -108,6 +111,7 @@ namespace S1lightcycle {
             };
 
             _objTracker.StartTracking();
+
         }
 
         /* Thread priority definieren */
