@@ -56,7 +56,7 @@ namespace S1lightcycle {
             _gameWindow.DrawGrid(RobotSize);
 
             //init wall - collision
-            initWalls();
+            InitWalls();
 
             //init players
             _player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
@@ -73,10 +73,13 @@ namespace S1lightcycle {
             _stopWatch = new Stopwatch();
 
             //Start object tracking
-            InitTracking();
+            if (_objTracker == null)
+            {
+                InitTracking();
+            }
         }
 
-        private void initWalls()
+        private void InitWalls()
         {
             _walls = new bool[_gameWindow.GridWidth + 1][];
             for (int i = 0; i < _walls.Length; i++)
