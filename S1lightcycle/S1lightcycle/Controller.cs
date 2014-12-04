@@ -114,23 +114,6 @@ namespace S1lightcycle {
 
         }
 
-        /* Thread priority definieren */
-        private void Update(object sender, EventArgs e) {
-            if (_isCountDownOver == true)
-            {
-                _stopWatch.Start();
-
-                UpdatePlayerPosition(_player1);
-                UpdatePlayerPosition(_player2);
-
-                _countTicks += 1;
-                _stopWatch.Stop();
-
-                Console.WriteLine("ellapsed time in ms: " + _stopWatch.ElapsedMilliseconds);
-                _stopWatch.Reset();
-            }
-        }
-
         private void UpdatePlayerPosition(Player player)
         {
             if (player.Robot.Coord.Count > 0)
