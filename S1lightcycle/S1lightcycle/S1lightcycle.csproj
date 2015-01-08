@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller_Timer.cs" />
+    <Compile Include="UART\UARTController.cs" />
     <Compile Include="WallColor.cs" />
     <Compile Include="Windows\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

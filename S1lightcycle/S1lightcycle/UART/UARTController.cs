@@ -44,5 +44,12 @@ namespace S1lightcycle.UART
             };
         }
 
+        private void Write(String message)
+        {
+            _comPort.Open();
+            _comPort.Write(message);
+            _comPort.Close();
+        }
+
     }
 }
