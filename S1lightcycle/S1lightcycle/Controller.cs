@@ -7,6 +7,8 @@ using S1lightcycle.Windows;
 using S1LightcycleNET;
 using System.Windows.Threading;
 using System.Diagnostics;
+using System.Windows.Input;
+using S1lightcycle.UART;
 
 namespace S1lightcycle {
     public partial class Controller {
@@ -69,6 +71,8 @@ namespace S1lightcycle {
             _player1.Robot = _objTracker.FirstCar;
             _player2.Robot = _objTracker.SecondCar;
             _timer.Start();
+            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_FORWARD });
+            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_FORWARD});
         }
 
         private void InitPlayers()
@@ -80,7 +84,7 @@ namespace S1lightcycle {
         private void InitGameWindow()
         {
             //init window
-            _gameWindow = new Windows.GameWindow();
+            _gameWindow = new Windows.GameWindow(this);
             _gameWindow.Height = GameHeight;
             _gameWindow.Width = GameWidth;
             _gameWindow.Show();
@@ -144,6 +148,8 @@ namespace S1lightcycle {
 
         private void GoToResults()
         {
+            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_STOP });
+            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_STOP });
             _timer.Stop();
             _resultWindow = new Windows.ResultWindow();
             _gameWindow.Close();
@@ -191,6 +197,145 @@ namespace S1lightcycle {
         {
             Player1Points = 0;
             Player2Points = 0;
+        }
+
+        public void move(Key key)
+        {
+            switch (key)
+            {
+                case Key.Down:
+                    if (_player1.CurDirection == Direction.Left)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                    }
+                    else if (_player1.CurDirection == Direction.Right)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                    }
+                    else
+                    {
+                        Console.WriteLine("player1: " + key.ToString() + " (invalid direction)");
+                        break;
+                    }
+                    _player1.CurDirection = Direction.Down;
+                    break;
+                case Key.Up:
+                    if (_player1.CurDirection == Direction.Left)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                    }
+                    else if (_player1.CurDirection == Direction.Right)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                    }
+                    else
+                    {
+                        Console.WriteLine("player1: " + key.ToString() + " (invalid direction)");
+                        break;
+                    }
+                    _player1.CurDirection = Direction.Up;
+                    break;
+                case Key.Right:
+                    if (_player1.CurDirection == Direction.Up)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                    }
+                    else if (_player1.CurDirection == Direction.Down)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                    }
+                    else
+                    {
+                        Console.WriteLine("player1: " + key.ToString() + " (invalid direction)");
+                        break;
+                    }
+                    _player1.CurDirection = Direction.Right;
+                    break;
+                case Key.Left:
+                    if (_player1.CurDirection == Direction.Up)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                    }
+                    else if (_player1.CurDirection == Direction.Down)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                    }
+                    else
+                    {
+                        Console.WriteLine("player1: " + key.ToString() + " (invalid direction)");
+                        break;
+                    }
+                    _player1.CurDirection = Direction.Right;
+                    break;
+                // player 2
+                case Key.S:
+                    if (_player1.CurDirection == Direction.Left)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                    }
+                    else if (_player1.CurDirection == Direction.Right)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                    }
+                    else
+                    {
+                        Console.WriteLine("player2: " + key.ToString() + " (invalid direction)");
+                        break;
+                    }
+                    _player1.CurDirection = Direction.Down;
+                    break;
+                case Key.W:
+                    if (_player1.CurDirection == Direction.Left)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                    }
+                    else if (_player1.CurDirection == Direction.Right)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                    }
+                    else
+                    {
+                        Console.WriteLine("player2: " + key.ToString() + " (invalid direction)");
+                        break;
+                    }
+                    _player1.CurDirection = Direction.Up;
+                    break;
+                case Key.D:
+                    if (_player1.CurDirection == Direction.Up)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                    }
+                    else if (_player1.CurDirection == Direction.Down)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                    }
+                    else
+                    {
+                        Console.WriteLine("player2: " + key.ToString() + " (invalid direction)");
+                        break;
+                    }
+                    _player1.CurDirection = Direction.Right;
+                    break;
+                case Key.A:
+                    if (_player1.CurDirection == Direction.Up)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                    }
+                    else if (_player1.CurDirection == Direction.Down)
+                    {
+                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                    }
+                    else
+                    {
+                        Console.WriteLine("player2: " + key.ToString() + " (invalid direction)");
+                        break;
+                    }
+                    _player1.CurDirection = Direction.Right;
+                    break;
+                default:
+                    Console.WriteLine("invalid key");
+                    break;
+            }
         }
     }
 }

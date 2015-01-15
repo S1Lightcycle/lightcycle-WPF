@@ -11,12 +11,14 @@ namespace S1lightcycle.Windows {
     /// </summary>
     public partial class GameWindow : Window {
 
+        private Controller ctrl;
+
         public int GridWidth { get; private set; }
         public int GridHeight { get; private set; }
          
-        public GameWindow() {
+        public GameWindow(Controller controller) {
             InitializeComponent();
-            this.KeyDown += new KeyEventHandler(Grid_KeyDown);
+            ctrl = controller;
         }
 
         public void DrawGrid(int gridSize) {
@@ -70,48 +72,13 @@ namespace S1lightcycle.Windows {
             GameFieldCanvas.Children.Add(newWall);
         }
 
-        private void Grid_KeyDown(object sender, KeyEventArgs e) {
-            switch (e.Key) {
-                case Key.Down:
-                    Console.WriteLine("player1: " + e.Key.ToString());
-                    //if (player1.CurDirection == Direction.direction.up) return;
-                    //player1.CurDirection = Direction.direction.down;
-                    break;
-                case Key.Up:
-                    Console.WriteLine("player1: " + e.Key.ToString());
-                    //if (player1.CurDirection == Direction.direction.down) return;
-                    //player1.CurDirection = Direction.direction.up;
-                    break;
-                case Key.Right:
-                    Console.WriteLine("player1: " + e.Key.ToString());
-                    //if (player1.CurDirection == Direction.direction.left) return;
-                    //player1.CurDirection = Direction.direction.right;
-                    break;
-                case Key.Left:
-                    Console.WriteLine("player1: " + e.Key.ToString());
-                    //if (player1.CurDirection == Direction.direction.right) return;
-                    //player1.CurDirection = Direction.direction.left;
-                    break;
-                case Key.D:
-                    //if (player2.CurDirection == Direction.direction.left) return;
-                    //player2.CurDirection = Direction.direction.right;
-                    break;
-                case Key.A:
-                    //if (player2.CurDirection == Direction.direction.right) return;
-                    //player2.CurDirection = Direction.direction.left;
-                    break;
-                case Key.S:
-                    //if (player2.CurDirection == Direction.direction.up) return;
-                    //player2.CurDirection = Direction.direction.down;
-                    break;
-                case Key.W:
-                    //if (player2.CurDirection == Direction.direction.down) return;
-                    //player2.CurDirection = Direction.direction.up;
-                    break;
-                default:
-                    Console.WriteLine("Not yet supported.");
-                    break;
-            } 
+        
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            ctrl.move(e.Key);
         }
-    }
+
+        
+
+     }
 }
