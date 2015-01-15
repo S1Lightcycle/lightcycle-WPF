@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -49,7 +50,7 @@ namespace S1lightcycle.UART
             {
                 _portName = "COM" + ++portNr;
             }
-            Console.WriteLine("Connected to " + _portName);
+            Trace.TraceInformation("Connected to " + _portName);
 
             // enable heartbeat
             heartbeatPackage.address = LcProtocol.ADDRESS_ROBOT_2;
@@ -130,7 +131,7 @@ namespace S1lightcycle.UART
             try
             {
                 _serialPort.Write(data, 0, 2);
-                Console.WriteLine("send package: address = {0}, command = {1}, parameter = {2}; raw: {3} {4}", package.address, package.command, package.parameter, Convert.ToString(data[LcProtocol.HI], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.LO], 2).PadLeft(8, '0'));
+                Trace.TraceInformation("send package: address = {0}, command = {1}, parameter = {2}; raw: {3} {4}", package.address, package.command, package.parameter, Convert.ToString(data[LcProtocol.HI], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.LO], 2).PadLeft(8, '0'));
             }
             catch (Exception e)
             {

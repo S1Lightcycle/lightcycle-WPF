@@ -214,7 +214,7 @@ namespace S1lightcycle {
                     }
                     else
                     {
-                        Console.WriteLine("player1: " + key.ToString() + " (invalid direction)");
+                        Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
                         break;
                     }
                     _player1.CurDirection = Direction.Down;
@@ -230,7 +230,7 @@ namespace S1lightcycle {
                     }
                     else
                     {
-                        Console.WriteLine("player1: " + key.ToString() + " (invalid direction)");
+                        Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
                         break;
                     }
                     _player1.CurDirection = Direction.Up;
@@ -246,7 +246,7 @@ namespace S1lightcycle {
                     }
                     else
                     {
-                        Console.WriteLine("player1: " + key.ToString() + " (invalid direction)");
+                        Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
                         break;
                     }
                     _player1.CurDirection = Direction.Right;
@@ -262,7 +262,7 @@ namespace S1lightcycle {
                     }
                     else
                     {
-                        Console.WriteLine("player1: " + key.ToString() + " (invalid direction)");
+                        Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
                         break;
                     }
                     _player1.CurDirection = Direction.Right;
@@ -279,7 +279,7 @@ namespace S1lightcycle {
                     }
                     else
                     {
-                        Console.WriteLine("player2: " + key.ToString() + " (invalid direction)");
+                        Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
                         break;
                     }
                     _player1.CurDirection = Direction.Down;
@@ -295,7 +295,7 @@ namespace S1lightcycle {
                     }
                     else
                     {
-                        Console.WriteLine("player2: " + key.ToString() + " (invalid direction)");
+                        Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
                         break;
                     }
                     _player1.CurDirection = Direction.Up;
@@ -311,7 +311,7 @@ namespace S1lightcycle {
                     }
                     else
                     {
-                        Console.WriteLine("player2: " + key.ToString() + " (invalid direction)");
+                        Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
                         break;
                     }
                     _player1.CurDirection = Direction.Right;
@@ -327,13 +327,13 @@ namespace S1lightcycle {
                     }
                     else
                     {
-                        Console.WriteLine("player2: " + key.ToString() + " (invalid direction)");
+                        Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
                         break;
                     }
                     _player1.CurDirection = Direction.Right;
                     break;
                 default:
-                    Console.WriteLine("invalid key");
+                    Trace.TraceInformation("invalid key");
                     break;
             }
         }
