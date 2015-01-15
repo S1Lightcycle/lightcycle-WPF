@@ -16,6 +16,7 @@ namespace S1lightcycle.UART
 
         private LcProtocolStruct heartbeatPackage = new LcProtocolStruct();
 
+        private int HEARTBEAT_INTERVALL = 1000;
 
         private SerialPort _serialPort = new SerialPort();
         private int _baudRate = 115200;
@@ -33,7 +34,7 @@ namespace S1lightcycle.UART
         /// End of transmition byte in this case EOT (ASCII 4). 
         /// </summary> 
         private byte _terminator = 0x4;
-        private int HEARTBEAT_INTERVALL = 1000;
+        
 
         public int BaudRate { get { return _baudRate; } set { _baudRate = value; } }
         public int DataBits { get { return _dataBits; } set { _dataBits = value; } }
