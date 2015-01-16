@@ -21,6 +21,8 @@ namespace S1lightcycle.Windows {
             ctrl = controller;
         }
 
+        
+
         public void DrawGrid(int gridSize) {
             //vertical grid
             for (int i = 0; (i * gridSize) <= this.Width; i++) {

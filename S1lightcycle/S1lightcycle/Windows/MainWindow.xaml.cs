@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace S1lightcycle.Windows {
     /// <summary>
@@ -7,7 +8,15 @@ namespace S1lightcycle.Windows {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-            Controller.Instance.Init();
+
+            // enable events
+            Controller.Instance.Connected += new S1lightcycle.Controller.ConnectedEventHandler(Connected);
+        }
+
+        void Connected(object sender)
+        {
+            lbl_connecting.Dispatcher.BeginInvoke((Action)(() => lbl_connecting.Visibility = Visibility.Collapsed));
+            btnStartGame.Dispatcher.BeginInvoke((Action)(() => btnStartGame.IsEnabled = true));
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e) {

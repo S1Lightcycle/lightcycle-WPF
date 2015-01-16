@@ -12,6 +12,16 @@ using S1lightcycle.UART;
 
 namespace S1lightcycle {
     public partial class Controller {
+
+        public delegate void ConnectedEventHandler(object sender);
+        public event ConnectedEventHandler Connected;
+
+        protected virtual void OnConnected()
+        {
+            if (Connected != null)
+                Connected(this);
+        }
+
         private Player _player1;
         private Player _player2;
         private ObjectTracker _objTracker;
@@ -33,7 +43,9 @@ namespace S1lightcycle {
         private Controller()
         {
             Player1Points = 0;
-            Player2Points = 0;           
+            Player2Points = 0;
+            // register for robot events
+            Communicator.Instance.PackageReceived += new Communicator.PackageReceivedEventHandler(PackageReceived);
         }
 
         public static Controller Instance
@@ -48,11 +60,7 @@ namespace S1lightcycle {
             }
         }
 
-        public void Init()
-        {
-            // register for robot events
-            Communicator.Instance.PackageReceived += new Communicator.PackageReceivedEventHandler(PackageReceived);
-        }
+      
 
         void PackageReceived(object sender, LcProtocolStruct package)
         {
@@ -62,6 +70,7 @@ namespace S1lightcycle {
                 {
                     case LcProtocol.CMD_ROBOTS_CONNECTED:
                         Trace.TraceInformation("Robots are connected");
+                        OnConnected();
                         break;
                     default:
                         break;
