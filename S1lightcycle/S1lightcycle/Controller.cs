@@ -33,7 +33,7 @@ namespace S1lightcycle {
         private Controller()
         {
             Player1Points = 0;
-            Player2Points = 0;
+            Player2Points = 0;           
         }
 
         public static Controller Instance
@@ -45,6 +45,28 @@ namespace S1lightcycle {
                     _instance = new Controller();
                 }
                 return _instance;
+            }
+        }
+
+        public void Init()
+        {
+            // register for robot events
+            Communicator.Instance.PackageReceived += new Communicator.PackageReceivedEventHandler(PackageReceived);
+        }
+
+        void PackageReceived(object sender, LcProtocolStruct package)
+        {
+            if (package.address == LcProtocol.ADDRESS_SERVER)
+            {
+                switch (package.command)
+                {
+                    case LcProtocol.CMD_ROBOTS_CONNECTED:
+                        Trace.TraceInformation("Robots are connected");
+                        break;
+                    default:
+                        break;
+
+                }
             }
         }
 

@@ -37,7 +37,7 @@ namespace S1lightcycle.UART
         public const byte CMD_TURN_RIGHT_DYNAMIC = 0x06;    // turn byteo; parm = 0...90 degrees
         public const byte CMD_TURN_LEFT_DYNAMIC = 0x07;    // turn byteo; parm = 0...90 degrees
         public const byte CMD_SET_SPEED = 0x08;    // set speed which can be activated with forward or reverse
-        public const byte CMD_SPARE_1 = 0x09;    // 
+        public const byte CMD_ROBOTS_CONNECTED = 0x09;    // 
         public const byte CMD_SPARE_2 = 0x0A;    // 
         public const byte CMD_SPARE_3 = 0x0B;    // 
         public const byte CMD_SPARE_4 = 0x0C;    // 
@@ -64,7 +64,7 @@ namespace S1lightcycle.UART
         111 1111 1|11111111
         adr|c md|parameter
         */
-        static LcProtocolStruct getProtocolStruct(char hi, char lo)
+        public static LcProtocolStruct getProtocolStruct(byte hi, byte lo)
         {
             LcProtocolStruct protocol;
             protocol.address = (byte)((hi & MASK_ADDRESS) >> 5);

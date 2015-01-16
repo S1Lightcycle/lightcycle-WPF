@@ -7,6 +7,7 @@ namespace S1lightcycle.Windows {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+            Controller.Instance.Init();
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e) {

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0BE440B8-1FA0-4088-96AF-4907701A2FD5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>S1lightcycle</RootNamespace>
     <AssemblyName>S1lightcycle</AssemblyName>
@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>S1lightcycle.UART.ProtocolTest</StartupObject>
+    <StartupObject>S1lightcycle.Windows.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

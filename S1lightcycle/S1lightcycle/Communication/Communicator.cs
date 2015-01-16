@@ -11,6 +11,15 @@ namespace S1lightcycle.UART
 {
     public class Communicator
     {
+        public delegate void PackageReceivedEventHandler(object sender, LcProtocolStruct package);
+        public event PackageReceivedEventHandler PackageReceived;
+
+        protected virtual void OnPackageReceived(LcProtocolStruct package)
+        {
+            if (PackageReceived != null)
+                PackageReceived(this, package);
+        }
+
         private static Communicator instance;
 
         private Timer timer = new Timer();
@@ -74,6 +83,8 @@ namespace S1lightcycle.UART
             }
         }
 
+        
+
         private bool Open()
         {
             try
@@ -102,8 +113,8 @@ namespace S1lightcycle.UART
 
         private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            Console.WriteLine(_serialPort.ReadExisting()); 
-            /*
+            //Console.WriteLine(_serialPort.ReadExisting()); 
+            
             //Initialize a buffer to hold the received data 
             byte[] buffer = new byte[_serialPort.ReadBufferSize];
 
@@ -111,19 +122,15 @@ namespace S1lightcycle.UART
             //unless you check the return from the Read method 
             int bytesRead = _serialPort.Read(buffer, 0, buffer.Length);
 
-            //For the example assume the data we are received is ASCII data. 
-            tString += Encoding.ASCII.GetString(buffer, 0, bytesRead);
-            //Check if string contains the terminator  
-            if (tString.IndexOf((char)_terminator) > -1)
-            {
-                //If tString does contain terminator we cannot assume that it is the last character received 
-                string workingString = tString.Substring(0, tString.IndexOf((char)_terminator));
-                //Remove the data up to the terminator from tString 
-                tString = tString.Substring(tString.IndexOf((char)_terminator));
-                //Do something with workingString 
-                Console.WriteLine(workingString);
+            if(bytesRead == 2) {
+                LcProtocolStruct msg = LcProtocol.getProtocolStruct(buffer[LcProtocol.HI], buffer[LcProtocol.LO]);
+                Trace.TraceInformation("received command: address = {0}, command = {1}, parameter = {2}", msg.address, msg.command, msg.parameter);
+                OnPackageReceived(msg);
             }
-             * */
+            
+
+            
+             
         }
 
 
