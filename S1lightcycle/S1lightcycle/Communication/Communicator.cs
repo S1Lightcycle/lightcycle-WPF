@@ -53,10 +53,10 @@ namespace S1lightcycle.UART
             Trace.TraceInformation("Connected to " + _portName);
 
             // enable heartbeat
-            heartbeatPackage.address = LcProtocol.ADDRESS_ROBOT_2;
+            heartbeatPackage.address = LcProtocol.ADDRESS_BROADCAST;
             heartbeatPackage.command = LcProtocol.CMD_HEARTBEAT;
 
-            timer.Elapsed += new ElapsedEventHandler(heartbeat_tick);
+            //timer.Elapsed += new ElapsedEventHandler(heartbeat_tick);
             timer.Interval = HEARTBEAT_INTERVALL;
             timer.Enabled = true;
             timer.Start();
@@ -102,6 +102,8 @@ namespace S1lightcycle.UART
 
         private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            Console.WriteLine(_serialPort.ReadExisting()); 
+            /*
             //Initialize a buffer to hold the received data 
             byte[] buffer = new byte[_serialPort.ReadBufferSize];
 
@@ -121,6 +123,7 @@ namespace S1lightcycle.UART
                 //Do something with workingString 
                 Console.WriteLine(workingString);
             }
+             * */
         }
 
 
@@ -131,7 +134,7 @@ namespace S1lightcycle.UART
             try
             {
                 _serialPort.Write(data, 0, 2);
-                Trace.TraceInformation("send package: address = {0}, command = {1}, parameter = {2}; raw: {3} {4}", package.address, package.command, package.parameter, Convert.ToString(data[LcProtocol.HI], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.LO], 2).PadLeft(8, '0'));
+                Trace.TraceInformation("send package: address = {0}, command = {1}, parameter = {2}; raw: bin {3} {4}, hex {5} {6}, dec {7} {8}", package.address, package.command, package.parameter, Convert.ToString(data[LcProtocol.HI], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.LO], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.HI], 16).PadLeft(2, '0'), Convert.ToString(data[LcProtocol.LO], 16).PadLeft(2, '0'), data[LcProtocol.HI], data[LcProtocol.LO]);
             }
             catch (Exception e)
             {

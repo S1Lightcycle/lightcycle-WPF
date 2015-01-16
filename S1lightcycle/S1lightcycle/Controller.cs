@@ -71,8 +71,7 @@ namespace S1lightcycle {
             _player1.Robot = _objTracker.FirstCar;
             _player2.Robot = _objTracker.SecondCar;
             _timer.Start();
-            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_FORWARD });
-            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_FORWARD});
+            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_BROADCAST, command = LcProtocol.CMD_FORWARD });
         }
 
         private void InitPlayers()
@@ -148,8 +147,7 @@ namespace S1lightcycle {
 
         private void GoToResults()
         {
-            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_STOP });
-            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_STOP });
+            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_BROADCAST, command = LcProtocol.CMD_STOP });
             _timer.Stop();
             _resultWindow = new Windows.ResultWindow();
             _gameWindow.Close();

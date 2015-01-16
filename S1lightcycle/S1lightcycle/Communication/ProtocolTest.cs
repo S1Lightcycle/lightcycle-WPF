@@ -11,9 +11,9 @@ namespace S1lightcycle.UART
         static void Main(string[] args)
         {
             LcProtocolStruct package = new LcProtocolStruct();
-            package.address = LcProtocol.ADDRESS_ROBOT_2;
-            package.command = LcProtocol.CMD_HEARTBEAT;
-
+            package.address = LcProtocol.ADDRESS_BROADCAST;
+            package.command = LcProtocol.CMD_FORWARD;
+            package.parameter = 0;
             Communicator.Instance.SendPackage(package);
 
             Console.Read();
