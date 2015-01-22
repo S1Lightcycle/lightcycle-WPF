@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media;
+using S1LightcycleNET;
 
 namespace S1lightcycle.Windows {
     /// <summary>
@@ -49,6 +51,39 @@ namespace S1lightcycle.Windows {
         private void cmbSerialPort_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             Controller.Instance.SetSerialPort((String)cmbSerialPort.SelectedItem);
+        }
+
+        private void btn_calibrate_Click(object sender, RoutedEventArgs e)
+        {
+            /*
+            Window calibrationWindow = new Window();
+            calibrationWindow.Background = Brushes.Red;
+            calibrationWindow.WindowState = WindowState.Maximized;
+            calibrationWindow.WindowStyle = WindowStyle.None;
+            calibrationWindow.Show();
+            calibrationWindow.KeyDown += calibrationWindow_KeyDown;
+            calibrationWindow.MouseDown += calibrationWindow_MouseDown;
+            */
+            
+            Calibrater cal = new Calibrater();
+            cal.Calibrate(); 
+        }
+
+        void calibrationWindow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            CloseCalibrationWindow((Window)sender);
+        }
+
+        void calibrationWindow_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            CloseCalibrationWindow((Window)sender);
+        }
+
+       
+
+        private void CloseCalibrationWindow(Window calibrationWindow)
+        {            
+            calibrationWindow.Close();
         }
     }
 }
