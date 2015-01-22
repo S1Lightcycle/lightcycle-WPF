@@ -8,7 +8,8 @@ namespace S1lightcycle.Windows {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
-
+            lbl_connecting.Visibility = Visibility.Collapsed;
+            btnStartGame.IsEnabled = true;
             // enable events
             Controller.Instance.Connected += new S1lightcycle.Controller.ConnectedEventHandler(Connected);
         }

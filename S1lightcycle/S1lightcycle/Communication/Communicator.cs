@@ -33,7 +33,7 @@ namespace S1lightcycle.UART
         private int _dataBits = 8;
         private Handshake _handshake = Handshake.None;
         private Parity _parity = Parity.None;
-        private string _portName = "COM13";
+        private string _portName = SerialPort.GetPortNames().First();
         private StopBits _stopBits = StopBits.One;
 
         /// <summary> 
@@ -59,6 +59,7 @@ namespace S1lightcycle.UART
         private Communicator()
         {
             Trace.TraceInformation("Connected to " + _portName);
+            InitializeSerialPort();
 
             // enable heartbeat
             heartbeatPackage.address = LcProtocol.ADDRESS_BROADCAST;
@@ -86,6 +87,7 @@ namespace S1lightcycle.UART
 
         private void InitializeSerialPort()
         {
+            _serialPort.Close();
             _serialPort.BaudRate = _baudRate;
             _serialPort.DataBits = _dataBits;
             _serialPort.Handshake = _handshake;

@@ -50,7 +50,7 @@ namespace S1lightcycle
                 _countTicks += 1;
                 _stopWatch.Stop();
 
-                Console.WriteLine("ellapsed time in ms: " + _stopWatch.ElapsedMilliseconds);
+                //Console.WriteLine("ellapsed time in ms: " + _stopWatch.ElapsedMilliseconds);
                 _stopWatch.Reset();
             }
         }

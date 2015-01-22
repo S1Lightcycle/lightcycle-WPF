@@ -33,8 +33,8 @@ namespace S1lightcycle {
         private const int TimerIntervall = 10;    // in ms  berechnen 
         private const int RobotSize = 30;        //test value; robotsize = gridsize
 
-        public int GameHeight = 480;
-        public int GameWidth = 640;
+        public double GameHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+        public double GameWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
 
         public uint Player1Points { get; private set; }
         public uint Player2Points { get; private set; }
