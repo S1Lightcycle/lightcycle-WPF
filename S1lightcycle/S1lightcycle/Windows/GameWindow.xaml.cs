@@ -65,8 +65,8 @@ namespace S1lightcycle.Windows {
                     newWall.Fill = System.Windows.Media.Brushes.Blue;
                     break;
             }
-            newWall.Width = 30;
-            newWall.Height = 30;
+            newWall.Width = Controller.RobotSize;
+            newWall.Height = Controller.RobotSize;
 
             Canvas.SetTop(newWall, coordinates.XCoord);
             Canvas.SetLeft(newWall, coordinates.YCoord);

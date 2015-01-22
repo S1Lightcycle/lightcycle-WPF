@@ -87,7 +87,10 @@ namespace S1lightcycle.UART
 
         private void InitializeSerialPort()
         {
-            _serialPort.Close();
+            if (_serialPort.IsOpen) {
+                _serialPort.Close();
+            }
+            
             _serialPort.BaudRate = _baudRate;
             _serialPort.DataBits = _dataBits;
             _serialPort.Handshake = _handshake;
@@ -138,7 +141,7 @@ namespace S1lightcycle.UART
             }
             catch (Exception e)
             {
-                throw new ApplicationException("Protocol send error " + e.Message);
+                //throw new ApplicationException("Protocol send error " + e.Message);
             }
 
         }

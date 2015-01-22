@@ -31,7 +31,7 @@ namespace S1lightcycle {
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
-        private const int RobotSize = 30;        //test value; robotsize = gridsize
+        public const int RobotSize = 200;        //test value; robotsize = gridsize4
 
         public double GameHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
         public double GameWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
@@ -44,7 +44,9 @@ namespace S1lightcycle {
         {
             Player1Points = 0;
             Player2Points = 0;
-            // register for robot events
+            // register for robot eventsj
+            /*var main = MainWindow as MainWindow;
+            Connected += new S1lightcycle.Controller.ConnectedEventHandler(MainWindow.Connected);*/
             Communicator.Instance.PackageReceived += new Communicator.PackageReceivedEventHandler(PackageReceived);
         }
 
