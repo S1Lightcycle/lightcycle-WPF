@@ -79,6 +79,16 @@ namespace S1lightcycle {
             }
         }
 
+        public String[] GetSerialPorts()
+        {
+            return Communicator.Instance.GetSerialPorts();
+        }
+
+        public void SetSerialPort(String name)
+        {
+            Communicator.Instance.PortName = name;
+        }
+
         public void InitGame() {
             InitGameWindow();
 

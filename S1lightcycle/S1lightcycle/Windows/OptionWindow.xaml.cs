@@ -12,6 +12,10 @@ namespace S1lightcycle.Windows {
             this.LearningRateBox.Text = Properties.Settings.Default.LearningRate.ToString();
             this.MinBlobSizeBox.Text = Properties.Settings.Default.MinBlobSize.ToString();
             this.MaxBlobSizeBox.Text = Properties.Settings.Default.MaxBlobSize.ToString();
+            foreach (String name in Controller.Instance.GetSerialPorts())
+            {
+                cmbSerialPort.Items.Add(name);
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -40,6 +44,11 @@ namespace S1lightcycle.Windows {
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void cmbSerialPort_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            Controller.Instance.SetSerialPort((String)cmbSerialPort.SelectedItem);
         }
     }
 }
