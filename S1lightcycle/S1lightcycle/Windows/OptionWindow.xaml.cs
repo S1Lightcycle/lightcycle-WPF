@@ -64,9 +64,12 @@ namespace S1lightcycle.Windows {
             calibrationWindow.KeyDown += calibrationWindow_KeyDown;
             calibrationWindow.MouseDown += calibrationWindow_MouseDown;
             */
+
+            CalibrateCamera cal = new CalibrateCamera();
             
-            Calibrater cal = new Calibrater();
-            cal.Calibrate(); 
+
+            //Calibrater cal = new Calibrater();
+            //cal.Calibrate(); 
         }
 
         void calibrationWindow_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
