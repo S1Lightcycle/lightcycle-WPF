@@ -18,8 +18,6 @@ namespace S1lightcycle.Windows {
             InitializeComponent();
         }
 
-        
-
         public void DrawGrid(int gridSize) {
             //vertical grid
             for (int i = 0; (i * gridSize) <= this.Width; i++) {
@@ -74,7 +72,6 @@ namespace S1lightcycle.Windows {
             GameFieldCanvas.Children.Add(newWall);
         }
 
-        
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             Controller.Instance.move(e.Key);
