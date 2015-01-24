@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Threading;
 
 namespace S1lightcycle.Windows {
     /// <summary>
@@ -41,6 +42,11 @@ namespace S1lightcycle.Windows {
             base.OnClosing(e);
         }
 
+
+        private void Calibration_Button_Click(object sender, RoutedEventArgs e) {
+            new EdgeConfigWindow().Show();
+            this.Hide();
+        }
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

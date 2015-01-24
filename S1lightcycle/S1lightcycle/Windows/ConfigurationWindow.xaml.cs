@@ -45,7 +45,11 @@ namespace S1lightcycle.Windows
             }
             else
             {
-                lblRobot.Content = remainingSeconds;
+                TextBlock tb = new TextBlock();
+                tb.Text = ""+remainingSeconds;
+                tb.FontSize = 10.0 * (5-remainingSeconds);
+                lblRobot.Content = tb;
+ 
             }
         }
 

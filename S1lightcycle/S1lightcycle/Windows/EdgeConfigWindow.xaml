@@ -1,0 +1,13 @@
+﻿<Window x:Class="S1lightcycle.Windows.EdgeConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="EdgeConfigWindow" WindowStyle="None" WindowState="Maximized" MouseDown="Window_MouseDown">
+    <Grid>
+        <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Height="20px" Width="20px" Fill="Red" />
+        <Rectangle HorizontalAlignment="Right" VerticalAlignment="Top" Height="20px" Width="20px" Fill="Red" />
+        <Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="20px" Width="20px" Fill="Red" />
+        <Rectangle HorizontalAlignment="RIght" VerticalAlignment="Bottom" Height="20px" Width="20px" Fill="Red" />
+        <Label Content="press left mouse button to continue..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+        
+    </Grid>
+</Window>
