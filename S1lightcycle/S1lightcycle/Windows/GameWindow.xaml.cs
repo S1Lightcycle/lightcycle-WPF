@@ -11,14 +11,11 @@ namespace S1lightcycle.Windows {
     /// </summary>
     public partial class GameWindow : Window {
 
-        private Controller ctrl;
-
         public int GridWidth { get; private set; }
         public int GridHeight { get; private set; }
          
         public GameWindow(Controller controller) {
             InitializeComponent();
-            ctrl = controller;
         }
 
         
@@ -64,6 +61,9 @@ namespace S1lightcycle.Windows {
                 case WallColor.Blue:
                     newWall.Fill = System.Windows.Media.Brushes.Blue;
                     break;
+                case WallColor.White:
+                    newWall.Fill = System.Windows.Media.Brushes.White;
+                    break;
             }
             newWall.Width = Controller.RobotSize;
             newWall.Height = Controller.RobotSize;
@@ -77,10 +77,7 @@ namespace S1lightcycle.Windows {
         
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            ctrl.move(e.Key);
+            Controller.Instance.move(e.Key);
         }
-
-        
-
      }
 }

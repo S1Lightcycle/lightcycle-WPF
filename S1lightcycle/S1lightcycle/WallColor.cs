@@ -3,6 +3,6 @@ namespace S1lightcycle
 {
     public enum WallColor
     {
-        Black, Red, Blue
+        Black, Red, Blue, White
     }
 }

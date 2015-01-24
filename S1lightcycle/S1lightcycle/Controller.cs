@@ -105,7 +105,11 @@ namespace S1lightcycle {
             InitCountdownTimer();
 
             _stopWatch = new Stopwatch();
+            
+        }
 
+        public void StartGame()
+        {
             //Start object tracking
             if (_objTracker == null)
             {
