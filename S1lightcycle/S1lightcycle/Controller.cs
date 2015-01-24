@@ -91,6 +91,11 @@ namespace S1lightcycle {
             Communicator.Instance.PortName = name;
         }
 
+        public void PlaceRobots()
+        {
+            new ConfigurationWindow().Show();
+        }
+
         public void InitGame() {
             InitGameWindow();
 
@@ -105,7 +110,8 @@ namespace S1lightcycle {
             InitCountdownTimer();
 
             _stopWatch = new Stopwatch();
-            
+
+            StartGame();
         }
 
         public void StartGame()

@@ -23,7 +23,7 @@ namespace S1lightcycle.Windows {
         }
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e) {
-            Controller.Instance.InitGame();
+            Controller.Instance.PlaceRobots();
             this.Hide();
         }
 
