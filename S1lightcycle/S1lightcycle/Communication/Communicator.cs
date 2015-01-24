@@ -33,7 +33,7 @@ namespace S1lightcycle.UART
         private int _dataBits = 8;
         private Handshake _handshake = Handshake.None;
         private Parity _parity = Parity.None;
-        private string _portName = SerialPort.GetPortNames().First();
+        private string _portName = SerialPort.GetPortNames().FirstOrDefault();
         private StopBits _stopBits = StopBits.One;
 
         /// <summary> 
@@ -95,11 +95,14 @@ namespace S1lightcycle.UART
             _serialPort.DataBits = _dataBits;
             _serialPort.Handshake = _handshake;
             _serialPort.Parity = _parity;
-            _serialPort.PortName = _portName;
             _serialPort.StopBits = _stopBits;
             _serialPort.DataReceived += new SerialDataReceivedEventHandler(_serialPort_DataReceived);
             _serialPort.DtrEnable = false;
-            _serialPort.Open();
+            if (_portName != null) {
+                _serialPort.PortName = _portName;
+                _serialPort.Open();
+            }
+            
         }
 
         void heartbeat_tick(object sender, EventArgs e)

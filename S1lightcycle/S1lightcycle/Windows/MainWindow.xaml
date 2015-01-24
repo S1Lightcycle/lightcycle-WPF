@@ -8,7 +8,7 @@
     <Grid>
 
         <StackPanel Margin="50,50,50,0" >
-            <Button x:Name="btnStartGame" MinHeight="50px" Background="Transparent" Click="btnStartGame_Click" IsEnabled="False">Start Game</Button>
+            <Button x:Name="btnStartGame" MinHeight="50px" Background="Transparent" Click="btnStartGame_Click" IsEnabled="True">Start Game</Button>
             <Button x:Name="btnOptions" MinHeight="50px" Background="Transparent" Click="btnOptions_Click">Options</Button>
             <Button x:Name="btnExit" MinHeight="50px" Background="Transparent" Click="btnExit_Click">Exit</Button>
         </StackPanel>

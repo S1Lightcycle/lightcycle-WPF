@@ -31,7 +31,7 @@ namespace S1lightcycle {
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
-        public const int RobotSize = 200;        //test value; robotsize = gridsize4
+        public const int FieldSize = 50;        //test value; robotsize = gridsize4
 
         public double GameHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
         public double GameWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
@@ -100,13 +100,16 @@ namespace S1lightcycle {
             //init players
             InitPlayers();
 
-            //init Timers
+            //init timers
             InitGameTimer();
             InitCountdownTimer();
 
             _stopWatch = new Stopwatch();
 
-            //Start object tracking
+            //ajdust beamer/webcam
+            
+
+           //start object tracking
             if (_objTracker == null)
             {
                 InitTracking();
@@ -131,7 +134,7 @@ namespace S1lightcycle {
             _gameWindow.Width = GameWidth;
             _gameWindow.Show();
 
-            _gameWindow.DrawGrid(RobotSize);
+            _gameWindow.DrawGrid(FieldSize);
         }
 
         private void InitWalls()
@@ -182,8 +185,8 @@ namespace S1lightcycle {
                     }
                     GenerateWall(player, carPos);
                     //determine player position on grid
-                    player.CurPos.Column = carPos.XCoord / RobotSize;
-                    player.CurPos.Row = carPos.YCoord / RobotSize;
+                    player.CurPos.Column = carPos.XCoord / FieldSize;
+                    player.CurPos.Row = carPos.YCoord / FieldSize;
                 }
             }
         }
@@ -203,8 +206,8 @@ namespace S1lightcycle {
 
             if (x == -1 || y == -1) return null;
 
-            x = (x / RobotSize) * RobotSize;
-            y = (y / RobotSize) * RobotSize;
+            x = (x / FieldSize) * FieldSize;
+            y = (y / FieldSize) * FieldSize;
 
             return new Coordinate(y, x);
         }
@@ -216,7 +219,7 @@ namespace S1lightcycle {
             if (coordinates.YCoord < 0 || coordinates.YCoord > GameHeight) return false;
 
             //old position equals new position -> no redrawing needed
-            if (player.CurPos.Column == (coordinates.XCoord/RobotSize) && player.CurPos.Row == (coordinates.YCoord/RobotSize)) {
+            if (player.CurPos.Column == (coordinates.XCoord/FieldSize) && player.CurPos.Row == (coordinates.YCoord/FieldSize)) {
                 return false;
             }
             return true;

@@ -8,5 +8,6 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Canvas Name="GameFieldCanvas" Background="White" Grid.Column="1" HorizontalAlignment="Stretch"/>
+        
     </Grid>
 </Window>

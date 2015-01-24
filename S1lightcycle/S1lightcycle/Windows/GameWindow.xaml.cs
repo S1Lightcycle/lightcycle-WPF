@@ -13,6 +13,7 @@ namespace S1lightcycle.Windows {
 
         private Controller ctrl;
 
+        
         public int GridWidth { get; private set; }
         public int GridHeight { get; private set; }
          
@@ -65,8 +66,8 @@ namespace S1lightcycle.Windows {
                     newWall.Fill = System.Windows.Media.Brushes.Blue;
                     break;
             }
-            newWall.Width = Controller.RobotSize;
-            newWall.Height = Controller.RobotSize;
+            newWall.Width = Controller.FieldSize;
+            newWall.Height = Controller.FieldSize;
 
             Canvas.SetTop(newWall, coordinates.XCoord);
             Canvas.SetLeft(newWall, coordinates.YCoord);
