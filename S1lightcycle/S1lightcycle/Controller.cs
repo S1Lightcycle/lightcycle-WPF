@@ -31,7 +31,7 @@ namespace S1lightcycle {
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
-        public const int RobotSize = 70;        //test value; robotsize = gridsize
+        public const int RobotSize = 80;        //test value; robotsize = gridsize
         private CalibrateCamera _calibration;
 
         public double GameHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
@@ -179,7 +179,6 @@ namespace S1lightcycle {
                 Coordinate carPos = DoPositionCompensation(player.Robot.Coord.Dequeue());
                 if (IsValidPosition(player, carPos))
                 {
-                    /*
                     if (IsCollision(player))
                     {
                         if (player == _player1)
@@ -193,7 +192,6 @@ namespace S1lightcycle {
                         GoToResults();
                         return;
                     }
-                     * */
                     GenerateWall(player, carPos);
                     //determine player position on grid
                     player.CurPos.Column = carPos.XCoord / RobotSize;
@@ -217,7 +215,8 @@ namespace S1lightcycle {
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
             int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(_calibration.GetROIWidth()) * Convert.ToDouble(this.GameWidth));
             int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(_calibration.GetROIHeight()) * Convert.ToDouble(this.GameHeight));
-
+            Console.WriteLine("x: " + x + " y: " + y);
+            Console.WriteLine("xcoord: " + coordinates.XCoord + " ycoord: " + coordinates.YCoord);
             if (x == -1 || y == -1) return null;
 
             x = (x / RobotSize) * RobotSize;
