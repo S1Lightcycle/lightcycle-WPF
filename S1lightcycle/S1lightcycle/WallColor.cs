@@ -1,5 +1,4 @@
-﻿
-namespace S1lightcycle
+﻿namespace S1lightcycle
 {
     public enum WallColor
     {

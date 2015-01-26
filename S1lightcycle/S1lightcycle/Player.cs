@@ -1,5 +1,4 @@
-﻿
-using S1LightcycleNET;
+﻿using S1LightcycleNET;
 
 namespace S1lightcycle {
     public class Player {

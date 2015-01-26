@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
-using System.Timers;
 using S1lightcycle.Windows;
 using S1LightcycleNET;
-using System.Windows.Threading;
 using System.Diagnostics;
 using System.Windows.Input;
 using S1lightcycle.UART;

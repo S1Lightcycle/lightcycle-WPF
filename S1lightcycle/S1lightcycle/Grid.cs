@@ -1,5 +1,4 @@
-﻿
-namespace S1lightcycle {
+﻿namespace S1lightcycle {
     public class Grid {
         public int Row;
         public int Column;
