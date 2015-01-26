@@ -61,11 +61,11 @@ namespace S1lightcycle {
 
       
 
-        void PackageReceived(object sender, LcProtocolStruct package)
+        void PackageReceived(object sender, LcProtocol package)
         {
-            if (package.address == LcProtocol.ADDRESS_SERVER)
+            if (package.Address == LcProtocol.ADDRESS_SERVER)
             {
-                switch (package.command)
+                switch (package.Command)
                 {
                     case LcProtocol.CMD_ROBOTS_CONNECTED:
                         Trace.TraceInformation("Robots are connected");
@@ -121,7 +121,7 @@ namespace S1lightcycle {
             _player1.Robot = _objTracker.FirstCar;
             _player2.Robot = _objTracker.SecondCar;
             _timer.Start();
-            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_BROADCAST, command = LcProtocol.CMD_FORWARD });
+            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
         }
 
         private void InitPlayers()
@@ -200,7 +200,7 @@ namespace S1lightcycle {
 
         private void GoToResults()
         {
-            Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_BROADCAST, command = LcProtocol.CMD_STOP });
+            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _timer.Stop();
             _resultWindow = new Windows.ResultWindow();
             _gameWindow.Close();
@@ -251,18 +251,18 @@ namespace S1lightcycle {
             Player2Points = 0;
         }
 
-        public void move(Key key)
+        public void Move(Key key)
         {
             switch (key)
             {
                 case Key.Down:
                     if (_player1.CurDirection == Direction.Left)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Right)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else
                     {
@@ -274,11 +274,11 @@ namespace S1lightcycle {
                 case Key.Up:
                     if (_player1.CurDirection == Direction.Left)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Right)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else
                     {
@@ -290,11 +290,11 @@ namespace S1lightcycle {
                 case Key.Right:
                     if (_player1.CurDirection == Direction.Up)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Down)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else
                     {
@@ -306,11 +306,11 @@ namespace S1lightcycle {
                 case Key.Left:
                     if (_player1.CurDirection == Direction.Up)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Down)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_1, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else
                     {
@@ -323,11 +323,11 @@ namespace S1lightcycle {
                 case Key.S:
                     if (_player1.CurDirection == Direction.Left)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Right)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else
                     {
@@ -339,11 +339,11 @@ namespace S1lightcycle {
                 case Key.W:
                     if (_player1.CurDirection == Direction.Left)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Right)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else
                     {
@@ -355,11 +355,11 @@ namespace S1lightcycle {
                 case Key.D:
                     if (_player1.CurDirection == Direction.Up)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Down)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else
                     {
@@ -371,11 +371,11 @@ namespace S1lightcycle {
                 case Key.A:
                     if (_player1.CurDirection == Direction.Up)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_LEFT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Down)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocolStruct() { address = LcProtocol.ADDRESS_ROBOT_2, command = LcProtocol.CMD_TURN_RIGHT_STATIC, parameter = 90 });
+                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else
                     {

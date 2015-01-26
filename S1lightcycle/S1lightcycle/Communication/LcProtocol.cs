@@ -1,12 +1,5 @@
 ﻿namespace S1lightcycle.UART
 {
-    public struct LcProtocolStruct
-    {
-        public byte address;
-        public byte command;
-        public ushort parameter;
-    }
-
     public class LcProtocol
     {
 
@@ -43,48 +36,57 @@
         public const byte LO = 1;
 
         // Bitmasks
-        private static byte MASK_ADDRESS = 0xE0; // 0b11100000 address fields
-        private static byte MASK_COMMAND = 0x1E; // 0b00011110 command fields
-        private static byte MASK_PARAMETER_HI = 0x01;  // 0b00000001 parameter fields
-        private static byte MASK_PARAMETER_LO = 0x00FF;  // 0b00000001 parameter fields
-        private static ushort MASK_PARAMETER = 0x01FF;
+        private const byte MASK_ADDRESS = 0xE0; // 0b11100000 address fields
+        private const byte MASK_COMMAND = 0x1E; // 0b00011110 command fields
+        private const byte MASK_PARAMETER_HI = 0x01;  // 0b00000001 parameter fields
+        private const byte MASK_PARAMETER_LO = 0x00FF;  // 0b00000001 parameter fields
+        private const ushort MASK_PARAMETER = 0x01FF;
 
+        public byte Address { get; private set; }
+        public byte Command { get; private set; }
+        public ushort Parameter { get; private set; }
 
-        /*
-        parse from the raw package the protocol struct
-
-        package
-        hi -----------> lo
-        111 1111 1|11111111
-        adr|c md|parameter
-        */
-        public static LcProtocolStruct getProtocolStruct(byte hi, byte lo)
+        public LcProtocol(byte address, byte command, ushort parameter)
         {
-            LcProtocolStruct protocol;
-            protocol.address = (byte)((hi & MASK_ADDRESS) >> 5);
-            protocol.command = (byte)((hi & MASK_COMMAND) >> 1);
-            protocol.parameter = (ushort)(lo | ((hi & MASK_PARAMETER_HI) << 8));
-            return protocol;
+            Address = address;
+            Command = command;
+            Parameter = parameter;
         }
 
-        /*
-        build a raw package by address, command and parameter
-        data[HI] and data[LO] are the two bytes of the protocol which are returned
-        */
-        static byte[] buildProtocolData(byte address, byte command, ushort parameter)
+        /// <summary>
+        /// parse from the raw package the protocol struct
+        /// package
+        /// hi -----------> lo
+        /// 111 1111 1|11111111
+        /// adr|c md|parameter
+        /// </summary>
+        /// <param name="hi"></param>
+        /// <param name="lo"></param>
+        /// <returns></returns>
+        public LcProtocol(byte hi, byte lo)
+        {
+            Address = (byte)((hi & MASK_ADDRESS) >> 5);
+            Command = (byte)((hi & MASK_COMMAND) >> 1);
+            Parameter = (ushort)(lo | ((hi & MASK_PARAMETER_HI) << 8));
+        }
+
+        /// <summary>
+        /// build a raw package by address, command and parameter
+        /// data[HI] and data[LO] are the two bytes of the protocol which are returned
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="command"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public byte[] BuildProtocolData()
         {
             byte[] data = new byte[2];
-            byte hi = (byte)((parameter & MASK_PARAMETER) >> 8);
-            hi |= (byte)(command << 1);
-            hi |= (byte)(address << 5);
+            byte hi = (byte)((Parameter & MASK_PARAMETER) >> 8);
+            hi |= (byte)(Command << 1);
+            hi |= (byte)(Address << 5);
             data[HI] = hi;
-            data[LO] = (byte)(parameter & MASK_PARAMETER_LO);
+            data[LO] = (byte)(Parameter & MASK_PARAMETER_LO);
             return data;
-        }
-
-        public static byte[] buildProtocolData(LcProtocolStruct package)
-        {
-            return buildProtocolData(package.address, package.command, package.parameter);
         }
     }
 }

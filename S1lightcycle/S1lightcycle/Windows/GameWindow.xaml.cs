@@ -77,7 +77,7 @@ namespace S1lightcycle.Windows {
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            Controller.Instance.move(e.Key);
+            Controller.Instance.Move(e.Key);
         }
      }
 }

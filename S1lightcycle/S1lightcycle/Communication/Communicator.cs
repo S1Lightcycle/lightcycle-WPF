@@ -8,10 +8,10 @@ namespace S1lightcycle.UART
 {
     public class Communicator
     {
-        public delegate void PackageReceivedEventHandler(object sender, LcProtocolStruct package);
+        public delegate void PackageReceivedEventHandler(object sender, LcProtocol package);
         public event PackageReceivedEventHandler PackageReceived;
 
-        protected virtual void OnPackageReceived(LcProtocolStruct package)
+        protected virtual void OnPackageReceived(LcProtocol package)
         {
             if (PackageReceived != null)
                 PackageReceived(this, package);
@@ -21,7 +21,7 @@ namespace S1lightcycle.UART
 
         private Timer timer = new Timer();
 
-        private LcProtocolStruct heartbeatPackage = new LcProtocolStruct();
+        private LcProtocol heartbeatPackage = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0);
 
         private int HEARTBEAT_INTERVALL = 1000;
 
@@ -38,10 +38,6 @@ namespace S1lightcycle.UART
         {
             Trace.TraceInformation("Connected to " + _portName);
             InitializeSerialPort();
-
-            // enable heartbeat
-            heartbeatPackage.address = LcProtocol.ADDRESS_BROADCAST;
-            heartbeatPackage.command = LcProtocol.CMD_HEARTBEAT;
 
             //timer.Elapsed += new ElapsedEventHandler(heartbeat_tick);
             timer.Interval = HEARTBEAT_INTERVALL;
@@ -60,8 +56,6 @@ namespace S1lightcycle.UART
                 return instance;
             }
         }
-
-
 
         private void InitializeSerialPort()
         {
@@ -102,8 +96,8 @@ namespace S1lightcycle.UART
 
             if (bytesRead == 2)
             {
-                LcProtocolStruct msg = LcProtocol.getProtocolStruct(buffer[LcProtocol.HI], buffer[LcProtocol.LO]);
-                Trace.TraceInformation("received command: address = {0}, command = {1}, parameter = {2}", msg.address, msg.command, msg.parameter);
+                LcProtocol msg = new LcProtocol(buffer[LcProtocol.HI], buffer[LcProtocol.LO]);
+                Trace.TraceInformation("received command: address = {0}, command = {1}, parameter = {2}", msg.Address, msg.Command, msg.Parameter);
                 OnPackageReceived(msg);
             }
         }
@@ -113,13 +107,13 @@ namespace S1lightcycle.UART
             return SerialPort.GetPortNames();
         }
 
-        public void SendPackage(LcProtocolStruct package)
+        public void SendPackage(LcProtocol package)
         {
-            byte[] data = LcProtocol.buildProtocolData(package);
+            byte[] data = package.BuildProtocolData();
             try
             {
                 _serialPort.Write(data, 0, 2);
-                Trace.TraceInformation("send package: address = {0}, command = {1}, parameter = {2}; raw: bin {3} {4}, hex {5} {6}, dec {7} {8}", package.address, package.command, package.parameter, Convert.ToString(data[LcProtocol.HI], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.LO], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.HI], 16).PadLeft(2, '0'), Convert.ToString(data[LcProtocol.LO], 16).PadLeft(2, '0'), data[LcProtocol.HI], data[LcProtocol.LO]);
+                Trace.TraceInformation("send package: address = {0}, command = {1}, parameter = {2}; raw: bin {3} {4}, hex {5} {6}, dec {7} {8}", package.Address, package.Command, package.Parameter, Convert.ToString(data[LcProtocol.HI], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.LO], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.HI], 16).PadLeft(2, '0'), Convert.ToString(data[LcProtocol.LO], 16).PadLeft(2, '0'), data[LcProtocol.HI], data[LcProtocol.LO]);
             }
             catch (Exception e)
             {

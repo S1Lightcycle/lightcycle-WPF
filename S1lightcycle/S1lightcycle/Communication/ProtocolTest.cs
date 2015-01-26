@@ -6,10 +6,7 @@ namespace S1lightcycle.UART
     {
         static void Main(string[] args)
         {
-            LcProtocolStruct package = new LcProtocolStruct();
-            package.address = LcProtocol.ADDRESS_BROADCAST;
-            package.command = LcProtocol.CMD_STOP;
-            package.parameter = 0;
+            LcProtocol package = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0);
             Communicator.Instance.SendPackage(package);
 
             Console.Read();
