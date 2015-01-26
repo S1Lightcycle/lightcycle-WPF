@@ -12,7 +12,7 @@ namespace S1lightcycle.UART
         {
             LcProtocolStruct package = new LcProtocolStruct();
             package.address = LcProtocol.ADDRESS_BROADCAST;
-            package.command = LcProtocol.CMD_FORWARD;
+            package.command = LcProtocol.CMD_STOP;
             package.parameter = 0;
             Communicator.Instance.SendPackage(package);
 

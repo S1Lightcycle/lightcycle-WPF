@@ -19,6 +19,8 @@ namespace S1lightcycle.Windows {
         }
 
         public void DrawGrid(int gridSize) {
+            Console.WriteLine("width: " + this.Width + " height: " + this.Height);
+
             //vertical grid
             for (int i = 0; (i * gridSize) <= this.Width; i++) {
                 DrawGridLine(i * gridSize, i * gridSize, 0, this.Height);

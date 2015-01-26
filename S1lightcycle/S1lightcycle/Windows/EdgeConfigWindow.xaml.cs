@@ -22,7 +22,7 @@ namespace S1lightcycle.Windows {
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
-            new CalibrateCamera().ShowFrame();
+            CalibrateCamera.GetInstance().ShowFrame();
             this.Hide();
         }
     }

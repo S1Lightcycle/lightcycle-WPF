@@ -23,7 +23,7 @@ namespace S1lightcycle.Windows
     {
 
         private DispatcherTimer _timer;
-        private const int _secondsToWait = 3;
+        private const int _secondsToWait = 0;
         private DateTime startTime;
         public ConfigurationWindow()
         {
