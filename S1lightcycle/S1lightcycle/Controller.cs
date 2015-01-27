@@ -149,7 +149,14 @@ namespace S1lightcycle {
                 _walls[i] = new WallColor[_gameWindow.GridHeight + 1];
                 for (int j = 0; j < _walls[i].Length; j++)
                 {
-                    _walls[i][j] = WallColor.White;
+                    if ((i == 0) || (j == 0) || (i == _walls.Length - 1) || (j == _walls[i].Length - 1))
+                    {
+                        _walls[i][j] = WallColor.Black;
+                    }
+                    else
+                    {
+                        _walls[i][j] = WallColor.White;
+                    }
                 }
             }
         }
