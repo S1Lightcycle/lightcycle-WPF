@@ -26,7 +26,7 @@ namespace S1lightcycle {
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
-        public const int RobotSize = 80;        //test value; robotsize = gridsize
+        public const int RobotSize = 200;        //test value; robotsize = gridsize
         private CalibrateCamera _calibration;
 
         public double GameHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
