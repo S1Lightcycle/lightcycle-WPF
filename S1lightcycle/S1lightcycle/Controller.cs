@@ -126,8 +126,8 @@ namespace S1lightcycle {
 
         private void InitPlayers()
         {
-            _player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Blue);
-            _player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Red);
+            _player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Red);
+            _player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Blue);
         }
 
         private void InitGameWindow()
