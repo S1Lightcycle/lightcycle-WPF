@@ -22,7 +22,7 @@ namespace S1lightcycle {
         private ObjectTracker _objTracker;
         private Windows.GameWindow _gameWindow;
         private Windows.ResultWindow _resultWindow;
-        private bool[][] _walls;
+        private WallColor[][] _walls;
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
@@ -143,13 +143,13 @@ namespace S1lightcycle {
 
         private void InitWalls()
         {
-            _walls = new bool[_gameWindow.GridWidth + 1][];
+            _walls = new WallColor[_gameWindow.GridWidth + 1][];
             for (int i = 0; i < _walls.Length; i++)
             {
-                _walls[i] = new bool[_gameWindow.GridHeight + 1];
+                _walls[i] = new WallColor[_gameWindow.GridHeight + 1];
                 for (int j = 0; j < _walls[i].Length; j++)
                 {
-                    _walls[i][j] = false;
+                    _walls[i][j] = WallColor.White;
                 }
             }
         }
@@ -237,12 +237,16 @@ namespace S1lightcycle {
             if (coordinates == null) return;
             _gameWindow.DrawWall(coordinates, player.Color);
             
-            _walls[player.CurPos.Column][player.CurPos.Row] = true;
+            _walls[player.CurPos.Column][player.CurPos.Row] = player.Color;
         }
 
         private bool IsCollision(Player player)
         {
-            return _walls[player.CurPos.Column][player.CurPos.Row];
+            if ((_walls[player.CurPos.Column][player.CurPos.Row] == player.Color) || (_walls[player.CurPos.Column][player.CurPos.Row] == WallColor.White))
+            {
+                return false;
+            }
+            return true;
         }
 
         public void ResetPlayerPoints()
