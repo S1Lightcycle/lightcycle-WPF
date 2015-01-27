@@ -23,7 +23,7 @@ namespace S1lightcycle.Windows
     {
 
         private DispatcherTimer _timer;
-        private const int _secondsToWait = 0;
+        private const int _secondsToWait = 3;
         private DateTime startTime;
         public ConfigurationWindow()
         {
@@ -47,7 +47,7 @@ namespace S1lightcycle.Windows
             {
                 TextBlock tb = new TextBlock();
                 tb.Text = ""+remainingSeconds;
-                tb.FontSize = 10.0 * (5-remainingSeconds);
+                tb.FontSize = 20.0 * (5-remainingSeconds);
                 lblRobot.Content = tb;
  
             }
