@@ -7,7 +7,6 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Canvas Name="GameFieldCanvas" Background="White" Grid.Column="1" HorizontalAlignment="Stretch">
-        </Canvas>
+        <Canvas Name="GameFieldCanvas" Background="White" Grid.Column="1" HorizontalAlignment="Stretch"/>
     </Grid>
 </Window>

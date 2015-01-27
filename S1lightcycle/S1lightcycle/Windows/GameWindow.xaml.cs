@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using S1LightcycleNET;
+using System.Windows.Media;
 
 namespace S1lightcycle.Windows {
     /// <summary>
@@ -21,6 +22,11 @@ namespace S1lightcycle.Windows {
         public void DrawGrid(int gridSize) {
             Console.WriteLine("width: " + this.Width + " height: " + this.Height);
 
+            int maxVert = (int)this.Width / gridSize;
+            int remainderVert = (int)this.Width - (maxVert * gridSize);
+            int maxHor = (int)this.Height / gridSize;
+            int remainderHor = (int)this.Height - (maxHor * gridSize);
+
             //vertical grid
             for (int i = 0; (i * gridSize) <= this.Width; i++) {
                 DrawGridLine(i * gridSize, i * gridSize, 0, this.Height);
@@ -32,6 +38,37 @@ namespace S1lightcycle.Windows {
                 DrawGridLine(0, this.Width, j * gridSize, j * gridSize);
                 GridHeight = j;
             }
+
+            Rectangle rect1 = InitRect((int)this.Width, gridSize);
+            Canvas.SetLeft(rect1, 0);
+            Canvas.SetTop(rect1, 0);
+
+            Rectangle rect2 = InitRect((int)this.Width, gridSize);
+            Canvas.SetLeft(rect2, 0);
+            Canvas.SetTop(rect1, this.Height - remainderHor);
+
+            Rectangle rect3 = InitRect(gridSize, (int)this.Height);
+            Canvas.SetLeft(rect3, 0);
+            Canvas.SetTop(rect3, 0);
+
+            Rectangle rect4 = InitRect(gridSize, (int)this.Height);
+            Canvas.SetLeft(rect4, this.Width - remainderVert);
+            Canvas.SetTop(rect4, 0);
+
+            GameFieldCanvas.Children.Add(rect1);
+            GameFieldCanvas.Children.Add(rect2);
+            GameFieldCanvas.Children.Add(rect3);
+            GameFieldCanvas.Children.Add(rect4);
+        }
+
+        private Rectangle InitRect(int width, int height)
+        {
+            Rectangle rect = new Rectangle();
+            rect.Stroke = new SolidColorBrush(Colors.Black);
+            rect.Fill = new SolidColorBrush(Colors.Black);
+            rect.Width = width;
+            rect.Height = height;
+            return rect;
         }
 
         public void DrawGridLine(double x1, double x2, double y1, double y2) {
