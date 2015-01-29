@@ -122,6 +122,9 @@ namespace S1lightcycle {
             _player2.Robot = _objTracker.SecondCar;
             _timer.Start();
             Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
         }
 
         private void InitPlayers()
