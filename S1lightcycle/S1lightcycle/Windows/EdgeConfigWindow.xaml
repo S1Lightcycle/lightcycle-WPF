@@ -3,11 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="EdgeConfigWindow" WindowStyle="None" WindowState="Maximized" MouseDown="Window_MouseDown">
     <Grid>
-        <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Height="20px" Width="20px" Fill="Red" />
-        <Rectangle HorizontalAlignment="Right" VerticalAlignment="Top" Height="20px" Width="20px" Fill="Red" />
-        <Rectangle HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="20px" Width="20px" Fill="Red" />
-        <Rectangle HorizontalAlignment="RIght" VerticalAlignment="Bottom" Height="20px" Width="20px" Fill="Red" />
-        <Label Content="press left mouse button to continue..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16"/>
+        <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Height="40px" Width="40px" Fill="Red" />
+        <Rectangle HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40px" Width="40px" Fill="Red" />
+        <Label Content="Press left mouse button to continue..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"/>
         
     </Grid>
 </Window>

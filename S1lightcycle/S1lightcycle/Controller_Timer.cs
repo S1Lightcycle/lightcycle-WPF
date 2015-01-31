@@ -12,7 +12,7 @@ namespace S1lightcycle
 
         private void InitCountdownTimer()
         {
-            _countDownTimer = new Timer(2000);
+            _countDownTimer = new Timer(500);
             _countDownTimer.Elapsed += new ElapsedEventHandler(CountDownOver);
             _countDownTimer.Enabled = true;
             _isCountDownOver = false;
