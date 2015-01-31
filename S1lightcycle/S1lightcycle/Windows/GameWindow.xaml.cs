@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shapes;
-using S1Lightcycle.Objecttracker;
+using S1lightcycle.Objecttracker;
 using System.Windows.Media;
 
 namespace S1lightcycle.Windows {

@@ -1,6 +1,6 @@
 ﻿using System;
 using S1lightcycle.Windows;
-using S1Lightcycle.Objecttracker;
+using S1lightcycle.Objecttracker;
 using System.Diagnostics;
 using System.Windows.Input;
 using S1lightcycle.Communication;
@@ -218,8 +218,8 @@ namespace S1lightcycle {
         }
 
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
-            int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(_calibration.GetROIWidth()) * Convert.ToDouble(this.GameWidth));
-            int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(_calibration.GetROIHeight()) * Convert.ToDouble(this.GameHeight));
+            int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(_calibration.RoiWidth) * Convert.ToDouble(this.GameWidth));
+            int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(_calibration.RoiHeight) * Convert.ToDouble(this.GameHeight));
             Console.WriteLine("x: " + x + " y: " + y);
             Console.WriteLine("xcoord: " + coordinates.XCoord + " ycoord: " + coordinates.YCoord);
             if (x == -1 || y == -1) return null;

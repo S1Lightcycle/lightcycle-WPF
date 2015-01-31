@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 
-namespace S1Lightcycle.Objecttracker
+namespace S1lightcycle.Objecttracker
 {
     public class ObjectTracker
     {
@@ -40,8 +40,8 @@ namespace S1Lightcycle.Objecttracker
             _capture = _calibration.GetVideoCapture();
 
             //setting _capture resolution
-            _capture.Set(CaptureWidthProperty, _calibration.camResolutionWidth);
-            _capture.Set(CaptureHeightProperty, _calibration.camResolutionHeight);
+            _capture.Set(CaptureWidthProperty, _calibration.CamResolutionWidth);
+            _capture.Set(CaptureHeightProperty, _calibration.CamResolutionHeight);
 
             _blobWindow = new CvWindow("_blobs");
 
@@ -53,10 +53,6 @@ namespace S1Lightcycle.Objecttracker
             SecondCar = new Robot(-1, -1);
 
             arePlayersInitialized = false;
-
-            /*BlobMinSize = 2500;
-            BlobMaxSize = 50000;
-            LearningRate = 0.001;*/
         }
 
         public void StartTracking() {
@@ -90,11 +86,9 @@ namespace S1Lightcycle.Objecttracker
                 
                 Mat sub = new Mat();
 
-                
                 //camera calibration - ROI
                 CvPoint[] roiPoints = _calibration.GetCalibrationPoints();
-                CvSize size = new CvSize(_calibration.GetROIWidth(), _calibration.GetROIHeight());
-                //CvSize size = new CvSize(_calibration.GetROIHeight(), _calibration.GetROIWidth());
+                CvSize size = new CvSize(_calibration.RoiWidth, _calibration.RoiHeight);
                 CvRect roiRect = new CvRect(roiPoints[0], size);
                 Mat srcRoi = _frame.Clone(roiRect);
 
@@ -168,7 +162,7 @@ namespace S1Lightcycle.Objecttracker
 
                 if (!arePlayersInitialized)
                 {
-                    if (largest.MaxX < _calibration.GetROIWidth()/2)
+                    if (largest.MaxX < _calibration.RoiWidth/2)
                     {
                         EnqueuePlayers(new Coordinate(largestCenter), new Coordinate(secondCenter));
                     }

@@ -1,4 +1,4 @@
-﻿using S1Lightcycle.Objecttracker;
+﻿using S1lightcycle.Objecttracker;
 
 namespace S1lightcycle {
     public class Player {

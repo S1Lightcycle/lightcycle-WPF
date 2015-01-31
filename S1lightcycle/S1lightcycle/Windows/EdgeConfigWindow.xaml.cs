@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using S1Lightcycle.Objecttracker;
+using S1lightcycle.Objecttracker;
 
 namespace S1lightcycle.Windows {
     /// <summary>

@@ -9,10 +9,9 @@ namespace S1lightcycle.Objecttracker {
         private Mat _frame;
         private const int CaptureWidthProperty = 3;
         private const int CaptureHeightProperty = 4;
-        public int camResolutionWidth = 1280;
-        public int camResolutionHeight = 720;
-        private CvPoint[] CalibrationPoints = new CvPoint[2];
-        private int countClicks = 0;
+        public int CamResolutionWidth = 1280;
+        public int CamResolutionHeight = 720;
+        private int _countClicks = 0;
         private CvWindow _cvFrame;
         private IplImage _srcImg;
         private static CalibrateCamera _instance;
@@ -21,11 +20,11 @@ namespace S1lightcycle.Objecttracker {
         {
             get
             {
-                if (S1lightcycle.Properties.Settings.Default.x2 > S1lightcycle.Properties.Settings.Default.x1)
+                if (Properties.Settings.Default.x2 > Properties.Settings.Default.x1)
                 {
-                    return S1lightcycle.Properties.Settings.Default.x2 - S1lightcycle.Properties.Settings.Default.x1;
+                    return Properties.Settings.Default.x2 - Properties.Settings.Default.x1;
                 }
-                return S1lightcycle.Properties.Settings.Default.x1 - S1lightcycle.Properties.Settings.Default.x2;
+                return Properties.Settings.Default.x1 - Properties.Settings.Default.x2;
             }
         }
 
@@ -33,11 +32,11 @@ namespace S1lightcycle.Objecttracker {
         {
             get
             {
-                if (S1lightcycle.Properties.Settings.Default.y2 > S1lightcycle.Properties.Settings.Default.y1)
+                if (Properties.Settings.Default.y2 > Properties.Settings.Default.y1)
                 {
-                    return S1lightcycle.Properties.Settings.Default.y2 - S1lightcycle.Properties.Settings.Default.y1;
+                    return Properties.Settings.Default.y2 - Properties.Settings.Default.y1;
                 }
-                return S1lightcycle.Properties.Settings.Default.y1 - S1lightcycle.Properties.Settings.Default.y2;
+                return Properties.Settings.Default.y1 - Properties.Settings.Default.y2;
             }
         }
 
@@ -46,24 +45,19 @@ namespace S1lightcycle.Objecttracker {
         }
 
         public CvPoint[] GetCalibrationPoints() {
-            CvPoint point1 = new CvPoint(S1lightcycle.Properties.Settings.Default.x1, S1lightcycle.Properties.Settings.Default.y1);
-            CvPoint point2 = new CvPoint(S1lightcycle.Properties.Settings.Default.x2, S1lightcycle.Properties.Settings.Default.y2);
-            CalibrationPoints[0] = point1;
-            CalibrationPoints[1] = point2;
-            return this.CalibrationPoints;
+            return new []{new CvPoint(Properties.Settings.Default.x1, Properties.Settings.Default.y1), 
+                new CvPoint(Properties.Settings.Default.x2, Properties.Settings.Default.y2)};
         }
-
 
         public static CalibrateCamera GetInstance() {
             if (_instance == null) _instance = new CalibrateCamera();
             return _instance;
         }
 
-
         private CalibrateCamera() {
             _capture = new VideoCapture(0);
-            _capture.Set(CaptureWidthProperty, camResolutionWidth);
-            _capture.Set(CaptureHeightProperty, camResolutionHeight);
+            _capture.Set(CaptureWidthProperty, CamResolutionWidth);
+            _capture.Set(CaptureHeightProperty, CamResolutionHeight);
         }
 
         public void ShowFrame() {
@@ -73,8 +67,6 @@ namespace S1lightcycle.Objecttracker {
             //get new _frame from camera
             _capture.Read(_frame);
             
-
-
             //_frame height == 0 => camera hasn't been initialized properly and provides garbage data
             while (_frame.Height == 0) {
                 _capture.Read(_frame);
@@ -92,31 +84,30 @@ namespace S1lightcycle.Objecttracker {
 
         public void OnMouseDown(MouseEvent me, int x, int y, MouseEvent me2) {
             if (me == MouseEvent.LButtonDown) {
-                if (countClicks > 1) countClicks = 0;
+                if (_countClicks > 1) _countClicks = 0;
                 
-                Console.WriteLine((countClicks + 1) + ". Coordinate:");
+                Console.WriteLine((_countClicks + 1) + ". Coordinate:");
                 Console.Write("x-coord: " + x + ", ");
                 Console.WriteLine("y-coord: " + y);
 
                 CvPoint point = new CvPoint(x, y);
                 Cv.Circle(_srcImg, point, 10, new CvColor(255, 0, 0), 5);
-                if (countClicks == 0) {
-                    S1lightcycle.Properties.Settings.Default.x1 = x;
-                    S1lightcycle.Properties.Settings.Default.y1 = y;
-                } else if (countClicks == 1) {
-                    S1lightcycle.Properties.Settings.Default.x2 = x;
-                    S1lightcycle.Properties.Settings.Default.y2 = y;
+                if (_countClicks == 0) {
+                    Properties.Settings.Default.x1 = x;
+                    Properties.Settings.Default.y1 = y;
+                } else if (_countClicks == 1) {
+                    Properties.Settings.Default.x2 = x;
+                    Properties.Settings.Default.y2 = y;
                 }
-                countClicks++;
-                S1lightcycle.Properties.Settings.Default.Save();
+                _countClicks++;
+                Properties.Settings.Default.Save();
                 _cvFrame.Image = _srcImg;
 
-                if (countClicks > 1) {
+                if (_countClicks > 1) {
                     _cvFrame.Close();
                     
                 }
             }
-            
         }
     }
 }
