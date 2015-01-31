@@ -88,7 +88,7 @@ namespace S1lightcycle.Objecttracker {
             
             _srcImg = _frame.ToIplImage();
             _cvFrame = new CvWindow("edge calibration editor", WindowMode.Fullscreen, _srcImg);
-            _cvFrame.OnMouseCallback += new CvMouseCallback(OnMouseDown);
+            _cvFrame.OnMouseCallback += OnMouseDown;
             
         }
 

@@ -74,9 +74,6 @@
         /// build a raw package by address, command and parameter
         /// data[HI] and data[LO] are the two bytes of the protocol which are returned
         /// </summary>
-        /// <param name="address"></param>
-        /// <param name="command"></param>
-        /// <param name="parameter"></param>
         /// <returns></returns>
         public byte[] BuildProtocolData()
         {

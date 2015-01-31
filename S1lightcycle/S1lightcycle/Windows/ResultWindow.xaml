@@ -21,7 +21,7 @@
             <Label Grid.Column="1" Name="Player2NameBox" HorizontalAlignment="Center" Height="23" Margin="0,0,0,0"  Content="Player 2:" VerticalAlignment="Bottom" Width="120"/>
             <Label Grid.Column="1" Name="Player2ResultLabel"  HorizontalAlignment="Center" Height="23" Margin="0,0,0,0" Grid.Row="1" Content="" VerticalAlignment="Top" Width="120"/>
         </Grid>
-        <Grid x:Name="ButtonGrid" Grid.Row="2">
+        <Grid x:Name="ButtonGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>

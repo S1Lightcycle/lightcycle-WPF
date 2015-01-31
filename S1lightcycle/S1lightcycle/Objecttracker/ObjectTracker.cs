@@ -22,7 +22,7 @@ namespace S1lightcycle.Objecttracker
         private const int CaptureHeightProperty = 4;
         private readonly static object Lock = new object();
 
-        private bool arePlayersInitialized;
+        private bool _arePlayersInitialized;
 
         private Thread _trackingThread;
 
@@ -52,13 +52,13 @@ namespace S1lightcycle.Objecttracker
             FirstCar = new Robot(-1, -1);
             SecondCar = new Robot(-1, -1);
 
-            arePlayersInitialized = false;
+            _arePlayersInitialized = false;
         }
 
         public void StartTracking() {
             _oldFirstCar = CvPoint.Empty;
             _oldSecondCar = CvPoint.Empty;
-            _trackingThread = new Thread(this.Track);
+            _trackingThread = new Thread(Track);
             _isTracking = true;
             _trackingThread.Priority = ThreadPriority.Highest;
             _trackingThread.Start();
@@ -160,7 +160,7 @@ namespace S1lightcycle.Objecttracker
                 CvPoint largestCenter = largest.CalcCentroid();
                 CvPoint secondCenter = secondLargest.CalcCentroid();
 
-                if (!arePlayersInitialized)
+                if (!_arePlayersInitialized)
                 {
                     if (largest.MaxX < _calibration.RoiWidth/2)
                     {
@@ -170,7 +170,7 @@ namespace S1lightcycle.Objecttracker
                     {
                         EnqueuePlayers(new Coordinate(secondCenter), new Coordinate(largestCenter));
                     }
-                    arePlayersInitialized = true;
+                    _arePlayersInitialized = true;
                 }
 
                 if ((_oldFirstCar == CvPoint.Empty) || 

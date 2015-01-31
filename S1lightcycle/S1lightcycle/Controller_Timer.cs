@@ -13,7 +13,7 @@ namespace S1lightcycle
         private void InitCountdownTimer()
         {
             _countDownTimer = new Timer(500);
-            _countDownTimer.Elapsed += new ElapsedEventHandler(CountDownOver);
+            _countDownTimer.Elapsed += CountDownOver;
             _countDownTimer.Enabled = true;
             _isCountDownOver = false;
         }
@@ -22,7 +22,7 @@ namespace S1lightcycle
         {
             //set _timer -> Update method
             _timer = new DispatcherTimer();
-            _timer.Tick += new EventHandler(Update);
+            _timer.Tick += Update;
             _timer.Interval = new TimeSpan(0, 0, 0, 0, TimerIntervall); //TimeSpan days/hours/minutes/seconds/milliseconds
         }
 
@@ -32,15 +32,15 @@ namespace S1lightcycle
             _countDownTimer.Enabled = false;
             if (_objTracker != null)
             {
-                this._objTracker.FirstCar.Coord.Clear();
-                this._objTracker.SecondCar.Coord.Clear();
+                _objTracker.FirstCar.Coord.Clear();
+                _objTracker.SecondCar.Coord.Clear();
             }
         }
 
         /* Thread priority definieren */
         private void Update(object sender, EventArgs e)
         {
-            if (_isCountDownOver == true)
+            if (_isCountDownOver)
             {
                 _stopWatch.Start();
 

@@ -18,14 +18,14 @@ namespace S1lightcycle.Windows
         private void Revanche_Button_Click(object sender, RoutedEventArgs e)
         {
             Controller.Instance.InitGame();
-            this.Close();
+            Close();
         }
 
         private void NewGame_Button_Click(object sender, RoutedEventArgs e)
         {
             Controller.Instance.ResetPlayerPoints();
             Application.Current.MainWindow.Show();
-			this.Close();
+			Close();
         }
 
         private void Quit_Button_Click(object sender, RoutedEventArgs e)

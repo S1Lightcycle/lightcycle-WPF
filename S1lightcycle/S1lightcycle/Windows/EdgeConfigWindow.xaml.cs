@@ -13,7 +13,7 @@ namespace S1lightcycle.Windows {
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
             CalibrateCamera.GetInstance().ShowFrame();
-            this.Hide();
+            Hide();
         }
     }
 }

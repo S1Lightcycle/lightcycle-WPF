@@ -15,44 +15,44 @@ namespace S1lightcycle.Windows {
         public int GridWidth { get; private set; }
         public int GridHeight { get; private set; }
          
-        public GameWindow(Controller controller) {
+        public GameWindow() {
             InitializeComponent();
         }
 
         public void DrawGrid(int gridSize) {
-            Console.WriteLine("width: " + this.Width + " height: " + this.Height);
+            Console.WriteLine("width: " + Width + " height: " + Height);
 
-            int maxVert = (int)this.Width / gridSize;
-            int remainderVert = (int)this.Width - (maxVert * gridSize);
-            int maxHor = (int)this.Height / gridSize;
-            int remainderHor = (int)this.Height - (maxHor * gridSize);
+            int maxVert = (int)Width / gridSize;
+            int remainderVert = (int)Width - (maxVert * gridSize);
+            int maxHor = (int)Height / gridSize;
+            int remainderHor = (int)Height - (maxHor * gridSize);
 
             //vertical grid
-            for (int i = 0; (i * gridSize) <= this.Width; i++) {
-                DrawGridLine(i * gridSize, i * gridSize, 0, this.Height);
+            for (int i = 0; (i * gridSize) <= Width; i++) {
+                DrawGridLine(i * gridSize, i * gridSize, 0, Height);
                 GridWidth = i;
             }
 
             //horizontal grid
-            for (int j = 0; (j * gridSize) <= this.Height; j++) {
-                DrawGridLine(0, this.Width, j * gridSize, j * gridSize);
+            for (int j = 0; (j * gridSize) <= Height; j++) {
+                DrawGridLine(0, Width, j * gridSize, j * gridSize);
                 GridHeight = j;
             }
 
-            Rectangle rect1 = InitRect((int)this.Width, gridSize);
+            Rectangle rect1 = InitRect((int)Width, gridSize);
             Canvas.SetLeft(rect1, 0);
             Canvas.SetTop(rect1, 0);
 
-            Rectangle rect2 = InitRect((int)this.Width, gridSize);
+            Rectangle rect2 = InitRect((int)Width, gridSize);
             Canvas.SetLeft(rect2, 0);
-            Canvas.SetTop(rect1, this.Height - remainderHor);
+            Canvas.SetTop(rect1, Height - remainderHor);
 
-            Rectangle rect3 = InitRect(gridSize, (int)this.Height);
+            Rectangle rect3 = InitRect(gridSize, (int)Height);
             Canvas.SetLeft(rect3, 0);
             Canvas.SetTop(rect3, 0);
 
-            Rectangle rect4 = InitRect(gridSize, (int)this.Height);
-            Canvas.SetLeft(rect4, this.Width - remainderVert);
+            Rectangle rect4 = InitRect(gridSize, (int)Height);
+            Canvas.SetLeft(rect4, Width - remainderVert);
             Canvas.SetTop(rect4, 0);
 
             GameFieldCanvas.Children.Add(rect1);
@@ -73,7 +73,7 @@ namespace S1lightcycle.Windows {
 
         public void DrawGridLine(double x1, double x2, double y1, double y2) {
             Line gridLine = new Line();
-            gridLine.Stroke = System.Windows.Media.Brushes.Black;
+            gridLine.Stroke = Brushes.Black;
             gridLine.StrokeThickness = 3;
 
             gridLine.X1 = x1;
@@ -90,16 +90,16 @@ namespace S1lightcycle.Windows {
             switch (color)
             {
                 case WallColor.Black:
-                    newWall.Fill = System.Windows.Media.Brushes.Black;
+                    newWall.Fill = Brushes.Black;
                     break;
                 case WallColor.Red:
-                    newWall.Fill = System.Windows.Media.Brushes.Red;
+                    newWall.Fill = Brushes.Red;
                     break;
                 case WallColor.Blue:
-                    newWall.Fill = System.Windows.Media.Brushes.Blue;
+                    newWall.Fill = Brushes.Blue;
                     break;
                 case WallColor.White:
-                    newWall.Fill = System.Windows.Media.Brushes.White;
+                    newWall.Fill = Brushes.White;
                     break;
             }
             newWall.Width = Controller.RobotSize;

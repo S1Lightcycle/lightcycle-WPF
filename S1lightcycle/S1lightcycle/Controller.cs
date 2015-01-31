@@ -20,8 +20,8 @@ namespace S1lightcycle {
         private Player _player1;
         private Player _player2;
         private ObjectTracker _objTracker;
-        private Windows.GameWindow _gameWindow;
-        private Windows.ResultWindow _resultWindow;
+        private GameWindow _gameWindow;
+        private ResultWindow _resultWindow;
         private WallColor[][] _walls;
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
@@ -43,7 +43,7 @@ namespace S1lightcycle {
             // register for robot eventsj
             /*var main = MainWindow as MainWindow;
             Connected += new S1lightcycle.Controller.ConnectedEventHandler(MainWindow.Connected);*/
-            Communicator.Instance.PackageReceived += new Communicator.PackageReceivedEventHandler(PackageReceived);
+            Communicator.Instance.PackageReceived += PackageReceived;
             _calibration = CalibrateCamera.GetInstance();
         }
 
@@ -71,9 +71,6 @@ namespace S1lightcycle {
                         Trace.TraceInformation("Robots are connected");
                         OnConnected();
                         break;
-                    default:
-                        break;
-
                 }
             }
         }
@@ -136,7 +133,7 @@ namespace S1lightcycle {
         private void InitGameWindow()
         {
             //init window
-            _gameWindow = new Windows.GameWindow(this);
+            _gameWindow = new GameWindow();
             _gameWindow.Height = GameHeight;
             _gameWindow.Width = GameWidth;
             _gameWindow.Show();
@@ -166,7 +163,7 @@ namespace S1lightcycle {
 
         private void InitTracking()
         {
-            _objTracker = new ObjectTracker()
+            _objTracker = new ObjectTracker
             {
                 LearningRate = Properties.Settings.Default.LearningRate,
                 BlobMaxSize = Properties.Settings.Default.MaxBlobSize,
@@ -212,14 +209,14 @@ namespace S1lightcycle {
         {
             Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _timer.Stop();
-            _resultWindow = new Windows.ResultWindow();
+            _resultWindow = new ResultWindow();
             _gameWindow.Close();
             _resultWindow.Show();
         }
 
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
-            int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(_calibration.RoiWidth) * Convert.ToDouble(this.GameWidth));
-            int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(_calibration.RoiHeight) * Convert.ToDouble(this.GameHeight));
+            int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(_calibration.RoiWidth) * Convert.ToDouble(GameWidth));
+            int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(_calibration.RoiHeight) * Convert.ToDouble(GameHeight));
             Console.WriteLine("x: " + x + " y: " + y);
             Console.WriteLine("xcoord: " + coordinates.XCoord + " ycoord: " + coordinates.YCoord);
             if (x == -1 || y == -1) return null;

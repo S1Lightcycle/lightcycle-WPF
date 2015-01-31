@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
-using System.Threading;
 
 namespace S1lightcycle.Windows {
     /// <summary>
@@ -10,9 +9,9 @@ namespace S1lightcycle.Windows {
     public partial class OptionWindow : Window {
         public OptionWindow() {
             InitializeComponent();
-            this.LearningRateBox.Text = Properties.Settings.Default.LearningRate.ToString();
-            this.MinBlobSizeBox.Text = Properties.Settings.Default.MinBlobSize.ToString();
-            this.MaxBlobSizeBox.Text = Properties.Settings.Default.MaxBlobSize.ToString();
+            LearningRateBox.Text = Properties.Settings.Default.LearningRate.ToString();
+            MinBlobSizeBox.Text = Properties.Settings.Default.MinBlobSize.ToString();
+            MaxBlobSizeBox.Text = Properties.Settings.Default.MaxBlobSize.ToString();
             foreach (String name in Controller.Instance.GetSerialPorts())
             {
                 cmbSerialPort.Items.Add(name);
@@ -45,11 +44,11 @@ namespace S1lightcycle.Windows {
 
         private void Calibration_Button_Click(object sender, RoutedEventArgs e) {
             new EdgeConfigWindow().Show();
-            this.Hide();
+            Hide();
         }
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void cmbSerialPort_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)

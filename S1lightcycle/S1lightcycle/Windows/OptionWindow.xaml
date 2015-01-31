@@ -10,12 +10,12 @@
         <Label Content="Learning Rate" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2"/>
         <Label Content="Min Blobsize" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2"/>
         <Label Content="Max Blobsize" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="129" Grid.ColumnSpan="2"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="179,13,0,0" TextWrapping="Wrap" Name ="LearningRateBox" Text="" VerticalAlignment="Top" Width="95" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="179,46,0,0" TextWrapping="Wrap" Name ="MinBlobSizeBox" Text="" VerticalAlignment="Top" Width="95" Grid.Column="1"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="179,77,0,0" TextWrapping="Wrap" Name ="MaxBlobSizeBox" Text="" VerticalAlignment="Top" Width="95" Grid.Column="1"/>
-        <Button Content="start calibration" HorizontalAlignment="Center" Margin="25,0,186,10" VerticalAlignment="Bottom" Width="95" RenderTransformOrigin="0.053,-1.3" Height="21" Click="Calibration_Button_Click" Grid.Column="1"/>
-        <Button Content="Ok" HorizontalAlignment="Center" Margin="179,0,32,10" VerticalAlignment="Bottom" Width="95" RenderTransformOrigin="0.053,-1.3" Height="21" Click="OK_Button_Click" Grid.Column="1"/>
-        <ComboBox HorizontalAlignment="Left" Margin="179,105,0,0" VerticalAlignment="Top" Width="95" Name="cmbSerialPort" SelectionChanged="cmbSerialPort_SelectionChanged" Grid.Column="1"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="179,13,0,0" TextWrapping="Wrap" Name ="LearningRateBox" Text="" VerticalAlignment="Top" Width="95"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="179,46,0,0" TextWrapping="Wrap" Name ="MinBlobSizeBox" Text="" VerticalAlignment="Top" Width="95"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="179,77,0,0" TextWrapping="Wrap" Name ="MaxBlobSizeBox" Text="" VerticalAlignment="Top" Width="95"/>
+        <Button Content="start calibration" HorizontalAlignment="Center" Margin="25,0,186,10" VerticalAlignment="Bottom" Width="95" RenderTransformOrigin="0.053,-1.3" Height="21" Click="Calibration_Button_Click"/>
+        <Button Content="Ok" HorizontalAlignment="Center" Margin="179,0,32,10" VerticalAlignment="Bottom" Width="95" RenderTransformOrigin="0.053,-1.3" Height="21" Click="OK_Button_Click"/>
+        <ComboBox HorizontalAlignment="Left" Margin="179,105,0,0" VerticalAlignment="Top" Width="95" Name="cmbSerialPort" SelectionChanged="cmbSerialPort_SelectionChanged"/>
         <Label Content="Serial Port" HorizontalAlignment="Left" Margin="10,102,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
     </Grid>
 </Window>

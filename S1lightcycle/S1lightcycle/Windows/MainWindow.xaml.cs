@@ -9,7 +9,7 @@ namespace S1lightcycle.Windows {
         public MainWindow() {
             InitializeComponent();
             // enable events
-            Controller.Instance.Connected += new S1lightcycle.Controller.ConnectedEventHandler(Connected);
+            Controller.Instance.Connected += Connected;
         }
 
         void Connected(object sender)
@@ -24,7 +24,7 @@ namespace S1lightcycle.Windows {
 
         private void btnStartGame_Click(object sender, RoutedEventArgs e) {
             Controller.Instance.PlaceRobots();
-            this.Hide();
+            Hide();
         }
 
         private void btnOptions_Click(object sender, RoutedEventArgs e) {

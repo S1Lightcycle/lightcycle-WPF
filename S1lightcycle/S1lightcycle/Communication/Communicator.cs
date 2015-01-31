@@ -17,13 +17,13 @@ namespace S1lightcycle.Communication
                 PackageReceived(this, package);
         }
 
-        private static Communicator instance;
+        private static Communicator _instance;
 
         private Timer timer = new Timer();
 
         private LcProtocol heartbeatPackage = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0);
 
-        private int HEARTBEAT_INTERVALL = 1000;
+        private const int HEARTBEAT_INTERVALL = 1000;
 
         private SerialPort _serialPort = new SerialPort();
 
@@ -49,11 +49,11 @@ namespace S1lightcycle.Communication
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new Communicator();
+                    _instance = new Communicator();
                 }
-                return instance;
+                return _instance;
             }
         }
 
@@ -68,7 +68,7 @@ namespace S1lightcycle.Communication
             _serialPort.Handshake = Handshake.None;
             _serialPort.Parity = Parity.None;
             _serialPort.StopBits = StopBits.One;
-            _serialPort.DataReceived += new SerialDataReceivedEventHandler(_serialPort_DataReceived);
+            _serialPort.DataReceived += _serialPort_DataReceived;
             _serialPort.DtrEnable = false;
 
             if (_portName != null)
@@ -76,11 +76,6 @@ namespace S1lightcycle.Communication
                 _serialPort.PortName = _portName;
                 _serialPort.Open();
             }
-        }
-
-        void heartbeat_tick(object sender, EventArgs e)
-        {
-            Communicator.Instance.SendPackage(heartbeatPackage);
         }
 
         private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)

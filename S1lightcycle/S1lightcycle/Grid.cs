@@ -4,8 +4,8 @@
         public int Column;
 
         public Grid(int x, int y) {
-            this.Row = x;
-            this.Column = y;
+            Row = x;
+            Column = y;
         }
     }
 }
