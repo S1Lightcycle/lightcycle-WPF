@@ -10,8 +10,6 @@ namespace S1lightcycle.UART
             Communicator.Instance.SendPackage(package);
 
             Console.Read();
-
-
         }
     }
 }

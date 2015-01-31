@@ -57,6 +57,10 @@
     <Compile Include="Communication\Communicator.cs" />
     <Compile Include="Communication\LcProtocol.cs" />
     <Compile Include="Communication\ProtocolTest.cs" />
+    <Compile Include="Objecttracker\CalibrateCamera.cs" />
+    <Compile Include="Objecttracker\Coordinate.cs" />
+    <Compile Include="Objecttracker\ObjectTracker.cs" />
+    <Compile Include="Objecttracker\Robot.cs" />
     <Compile Include="WallColor.cs" />
     <Compile Include="Windows\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -141,12 +145,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\tron-legacy-light-cycles_130105.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\ObjectTracking\S1LightcycleNET\S1LightcycleNET.csproj">
-      <Project>{a76a9be5-b8d5-4cb0-bc5f-865e872adc79}</Project>
-      <Name>S1LightcycleNET</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
