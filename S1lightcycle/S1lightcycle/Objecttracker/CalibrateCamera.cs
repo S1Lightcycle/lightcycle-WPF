@@ -2,9 +2,8 @@
 using OpenCvSharp.CPlusPlus;
 using System;
 using System.Threading;
-using S1lightcycle;
 
-namespace S1LightcycleNET {
+namespace S1lightcycle.Objecttracker {
     public class CalibrateCamera {
         private VideoCapture _capture;
         private Mat _frame;
@@ -18,12 +17,28 @@ namespace S1LightcycleNET {
         private IplImage _srcImg;
         private static CalibrateCamera _instance;
 
-        public int GetROIWidth() {
-            return S1lightcycle.Properties.Settings.Default.x2 - S1lightcycle.Properties.Settings.Default.x1;
+        public int RoiWidth
+        {
+            get
+            {
+                if (S1lightcycle.Properties.Settings.Default.x2 > S1lightcycle.Properties.Settings.Default.x1)
+                {
+                    return S1lightcycle.Properties.Settings.Default.x2 - S1lightcycle.Properties.Settings.Default.x1;
+                }
+                return S1lightcycle.Properties.Settings.Default.x1 - S1lightcycle.Properties.Settings.Default.x2;
+            }
         }
 
-        public int GetROIHeight() {
-            return S1lightcycle.Properties.Settings.Default.y2 - S1lightcycle.Properties.Settings.Default.y1;
+        public int RoiHeight
+        {
+            get
+            {
+                if (S1lightcycle.Properties.Settings.Default.y2 > S1lightcycle.Properties.Settings.Default.y1)
+                {
+                    return S1lightcycle.Properties.Settings.Default.y2 - S1lightcycle.Properties.Settings.Default.y1;
+                }
+                return S1lightcycle.Properties.Settings.Default.y1 - S1lightcycle.Properties.Settings.Default.y2;
+            }
         }
 
         public VideoCapture GetVideoCapture() {

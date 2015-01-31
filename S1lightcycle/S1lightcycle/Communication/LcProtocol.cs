@@ -1,4 +1,4 @@
-﻿namespace S1lightcycle.UART
+﻿namespace S1lightcycle.Communication
 {
     public class LcProtocol
     {

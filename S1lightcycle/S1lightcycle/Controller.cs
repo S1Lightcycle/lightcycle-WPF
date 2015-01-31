@@ -1,9 +1,9 @@
 ﻿using System;
 using S1lightcycle.Windows;
-using S1LightcycleNET;
+using S1Lightcycle.Objecttracker;
 using System.Diagnostics;
 using System.Windows.Input;
-using S1lightcycle.UART;
+using S1lightcycle.Communication;
 
 namespace S1lightcycle {
     public partial class Controller {

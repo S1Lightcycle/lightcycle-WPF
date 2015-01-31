@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace S1lightcycle.UART
+namespace S1lightcycle.Communication
 {
     class ProtocolTest
     {

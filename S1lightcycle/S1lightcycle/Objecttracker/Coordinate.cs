@@ -1,4 +1,4 @@
-﻿namespace S1LightcycleNET
+﻿namespace S1Lightcycle.Objecttracker
 {
     public class Coordinate
     {

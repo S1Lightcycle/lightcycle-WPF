@@ -4,7 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Timers;
 
-namespace S1lightcycle.UART
+namespace S1lightcycle.Communication
 {
     public class Communicator
     {
