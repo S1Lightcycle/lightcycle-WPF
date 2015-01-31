@@ -44,15 +44,19 @@ namespace S1lightcycle.Objecttracker {
             return _capture;
         }
 
-        public CvPoint[] GetCalibrationPoints() {
-            CvPoint point1 = new CvPoint(Properties.Settings.Default.x1, Properties.Settings.Default.y1);
-            CvPoint point2 = new CvPoint(Properties.Settings.Default.x2, Properties.Settings.Default.y2);
-
-            if (point1.X < point2.X)
+        public CvPoint[] CalibrationPoints
+        {
+            get
             {
-                return new[] {point1, point2};
+                CvPoint point1 = new CvPoint(Properties.Settings.Default.x1, Properties.Settings.Default.y1);
+                CvPoint point2 = new CvPoint(Properties.Settings.Default.x2, Properties.Settings.Default.y2);
+
+                if (point1.X < point2.X)
+                {
+                    return new[] {point1, point2};
+                }
+                return new[] {point2, point1};
             }
-            return new[] {point2, point1};
         }
 
         public static CalibrateCamera GetInstance() {

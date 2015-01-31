@@ -71,7 +71,7 @@ namespace S1lightcycle.Objecttracker
 
         public void Track()
         {
-            CvWindow asdf = new CvWindow("roi");
+            CvWindow roiWindow = new CvWindow("roi");
             while (_isTracking) { 
                 _frame = new Mat();
 
@@ -87,13 +87,13 @@ namespace S1lightcycle.Objecttracker
                 Mat sub = new Mat();
 
                 //camera calibration - ROI
-                CvPoint[] roiPoints = _calibration.GetCalibrationPoints();
+                CvPoint[] roiPoints = _calibration.CalibrationPoints;
                 CvSize size = new CvSize(_calibration.RoiWidth, _calibration.RoiHeight);
                 CvRect roiRect = new CvRect(roiPoints[0], size);
                 Mat srcRoi = _frame.Clone(roiRect);
 
                 IplImage tmpImg = srcRoi.ToIplImage().Clone();
-                asdf.ShowImage(tmpImg);
+                roiWindow.ShowImage(tmpImg);
 
                 //perform background subtraction with selected _subtractor.
                 _subtractor.Run(srcRoi, sub, LearningRate);
@@ -220,7 +220,7 @@ namespace S1lightcycle.Objecttracker
 
         private void EnqueuePlayers(Coordinate firstPlayer, Coordinate secondPlayer)
         {
-            lock(ObjectTracker.Lock)
+            lock(Lock)
             {
                 if (firstPlayer != null)
                 {
