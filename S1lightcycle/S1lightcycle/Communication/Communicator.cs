@@ -117,7 +117,7 @@ namespace S1lightcycle.UART
             }
             catch (Exception e)
             {
-                //throw new ApplicationException("Protocol send error " + e.Message);
+                throw new ApplicationException("Protocol send error " + e.Message);
             }   
         }
 
