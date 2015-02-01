@@ -44,7 +44,7 @@ namespace S1lightcycle.Objecttracker {
             return _capture;
         }
 
-        public CvPoint[] CalibrationPoints
+        public Coordinate CalibrationPoint
         {
             get
             {
@@ -53,9 +53,9 @@ namespace S1lightcycle.Objecttracker {
 
                 if (point1.X < point2.X)
                 {
-                    return new[] {point1, point2};
+                    return new Coordinate(point1.X, point1.Y);
                 }
-                return new[] {point2, point1};
+                return new Coordinate(point2.X, point2.Y);
             }
         }
 

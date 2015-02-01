@@ -87,9 +87,8 @@ namespace S1lightcycle.Objecttracker
                 Mat sub = new Mat();
 
                 //camera calibration - ROI
-                CvPoint[] roiPoints = _calibration.CalibrationPoints;
-                CvSize size = new CvSize(_calibration.RoiWidth, _calibration.RoiHeight);
-                CvRect roiRect = new CvRect(roiPoints[0], size);
+                Coordinate roiBase = _calibration.CalibrationPoint;
+                CvRect roiRect = new CvRect(roiBase.XCoord, roiBase.YCoord, _calibration.RoiWidth, _calibration.RoiHeight);
                 Mat srcRoi = _frame.Clone(roiRect);
 
                 IplImage tmpImg = srcRoi.ToIplImage().Clone();
