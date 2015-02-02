@@ -27,6 +27,8 @@ namespace S1lightcycle {
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
         public const int RobotSize = 200;        //test value; robotsize = gridsize
+        private int _roiHeight;
+        private int _roiWidth;
 
         public double GameHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
         public double GameWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
@@ -100,6 +102,9 @@ namespace S1lightcycle {
             InitCountdownTimer();
 
             _stopWatch = new Stopwatch();
+
+            _roiWidth = Properties.Settings.Default.RoiWidth;
+            _roiHeight = Properties.Settings.Default.RoiHeight;
 
             StartGame();
         }
@@ -212,12 +217,8 @@ namespace S1lightcycle {
         }
 
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
-
-            int roiWidth = Properties.Settings.Default.RoiWidth;
-            int roiHeight = Properties.Settings.Default.RoiHeight;
-
-            int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(roiWidth) * Convert.ToDouble(GameWidth));
-            int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(roiHeight) * Convert.ToDouble(GameHeight));
+            int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(_roiWidth) * Convert.ToDouble(GameWidth));
+            int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(_roiHeight) * Convert.ToDouble(GameHeight));
             Console.WriteLine("x: " + x + " y: " + y);
             Console.WriteLine("xcoord: " + coordinates.XCoord + " ycoord: " + coordinates.YCoord);
             if (x == -1 || y == -1) return null;
