@@ -19,8 +19,6 @@ namespace S1lightcycle.Objecttracker
         private bool _isTracking;
         private const int CaptureWidthProperty = 3;
         private const int CaptureHeightProperty = 4;
-        private readonly int RoiWidth;
-        private readonly int RoiHeight;
         public int CamResolutionWidth = 1280;
         public int CamResolutionHeight = 720;
         private readonly static object Lock = new object();
@@ -53,9 +51,6 @@ namespace S1lightcycle.Objecttracker
             _oldFirstCar = CvPoint.Empty;
             FirstCar = new Robot(-1, -1);
             SecondCar = new Robot(-1, -1);
-
-            RoiHeight = Properties.Settings.Default.RoiHeight;
-            RoiWidth = Properties.Settings.Default.RoiWidth;
 
             _arePlayersInitialized = false;
         }
@@ -93,7 +88,9 @@ namespace S1lightcycle.Objecttracker
 
                 //camera calibration - ROI
                 Coordinate roiBase = new Coordinate(Properties.Settings.Default.CalibrationPointX, Properties.Settings.Default.CalibrationPointY);
-                CvRect roiRect = new CvRect(roiBase.XCoord, roiBase.YCoord, RoiWidth, RoiHeight);
+                int roiHeight = Properties.Settings.Default.RoiHeight;
+                int roiWidth = Properties.Settings.Default.RoiWidth;
+                CvRect roiRect = new CvRect(roiBase.XCoord, roiBase.YCoord, roiWidth, roiHeight);
                 Mat srcRoi = _frame.Clone(roiRect);
 
                 IplImage tmpImg = srcRoi.ToIplImage().Clone();
@@ -166,7 +163,8 @@ namespace S1lightcycle.Objecttracker
 
                 if (!_arePlayersInitialized)
                 {
-                    if (largest.MaxX < RoiWidth/2)
+                    int roiWidth = Properties.Settings.Default.RoiWidth;
+                    if (largest.MaxX < roiWidth/2)
                     {
                         EnqueuePlayers(new Coordinate(largestCenter), new Coordinate(secondCenter));
                     }
