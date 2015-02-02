@@ -72,6 +72,8 @@ namespace S1lightcycle.Objecttracker
         public void Track()
         {
             CvWindow roiWindow = new CvWindow("roi");
+            int roiHeight = Properties.Settings.Default.RoiHeight;
+            int roiWidth = Properties.Settings.Default.RoiWidth;
             while (_isTracking) { 
                 _frame = new Mat();
 
@@ -88,8 +90,6 @@ namespace S1lightcycle.Objecttracker
 
                 //camera calibration - ROI
                 Coordinate roiBase = new Coordinate(Properties.Settings.Default.CalibrationPointX, Properties.Settings.Default.CalibrationPointY);
-                int roiHeight = Properties.Settings.Default.RoiHeight;
-                int roiWidth = Properties.Settings.Default.RoiWidth;
                 CvRect roiRect = new CvRect(roiBase.XCoord, roiBase.YCoord, roiWidth, roiHeight);
                 Mat srcRoi = _frame.Clone(roiRect);
 
