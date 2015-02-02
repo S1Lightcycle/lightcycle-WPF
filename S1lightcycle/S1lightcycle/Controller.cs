@@ -244,7 +244,7 @@ namespace S1lightcycle {
             if (coordinates == null) return;
             _gameWindow.DrawWall(coordinates, player.Color);
             
-            _walls[player.CurPos.Column][player.CurPos.Row] = player.Color;
+            _walls[coordinates.XCoord][coordinates.YCoord] = player.Color;
         }
 
         private bool IsCollision(Player player)

@@ -59,7 +59,8 @@ namespace S1lightcycle.Communication
 
         private void InitializeSerialPort()
         {
-            if (_serialPort.IsOpen) {
+            if (_serialPort.IsOpen)
+            {
                 _serialPort.Close();
             }
 
@@ -104,6 +105,7 @@ namespace S1lightcycle.Communication
 
         public void SendPackage(LcProtocol package)
         {
+
             byte[] data = package.BuildProtocolData();
             try
             {
@@ -112,8 +114,8 @@ namespace S1lightcycle.Communication
             }
             catch (Exception e)
             {
-                throw new ApplicationException("Protocol send error " + e.Message);
-            }   
+                //throw new ApplicationException("Protocol send error " + e.Message);
+            }
         }
 
         ~Communicator()
