@@ -112,7 +112,7 @@ namespace S1lightcycle.Communication
             }
             catch (Exception e)
             {
-                throw new ApplicationException("Protocol send error " + e.Message);
+                //throw new ApplicationException("Protocol send error " + e.Message);
             }   
         }
 
