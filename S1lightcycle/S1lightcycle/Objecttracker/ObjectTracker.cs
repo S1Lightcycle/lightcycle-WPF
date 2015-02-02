@@ -9,7 +9,6 @@ namespace S1lightcycle.Objecttracker
 {
     public class ObjectTracker
     {
-        private CalibrateCamera _calibration;
         private readonly VideoCapture _capture;
         private readonly CvWindow _blobWindow;
         private readonly BackgroundSubtractor _subtractor;
@@ -20,6 +19,10 @@ namespace S1lightcycle.Objecttracker
         private bool _isTracking;
         private const int CaptureWidthProperty = 3;
         private const int CaptureHeightProperty = 4;
+        private readonly int RoiWidth;
+        private readonly int RoiHeight;
+        public int CamResolutionWidth = 1280;
+        public int CamResolutionHeight = 720;
         private readonly static object Lock = new object();
 
         private bool _arePlayersInitialized;
@@ -36,12 +39,11 @@ namespace S1lightcycle.Objecttracker
 
         public ObjectTracker() {
             //webcam
-            _calibration = CalibrateCamera.GetInstance();
-            _capture = _calibration.GetVideoCapture();
+            _capture = new VideoCapture(0);
 
             //setting _capture resolution
-            _capture.Set(CaptureWidthProperty, _calibration.CamResolutionWidth);
-            _capture.Set(CaptureHeightProperty, _calibration.CamResolutionHeight);
+            _capture.Set(CaptureWidthProperty, CamResolutionWidth);
+            _capture.Set(CaptureHeightProperty, CamResolutionHeight);
 
             _blobWindow = new CvWindow("_blobs");
 
@@ -51,6 +53,9 @@ namespace S1lightcycle.Objecttracker
             _oldFirstCar = CvPoint.Empty;
             FirstCar = new Robot(-1, -1);
             SecondCar = new Robot(-1, -1);
+
+            RoiHeight = Properties.Settings.Default.RoiHeight;
+            RoiWidth = Properties.Settings.Default.RoiWidth;
 
             _arePlayersInitialized = false;
         }
@@ -87,8 +92,8 @@ namespace S1lightcycle.Objecttracker
                 Mat sub = new Mat();
 
                 //camera calibration - ROI
-                Coordinate roiBase = _calibration.CalibrationPoint;
-                CvRect roiRect = new CvRect(roiBase.XCoord, roiBase.YCoord, _calibration.RoiWidth, _calibration.RoiHeight);
+                Coordinate roiBase = new Coordinate(Properties.Settings.Default.CalibrationPointX, Properties.Settings.Default.CalibrationPointY);
+                CvRect roiRect = new CvRect(roiBase.XCoord, roiBase.YCoord, RoiWidth, RoiHeight);
                 Mat srcRoi = _frame.Clone(roiRect);
 
                 IplImage tmpImg = srcRoi.ToIplImage().Clone();
@@ -161,7 +166,7 @@ namespace S1lightcycle.Objecttracker
 
                 if (!_arePlayersInitialized)
                 {
-                    if (largest.MaxX < _calibration.RoiWidth/2)
+                    if (largest.MaxX < RoiWidth/2)
                     {
                         EnqueuePlayers(new Coordinate(largestCenter), new Coordinate(secondCenter));
                     }

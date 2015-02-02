@@ -62,48 +62,48 @@ namespace S1lightcycle.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int x1 {
+        public int RoiWidth {
             get {
-                return ((int)(this["x1"]));
+                return ((int)(this["RoiWidth"]));
             }
             set {
-                this["x1"] = value;
+                this["RoiWidth"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int x2 {
+        public int RoiHeight {
             get {
-                return ((int)(this["x2"]));
+                return ((int)(this["RoiHeight"]));
             }
             set {
-                this["x2"] = value;
+                this["RoiHeight"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int y1 {
+        public int CalibrationPointX {
             get {
-                return ((int)(this["y1"]));
+                return ((int)(this["CalibrationPointX"]));
             }
             set {
-                this["y1"] = value;
+                this["CalibrationPointX"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int y2 {
+        public int CalibrationPointY {
             get {
-                return ((int)(this["y2"]));
+                return ((int)(this["CalibrationPointY"]));
             }
             set {
-                this["y2"] = value;
+                this["CalibrationPointY"] = value;
             }
         }
     }

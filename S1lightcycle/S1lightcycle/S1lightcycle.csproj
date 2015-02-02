@@ -118,7 +118,7 @@
     <Compile Include="Communication\Communicator.cs" />
     <Compile Include="Communication\LcProtocol.cs" />
     <Compile Include="Communication\ProtocolTest.cs" />
-    <Compile Include="Objecttracker\CalibrateCamera.cs" />
+    <Compile Include="Objecttracker\CameraCalibrator.cs" />
     <Compile Include="Objecttracker\Coordinate.cs" />
     <Compile Include="Objecttracker\ObjectTracker.cs" />
     <Compile Include="Objecttracker\Robot.cs" />

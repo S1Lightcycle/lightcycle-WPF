@@ -11,16 +11,16 @@
     <Setting Name="MaxBlobSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50000</Value>
     </Setting>
-    <Setting Name="x1" Type="System.Int32" Scope="User">
+    <Setting Name="RoiWidth" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="x2" Type="System.Int32" Scope="User">
+    <Setting Name="RoiHeight" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="y1" Type="System.Int32" Scope="User">
+    <Setting Name="CalibrationPointX" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="y2" Type="System.Int32" Scope="User">
+    <Setting Name="CalibrationPointY" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>

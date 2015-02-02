@@ -12,7 +12,8 @@ namespace S1lightcycle.Windows {
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
-            CalibrateCamera.GetInstance().ShowFrame();
+            CameraCalibrator cameraCalibrator = new CameraCalibrator();
+            cameraCalibrator.ShowFrame();
             Hide();
         }
     }
