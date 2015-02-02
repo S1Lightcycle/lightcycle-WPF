@@ -107,10 +107,7 @@ namespace S1lightcycle {
         public void StartGame()
         {
             //Start object tracking
-            if (_objTracker == null)
-            {
-                InitTracking();
-            }
+            InitTracking();
             _player1.Robot = _objTracker.FirstCar;
             _player2.Robot = _objTracker.SecondCar;
             _timer.Start();
@@ -159,12 +156,15 @@ namespace S1lightcycle {
 
         private void InitTracking()
         {
-            _objTracker = new ObjectTracker
+            if (_objTracker == null)
             {
-                LearningRate = Properties.Settings.Default.LearningRate,
-                BlobMaxSize = Properties.Settings.Default.MaxBlobSize,
-                BlobMinSize = Properties.Settings.Default.MinBlobSize
-            };
+                _objTracker = new ObjectTracker
+                {
+                    LearningRate = Properties.Settings.Default.LearningRate,
+                    BlobMaxSize = Properties.Settings.Default.MaxBlobSize,
+                    BlobMinSize = Properties.Settings.Default.MinBlobSize
+                };
+            }
 
             _objTracker.StartTracking();
 
@@ -205,6 +205,7 @@ namespace S1lightcycle {
         {
             Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _timer.Stop();
+            _objTracker.StopTracking();
             _resultWindow = new ResultWindow();
             _gameWindow.Close();
             _resultWindow.Show();
