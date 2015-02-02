@@ -15,6 +15,7 @@ namespace S1lightcycle.Windows {
             CameraCalibrator cameraCalibrator = new CameraCalibrator();
             cameraCalibrator.ShowFrame();
             Hide();
+            System.Windows.MessageBox.Show("Click on the red points in the screenshot", "S1Lightcycle");
         }
     }
 }
