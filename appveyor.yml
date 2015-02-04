@@ -1,2 +1,2 @@
 build_script:
-	- nuget restore S1lightcycle/S1lightcycle.sln
+  - nuget restore S1lightcycle\S1lightcycle.sln
