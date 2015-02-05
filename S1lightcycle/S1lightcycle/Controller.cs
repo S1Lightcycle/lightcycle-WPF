@@ -29,6 +29,7 @@ namespace S1lightcycle {
         public const int RobotSize = 200;        //test value; robotsize = gridsize
         private int _roiHeight;
         private int _roiWidth;
+        private readonly Communicator _communicator;
 
         public double GameHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
         public double GameWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
@@ -41,10 +42,10 @@ namespace S1lightcycle {
         {
             Player1Points = 0;
             Player2Points = 0;
+
+            _communicator = new Communicator();
             // register for robot eventsj
-            /*var main = MainWindow as MainWindow;
-            Connected += new S1lightcycle.Controller.ConnectedEventHandler(MainWindow.Connected);*/
-            Communicator.Instance.PackageReceived += PackageReceived;
+            _communicator.PackageReceived += PackageReceived;
         }
 
         public static Controller Instance
@@ -75,12 +76,12 @@ namespace S1lightcycle {
 
         public String[] GetSerialPorts()
         {
-            return Communicator.Instance.GetSerialPorts();
+            return _communicator.GetSerialPorts();
         }
 
         public void SetSerialPort(String name)
         {
-            Communicator.Instance.PortName = name;
+            _communicator.PortName = name;
         }
 
         public void PlaceRobots()
@@ -116,10 +117,10 @@ namespace S1lightcycle {
             _player1.Robot = _objTracker.FirstCar;
             _player2.Robot = _objTracker.SecondCar;
             _timer.Start();
-            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
-            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
-            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
-            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
         }
 
         private void InitPlayers()
@@ -208,7 +209,7 @@ namespace S1lightcycle {
 
         private void GoToResults()
         {
-            Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _timer.Stop();
             _objTracker.StopTracking();
             _resultWindow = new ResultWindow();
@@ -271,11 +272,11 @@ namespace S1lightcycle {
                 case Key.Down:
                     if (_player1.CurDirection == Direction.Left)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Right)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else
                     {
@@ -287,11 +288,11 @@ namespace S1lightcycle {
                 case Key.Up:
                     if (_player1.CurDirection == Direction.Left)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Right)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else
                     {
@@ -303,11 +304,11 @@ namespace S1lightcycle {
                 case Key.Right:
                     if (_player1.CurDirection == Direction.Up)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Down)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else
                     {
@@ -319,11 +320,11 @@ namespace S1lightcycle {
                 case Key.Left:
                     if (_player1.CurDirection == Direction.Up)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Down)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else
                     {
@@ -336,11 +337,11 @@ namespace S1lightcycle {
                 case Key.S:
                     if (_player1.CurDirection == Direction.Left)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Right)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else
                     {
@@ -352,11 +353,11 @@ namespace S1lightcycle {
                 case Key.W:
                     if (_player1.CurDirection == Direction.Left)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Right)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else
                     {
@@ -368,11 +369,11 @@ namespace S1lightcycle {
                 case Key.D:
                     if (_player1.CurDirection == Direction.Up)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Down)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else
                     {
@@ -384,11 +385,11 @@ namespace S1lightcycle {
                 case Key.A:
                     if (_player1.CurDirection == Direction.Up)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     }
                     else if (_player1.CurDirection == Direction.Down)
                     {
-                        Communicator.Instance.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
+                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
                     }
                     else
                     {

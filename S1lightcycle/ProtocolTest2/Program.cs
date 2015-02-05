@@ -1,19 +1,22 @@
 ﻿using System;
+using S1lightcycle.Communication;
 
-namespace S1lightcycle.Communication
+namespace ProtocolTest2
 {
-    class ProtocolTest
+    class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Available com ports...");
 
-            foreach (String port in Communicator.Instance.GetSerialPorts())
+            Communicator communicator = new Communicator();
+
+            foreach (String port in communicator.GetSerialPorts())
             {
                 Console.WriteLine(port);
             }
             Console.Write("Set com port: ");
-            Communicator.Instance.PortName = Console.ReadLine();
+            communicator.PortName = Console.ReadLine();
 
             while (true)
             {
@@ -21,7 +24,7 @@ namespace S1lightcycle.Communication
                 String input = Console.ReadLine();
                 String[] split = input.Split(' ');
                 LcProtocol package = new LcProtocol(Byte.Parse(split[0]), Byte.Parse(split[1]), 0);
-                Communicator.Instance.SendPackage(package);
+                communicator.SendPackage(package);
             }
             Console.Read();
         }

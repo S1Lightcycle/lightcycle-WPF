@@ -1,15 +1,12 @@
-﻿using S1lightcycle.UART;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using S1lightcycle.Communication;
 
 namespace ProtocolTest {
     class Program {
         static void Main(string[] args) {
+            Communicator communicator = new Communicator();
             LcProtocol package = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0);
-            Communicator.Instance.SendPackage(package);
+            communicator.SendPackage(package);
             bool isRunning = true;
             while (isRunning) {
                 LcProtocol prot;
@@ -35,7 +32,7 @@ namespace ProtocolTest {
                         prot = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0);
                         break;
                 }
-                Communicator.Instance.SendPackage(prot);
+                communicator.SendPackage(prot);
             }
             
         }

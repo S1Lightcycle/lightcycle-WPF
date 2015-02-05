@@ -17,8 +17,6 @@ namespace S1lightcycle.Communication
                 PackageReceived(this, package);
         }
 
-        private static Communicator _instance;
-
         private Timer timer = new Timer();
 
         private LcProtocol heartbeatPackage = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0);
@@ -34,7 +32,7 @@ namespace S1lightcycle.Communication
             set { _portName = value; InitializeSerialPort(); }
         }
 
-        private Communicator()
+        public Communicator()
         {
             timer.Elapsed += new ElapsedEventHandler(heartbeat_tick);
             timer.Interval = HEARTBEAT_INTERVALL;
@@ -43,21 +41,8 @@ namespace S1lightcycle.Communication
         private void heartbeat_tick(object sender, ElapsedEventArgs e)
         {
             LcProtocol package = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0);
-            //Communicator.Instance.SendPackage(package);
+            //_communicator.SendPackage(package);
         }
-
-        public static Communicator Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new Communicator();
-                }
-                return _instance;
-            }
-        }
-
 
         private void InitializeSerialPort()
         {
