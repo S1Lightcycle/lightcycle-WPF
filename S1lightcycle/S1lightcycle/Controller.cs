@@ -265,6 +265,12 @@ namespace S1lightcycle {
             Player2Points = 0;
         }
 
+        public void ConfigureEdges()
+        {
+            CameraCalibrator cameraCalibrator = new CameraCalibrator();
+            cameraCalibrator.ShowFrame();
+        }
+
         public void Move(Key key)
         {
             switch (key)

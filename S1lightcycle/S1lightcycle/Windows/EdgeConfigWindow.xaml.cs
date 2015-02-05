@@ -12,8 +12,7 @@ namespace S1lightcycle.Windows {
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
-            CameraCalibrator cameraCalibrator = new CameraCalibrator();
-            cameraCalibrator.ShowFrame();
+            Controller.Instance.ConfigureEdges();
             Hide();
             MessageBox.Show("Click on the red points in the screenshot", "S1Lightcycle");
         }
