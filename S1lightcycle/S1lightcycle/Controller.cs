@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using S1lightcycle.Windows;
 using S1lightcycle.Objecttracker;
 using System.Diagnostics;
@@ -81,7 +82,10 @@ namespace S1lightcycle {
 
         public void SetSerialPort(String name)
         {
-            _communicator.PortName = name;
+            if (GetSerialPorts().Contains(name))
+            {
+                _communicator.PortName = name;
+            }
         }
 
         public void PlaceRobots()
