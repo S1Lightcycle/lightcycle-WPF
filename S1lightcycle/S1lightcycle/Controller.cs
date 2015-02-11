@@ -27,7 +27,7 @@ namespace S1lightcycle {
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
-        public const int RobotSize = 200;        //test value; robotsize = gridsize
+        public const int RobotSize = 150;        //test value; robotsize = gridsize
         private int _roiHeight;
         private int _roiWidth;
         private readonly Communicator _communicator;
@@ -184,26 +184,28 @@ namespace S1lightcycle {
         {
             if (player.Robot.Coord.Count > 0)
             {
-                Coordinate carPos = DoPositionCompensation(player.Robot.Coord.Dequeue());
-                if (IsValidPosition(player, carPos))
+                Coordinate tempPos = DoPositionCompensation(player.Robot.Coord.Dequeue());
+                if (IsValidPosition(player, tempPos))
                 {
-                    if (IsCollision(player))
-                    {
-                        if (player == _player1)
-                        {
+                    if (IsCollision(player)) {
+                        if (player == _player1) {
                             Player2Points++;
-                        }
-                        else
-                        {
+                        } else {
                             Player1Points++;
                         }
                         GoToResults();
                         return;
                     }
-                    GenerateWall(player, carPos);
+
+                    //player.CurPos.Column = tempPos.XCoord / RobotSize;
+                    //player.CurPos.Row = tempPos.YCoord / RobotSize;
+
+                    player.CurPos.Column = tempPos.XCoord / RobotSize;
+                    player.CurPos.Row = tempPos.YCoord / RobotSize;
+
+                    GenerateWall(player);
                     //determine player position on grid
-                    player.CurPos.Column = carPos.XCoord / RobotSize;
-                    player.CurPos.Row = carPos.YCoord / RobotSize;
+                    
 
                     //Console.WriteLine("X: " + carPos.XCoord + " | Y: " + carPos.YCoord);
                     //Console.WriteLine("column: " + player.CurPos.Column + " | row: " + player.CurPos.Row);
@@ -247,8 +249,8 @@ namespace S1lightcycle {
             return true;
         }
 
-        private void GenerateWall(Player player, Coordinate coordinates) {
-            if (coordinates == null) return;
+        private void GenerateWall(Player player) {
+            if (player.CurPos == null) return;
             _gameWindow.DrawWall(new Coordinate(player.CurPos.Column, player.CurPos.Row), player.Color);
             
             _walls[player.CurPos.Column][player.CurPos.Row] = player.Color;

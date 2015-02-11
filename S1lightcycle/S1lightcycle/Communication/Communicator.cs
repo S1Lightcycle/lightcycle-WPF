@@ -25,7 +25,7 @@ namespace S1lightcycle.Communication
 
         private SerialPort _serialPort = new SerialPort();
 
-        private string _portName = SerialPort.GetPortNames().FirstOrDefault();
+        private string _portName;
         public string PortName
         {
             get { return _portName; }
@@ -36,6 +36,7 @@ namespace S1lightcycle.Communication
         {
             timer.Elapsed += new ElapsedEventHandler(heartbeat_tick);
             timer.Interval = HEARTBEAT_INTERVALL;
+            PortName = SerialPort.GetPortNames().FirstOrDefault();
         }
 
         private void heartbeat_tick(object sender, ElapsedEventArgs e)
