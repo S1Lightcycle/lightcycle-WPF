@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace S1lightcycle.Objecttracker
 {
-    public class ObjectTracker
+    public class ObjectTracker : AbstractObjectTracker
     {
         private readonly VideoCapture _capture;
         private readonly CvWindow _blobWindow;
@@ -55,7 +55,7 @@ namespace S1lightcycle.Objecttracker
             _arePlayersInitialized = false;
         }
 
-        public void StartTracking() {
+        public override void StartTracking() {
             _oldFirstCar = CvPoint.Empty;
             _oldSecondCar = CvPoint.Empty;
             _trackingThread = new Thread(Track);
@@ -64,12 +64,12 @@ namespace S1lightcycle.Objecttracker
             _trackingThread.Start();
         }
 
-        public void StopTracking() {
+        public override void StopTracking() {
             _isTracking = false;
             _trackingThread.Abort();
         }
 
-        public void Track()
+        public override void Track()
         {
             CvWindow roiWindow = new CvWindow("roi");
             int roiHeight = Properties.Settings.Default.RoiHeight;

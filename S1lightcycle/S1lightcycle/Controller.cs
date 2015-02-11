@@ -20,7 +20,7 @@ namespace S1lightcycle {
 
         private Player _player1;
         private Player _player2;
-        private ObjectTracker _objTracker;
+        private AbstractObjectTracker _objTracker;
         private GameWindow _gameWindow;
         private ResultWindow _resultWindow;
         private WallColor[][] _walls;
@@ -168,7 +168,7 @@ namespace S1lightcycle {
         {
             if (_objTracker == null)
             {
-                _objTracker = new ObjectTracker
+                _objTracker = new FakeTracker
                 {
                     LearningRate = Properties.Settings.Default.LearningRate,
                     BlobMaxSize = Properties.Settings.Default.MaxBlobSize,
