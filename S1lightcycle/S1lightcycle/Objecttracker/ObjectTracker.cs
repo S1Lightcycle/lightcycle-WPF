@@ -27,14 +27,6 @@ namespace S1lightcycle.Objecttracker
 
         private Thread _trackingThread;
 
-        public Robot FirstCar { get; set; }
-        public Robot SecondCar { get; set; }
-        public int BlobMinSize { get; set; }
-        public int BlobMaxSize { get; set; }
-
-        //determines how fast stationary objects are incorporated into the background mask ( higher = faster)
-        public double LearningRate { get; set; }
-
         public ObjectTracker() {
             //webcam
             _capture = new VideoCapture(0);

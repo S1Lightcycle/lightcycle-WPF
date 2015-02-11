@@ -213,7 +213,7 @@ namespace S1lightcycle {
             }
         }
 
-        private void GoToResults()
+        public void GoToResults()
         {
             _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _timer.Stop();
