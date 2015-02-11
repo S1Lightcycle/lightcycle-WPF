@@ -168,7 +168,7 @@ namespace S1lightcycle {
         {
             if (_objTracker == null)
             {
-                _objTracker = new FakeTracker
+                _objTracker = new ObjectTracker
                 {
                     LearningRate = Properties.Settings.Default.LearningRate,
                     BlobMaxSize = Properties.Settings.Default.MaxBlobSize,
