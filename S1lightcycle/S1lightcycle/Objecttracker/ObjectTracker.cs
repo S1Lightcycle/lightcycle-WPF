@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace S1lightcycle.Objecttracker
 {
-    public class ObjectTracker
+    public class ObjectTracker : AbstractObjectTracker
     {
         private readonly VideoCapture _capture;
         private readonly CvWindow _blobWindow;
@@ -26,14 +26,6 @@ namespace S1lightcycle.Objecttracker
         private bool _arePlayersInitialized;
 
         private Thread _trackingThread;
-
-        public Robot FirstCar { get; set; }
-        public Robot SecondCar { get; set; }
-        public int BlobMinSize { get; set; }
-        public int BlobMaxSize { get; set; }
-
-        //determines how fast stationary objects are incorporated into the background mask ( higher = faster)
-        public double LearningRate { get; set; }
 
         public ObjectTracker() {
             //webcam
@@ -55,7 +47,7 @@ namespace S1lightcycle.Objecttracker
             _arePlayersInitialized = false;
         }
 
-        public void StartTracking() {
+        public override void StartTracking() {
             _oldFirstCar = CvPoint.Empty;
             _oldSecondCar = CvPoint.Empty;
             _trackingThread = new Thread(Track);
@@ -64,12 +56,12 @@ namespace S1lightcycle.Objecttracker
             _trackingThread.Start();
         }
 
-        public void StopTracking() {
+        public override void StopTracking() {
             _isTracking = false;
             _trackingThread.Abort();
         }
 
-        public void Track()
+        public override void Track()
         {
             CvWindow roiWindow = new CvWindow("roi");
             int roiHeight = Properties.Settings.Default.RoiHeight;

@@ -21,7 +21,7 @@ namespace S1lightcycle {
 
         private Player _player1;
         private Player _player2;
-        private ObjectTracker _objTracker;
+        private AbstractObjectTracker _objTracker;
         private GameWindow _gameWindow;
         private ResultWindow _resultWindow;
         private WallColor[][] _walls;
@@ -218,7 +218,7 @@ namespace S1lightcycle {
             }
         }
 
-        private void GoToResults()
+        public void GoToResults()
         {
             _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));

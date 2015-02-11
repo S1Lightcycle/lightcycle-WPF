@@ -132,8 +132,10 @@
     <Compile Include="Controller_Timer.cs" />
     <Compile Include="Communication\Communicator.cs" />
     <Compile Include="Communication\LcProtocol.cs" />
+    <Compile Include="Objecttracker\AbstractObjectTracker.cs" />
     <Compile Include="Objecttracker\CameraCalibrator.cs" />
     <Compile Include="Objecttracker\Coordinate.cs" />
+    <Compile Include="Objecttracker\FakeTracker.cs" />
     <Compile Include="Objecttracker\ObjectTracker.cs" />
     <Compile Include="Objecttracker\Robot.cs" />
     <Compile Include="WallColor.cs" />
