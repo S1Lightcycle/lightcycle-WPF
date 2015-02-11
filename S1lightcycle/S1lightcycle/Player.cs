@@ -2,7 +2,7 @@
 
 namespace S1lightcycle {
     public class Player {
-        public Direction CurDirection;
+        public Direction CurDirection; // not used
         public WallColor Color;
         public Grid CurPos;
         public Robot Robot;

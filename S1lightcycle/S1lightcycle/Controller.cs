@@ -279,134 +279,30 @@ namespace S1lightcycle {
         {
             switch (key)
             {
-                case Key.Down:
-                    if (_player1.CurDirection == Direction.Left)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
-                    }
-                    else if (_player1.CurDirection == Direction.Right)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
-                    }
-                    else
-                    {
-                        Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
-                        break;
-                    }
-                    _player1.CurDirection = Direction.Down;
+                case Key.Down:                   
+                    Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
                     break;
                 case Key.Up:
-                    if (_player1.CurDirection == Direction.Left)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
-                    }
-                    else if (_player1.CurDirection == Direction.Right)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
-                    }
-                    else
-                    {
-                        Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
-                        break;
-                    }
-                    _player1.CurDirection = Direction.Up;
+                    Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
                     break;
-                case Key.Right:
-                    if (_player1.CurDirection == Direction.Up)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
-                    }
-                    else if (_player1.CurDirection == Direction.Down)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
-                    }
-                    else
-                    {
-                        Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
-                        break;
-                    }
-                    _player1.CurDirection = Direction.Right;
+                case Key.Right:                   
+                    _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));     
                     break;
                 case Key.Left:
-                    if (_player1.CurDirection == Direction.Up)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
-                    }
-                    else if (_player1.CurDirection == Direction.Down)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
-                    }
-                    else
-                    {
-                        Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
-                        break;
-                    }
-                    _player1.CurDirection = Direction.Right;
+                    _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_1, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
                     break;
                 // player 2
-                case Key.S:
-                    if (_player1.CurDirection == Direction.Left)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
-                    }
-                    else if (_player1.CurDirection == Direction.Right)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
-                    }
-                    else
-                    {
-                        Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
-                        break;
-                    }
-                    _player1.CurDirection = Direction.Down;
+                case Key.S: // backward                   
+                    Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
                     break;
-                case Key.W:
-                    if (_player1.CurDirection == Direction.Left)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
-                    }
-                    else if (_player1.CurDirection == Direction.Right)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
-                    }
-                    else
-                    {
-                        Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
-                        break;
-                    }
-                    _player1.CurDirection = Direction.Up;
+                case Key.W: // forward                   
+                    Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
                     break;
-                case Key.D:
-                    if (_player1.CurDirection == Direction.Up)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
-                    }
-                    else if (_player1.CurDirection == Direction.Down)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
-                    }
-                    else
-                    {
-                        Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
-                        break;
-                    }
-                    _player1.CurDirection = Direction.Right;
+                case Key.D: // right                   
+                     _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));                   
                     break;
-                case Key.A:
-                    if (_player1.CurDirection == Direction.Up)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));
-                    }
-                    else if (_player1.CurDirection == Direction.Down)
-                    {
-                        _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_RIGHT_STATIC, 90));
-                    }
-                    else
-                    {
-                        Trace.TraceInformation("player2: " + key.ToString() + " (invalid direction)");
-                        break;
-                    }
-                    _player1.CurDirection = Direction.Right;
+                case Key.A: // left                   
+                    _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_ROBOT_2, LcProtocol.CMD_TURN_LEFT_STATIC, 90));                  
                     break;
                 default:
                     Trace.TraceInformation("invalid key");
