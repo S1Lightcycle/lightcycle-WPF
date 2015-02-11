@@ -22,11 +22,6 @@ namespace S1lightcycle.Windows {
         public void DrawGrid(int gridSize) {
             Console.WriteLine("width: " + Width + " height: " + Height);
 
-            int maxVert = (int)Width / gridSize;
-            int remainderVert = (int)Width - (maxVert * gridSize);
-            int maxHor = (int)Height / gridSize;
-            int remainderHor = (int)Height - (maxHor * gridSize);
-
             //vertical grid
             for (int i = 0; (i * gridSize) <= Width; i++) {
                 DrawGridLine(i * gridSize, i * gridSize, 0, Height);
@@ -39,22 +34,27 @@ namespace S1lightcycle.Windows {
                 GridHeight = j;
             }
 
-            Rectangle rect1 = InitRect((int)Width, gridSize);
+            int wideness = 10;
+            //top
+            Rectangle rect1 = InitRect((int)Width, wideness);
             Canvas.SetLeft(rect1, 0);
             Canvas.SetTop(rect1, 0);
-
-            Rectangle rect2 = InitRect((int)Width, gridSize);
+            
+            //bottom
+            Rectangle rect2 = InitRect((int)Width, wideness);
             Canvas.SetLeft(rect2, 0);
-            Canvas.SetTop(rect1, Height - remainderHor);
-
-            Rectangle rect3 = InitRect(gridSize, (int)Height);
+            Canvas.SetTop(rect1, Height - wideness);
+            
+            //left
+            Rectangle rect3 = InitRect(wideness, (int)Height);
             Canvas.SetLeft(rect3, 0);
             Canvas.SetTop(rect3, 0);
-
-            Rectangle rect4 = InitRect(gridSize, (int)Height);
-            Canvas.SetLeft(rect4, Width - remainderVert);
+            
+            //right
+            Rectangle rect4 = InitRect(wideness, (int)Height);
+            Canvas.SetLeft(rect4, Width - wideness);
             Canvas.SetTop(rect4, 0);
-
+            
             GameFieldCanvas.Children.Add(rect1);
             GameFieldCanvas.Children.Add(rect2);
             GameFieldCanvas.Children.Add(rect3);
@@ -64,8 +64,8 @@ namespace S1lightcycle.Windows {
         private Rectangle InitRect(int width, int height)
         {
             Rectangle rect = new Rectangle();
-            rect.Stroke = new SolidColorBrush(Colors.Black);
-            rect.Fill = new SolidColorBrush(Colors.Black);
+            rect.Stroke = new SolidColorBrush(Colors.DarkOrange);
+            rect.Fill = new SolidColorBrush(Colors.DarkOrange);
             rect.Width = width;
             rect.Height = height;
             return rect;

@@ -27,7 +27,7 @@ namespace S1lightcycle {
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
         private const int TimerIntervall = 10;    // in ms  berechnen 
-        public const int RobotSize = 150;        //test value; robotsize = gridsize
+        public const int RobotSize = 120;        //test value; robotsize = gridsize
         private int _roiHeight;
         private int _roiWidth;
         private readonly Communicator _communicator;
