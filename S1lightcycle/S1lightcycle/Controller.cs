@@ -5,6 +5,7 @@ using S1lightcycle.Objecttracker;
 using System.Diagnostics;
 using System.Windows.Input;
 using S1lightcycle.Communication;
+using System.Threading;
 
 namespace S1lightcycle {
     public partial class Controller {
@@ -116,6 +117,13 @@ namespace S1lightcycle {
 
         public void StartGame()
         {
+            /*_communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_REVERSE, 0));
+            Thread.Sleep(500);
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            Thread.Sleep(500);
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
+            */
+
             //Start object tracking
             InitTracking();
             _player1.Robot = _objTracker.FirstCar;
