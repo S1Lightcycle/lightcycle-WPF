@@ -249,7 +249,7 @@ namespace S1lightcycle {
 
         private void GenerateWall(Player player, Coordinate coordinates) {
             if (coordinates == null) return;
-            _gameWindow.DrawWall(coordinates, player.Color);
+            _gameWindow.DrawWall(new Coordinate(player.CurPos.Column, player.CurPos.Row), player.Color);
             
             _walls[player.CurPos.Column][player.CurPos.Row] = player.Color;
         }

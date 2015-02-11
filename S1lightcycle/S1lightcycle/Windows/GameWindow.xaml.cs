@@ -105,8 +105,8 @@ namespace S1lightcycle.Windows {
             newWall.Width = Controller.RobotSize;
             newWall.Height = Controller.RobotSize;
 
-            Canvas.SetLeft(newWall, coordinates.XCoord);
-            Canvas.SetTop(newWall, coordinates.YCoord);
+            Canvas.SetLeft(newWall, coordinates.XCoord*Controller.RobotSize);
+            Canvas.SetTop(newWall, coordinates.YCoord*Controller.RobotSize);
             
 
             GameFieldCanvas.Children.Add(newWall);
