@@ -45,7 +45,6 @@ namespace S1lightcycle.Objecttracker
             while (_frame.Height == 0 || _frame.Width == 0)
             {
                 _capture.Read(_frame);
-                Thread.Sleep(100);
             }
             for (int i = 0; i < 5; i++)
             {

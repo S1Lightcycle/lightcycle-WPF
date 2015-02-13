@@ -1,4 +1,5 @@
-﻿using S1lightcycle.Communication;
+﻿using System.Linq;
+using S1lightcycle.Communication;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -16,8 +17,11 @@ namespace S1lightcycle.Windows {
             foreach (String name in Controller.Instance.GetSerialPorts())
             {
                 cmbSerialPort.Items.Add(name);
+                if (name.Equals(Properties.Settings.Default.ComPort))
+                {
+                    cmbSerialPort.SelectedItem = name;
+                }
             }
-            cmbSerialPort.SelectedIndex = Properties.Settings.Default.ComPortIndex;
             Controller.Instance.SetSerialPort((String)cmbSerialPort.SelectedItem);  
         }
 
@@ -41,7 +45,7 @@ namespace S1lightcycle.Windows {
                 Properties.Settings.Default.MaxBlobSize = maxBlobSize;
             }
 
-            Properties.Settings.Default.ComPortIndex = cmbSerialPort.SelectedIndex;
+            Properties.Settings.Default.ComPort = cmbSerialPort.Text;
 
             Properties.Settings.Default.Save();
             base.OnClosing(e);
@@ -59,7 +63,7 @@ namespace S1lightcycle.Windows {
 
         private void cmbSerialPort_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Controller.Instance.SetSerialPort((String)cmbSerialPort.SelectedItem);            
+            Controller.Instance.SetSerialPort((String)cmbSerialPort.SelectedItem);
         }
     }
 }

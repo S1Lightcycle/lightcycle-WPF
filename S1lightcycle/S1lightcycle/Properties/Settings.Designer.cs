@@ -110,12 +110,12 @@ namespace S1lightcycle.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int ComPortIndex {
+        public string ComPort {
             get {
-                return ((int)(this["ComPortIndex"]));
+                return ((string)(this["ComPort"]));
             }
             set {
-                this["ComPortIndex"] = value;
+                this["ComPort"] = value;
             }
         }
     }
