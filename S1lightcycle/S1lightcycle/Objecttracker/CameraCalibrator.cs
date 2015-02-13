@@ -42,18 +42,20 @@ namespace S1lightcycle.Objecttracker
             _capture.Read(_frame);
 
             //_frame height == 0 => camera hasn't been initialized properly and provides garbage data
-            while (_frame.Height == 0)
+            while (_frame.Height == 0 || _frame.Width == 0)
             {
                 _capture.Read(_frame);
+                Thread.Sleep(100);
             }
             for (int i = 0; i < 5; i++)
             {
                 _capture.Read(_frame);
                 Thread.Sleep(500);
             }
-
+           
             _srcImg = _frame.ToIplImage();
             _cvFrame = new CvWindow("edge calibration editor", WindowMode.Fullscreen, _srcImg);
+            
             _cvFrame.OnMouseCallback += OnMouseDown;
 
         }

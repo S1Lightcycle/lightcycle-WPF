@@ -45,7 +45,7 @@ namespace S1lightcycle {
             Player2Points = 0;
 
             _communicator = new Communicator();
-            // register for robot eventsj
+            // register for robot events
             _communicator.PackageReceived += PackageReceived;
         }
 
@@ -213,7 +213,7 @@ namespace S1lightcycle {
             }
         }
 
-        public void GoToResults()
+        private void GoToResults()
         {
             _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _timer.Stop();
@@ -281,6 +281,9 @@ namespace S1lightcycle {
         {
             switch (key)
             {
+                case Key.Escape:
+                    GoToResults();
+                    break;
                 case Key.Down:                   
                     Trace.TraceInformation("player1: " + key.ToString() + " (invalid direction)");
                     break;

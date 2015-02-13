@@ -5,7 +5,7 @@
     <Grid>
         <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Height="40px" Width="40px" Fill="Red" />
         <Rectangle HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40px" Width="40px" Fill="Red" />
-        <Label Content="Press left mouse button to continue..." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="45"/>
+        <TextBlock TextWrapping="Wrap" Text="Click on the red quares in the screenshot" VerticalAlignment="Center" FontSize="100" TextAlignment="Center"/>
         
     </Grid>
 </Window>

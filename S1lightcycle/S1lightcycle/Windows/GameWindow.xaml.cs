@@ -113,14 +113,9 @@ namespace S1lightcycle.Windows {
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Escape)
-            {
-                Controller.Instance.GoToResults();
-            }
-            else
-            {
-                Controller.Instance.Move(e.Key);
-            }
+           
+            Controller.Instance.Move(e.Key);
+            
         }
      }
 }
