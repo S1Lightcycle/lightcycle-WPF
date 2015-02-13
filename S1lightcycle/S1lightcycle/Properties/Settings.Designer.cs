@@ -106,5 +106,17 @@ namespace S1lightcycle.Properties {
                 this["CalibrationPointY"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ComPortIndex {
+            get {
+                return ((int)(this["ComPortIndex"]));
+            }
+            set {
+                this["ComPortIndex"] = value;
+            }
+        }
     }
 }
