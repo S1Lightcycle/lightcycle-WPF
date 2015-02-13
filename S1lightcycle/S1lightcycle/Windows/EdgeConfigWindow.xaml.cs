@@ -25,15 +25,20 @@ namespace S1lightcycle.Windows {
 
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            timer.Stop();                        
-            Dispatcher.BeginInvoke((Action)(() => { 
-                Controller.Instance.ConfigureEdges();
-                Hide();
-            }));
+            timer.Stop();
+            Task.Factory.StartNew(() => ConfigureEdges());
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
            
+        }
+
+        private void ConfigureEdges()
+        {            
+            Dispatcher.BeginInvoke((Action)(() => {
+                Controller.Instance.ConfigureEdges();
+                Hide();
+                }));
         }
     }
 }
