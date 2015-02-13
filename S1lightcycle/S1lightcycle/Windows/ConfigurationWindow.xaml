@@ -7,6 +7,7 @@
         <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="150" Content="1"></Label>
         <Rectangle VerticalAlignment="Center" HorizontalAlignment="Right"  Fill="Blue" Height="150" Width="150"/>
         <Label VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="150" Content="2"></Label>
-        <Label Content="Place your Lightcycles!" Name="lblRobot" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" FontSize="36"/>
+        <Label Content="Place your Lightcycles!" Name="lblRobot" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="72" Margin="0,0,0,30"/>
+        <Label Name="lblCountdown" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="100" Content="Start"></Label>
     </Grid>
 </Window>
