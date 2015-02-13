@@ -24,6 +24,8 @@ namespace S1lightcycle.Windows
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            lblRobot.Visibility = Visibility.Hidden;
+
             int elapsedSeconds = (int)(DateTime.Now - _startTime).TotalSeconds;
             int remainingSeconds = SecondsToWait - elapsedSeconds;
 
@@ -35,11 +37,14 @@ namespace S1lightcycle.Windows
             }
             else
             {
+                lblCountdown.Content = "" + remainingSeconds;
+                lblCountdown.FontSize = 150 + 30 * (4 - remainingSeconds);
+                /*
                 TextBlock tb = new TextBlock();
                 tb.Text = ""+remainingSeconds;
                 tb.FontSize = 20.0 * (5-remainingSeconds);
                 lblRobot.Content = tb;
- 
+                */
             }
         }
 

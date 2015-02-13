@@ -29,7 +29,15 @@ namespace S1lightcycle.Communication
         public string PortName
         {
             get { return _portName; }
-            set { _portName = value; InitializeSerialPort(); }
+            set 
+            { 
+                if (_serialPort.IsOpen)
+                {
+                    _serialPort.Close();
+                }
+                _portName = value; 
+                InitializeSerialPort(); 
+            }
         }
 
         public Communicator()
