@@ -15,6 +15,8 @@ namespace S1lightcycle.Windows
         private DispatcherTimer _timer;
         private const int SecondsToWait = 3;
         private DateTime _startTime;
+        private bool countdownStarted = false;
+
         public ConfigurationWindow()
         {
             InitializeComponent();
@@ -39,27 +41,27 @@ namespace S1lightcycle.Windows
             {
                 lblCountdown.Content = "" + remainingSeconds;
                 lblCountdown.FontSize = 150 + 30 * (4 - remainingSeconds);
-                /*
-                TextBlock tb = new TextBlock();
-                tb.Text = ""+remainingSeconds;
-                tb.FontSize = 20.0 * (5-remainingSeconds);
-                lblRobot.Content = tb;
-                */
             }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-
+            if (!countdownStarted)
+            {
                 _startTime = DateTime.Now;
                 _timer.Start();
+                countdownStarted = true;
+            }               
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            if (!countdownStarted)
+            {
                 _startTime = DateTime.Now;
                 _timer.Start();
+                countdownStarted = true;
+            }
         }
     }
 }

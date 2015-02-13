@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
 using System.Timers;
-
+using System.IO;
 namespace S1lightcycle.Communication
 {
     public class Communicator
@@ -33,7 +33,14 @@ namespace S1lightcycle.Communication
             { 
                 if (_serialPort.IsOpen)
                 {
-                    _serialPort.Close();
+                    try
+                    {
+                        _serialPort.Close();
+                    }
+                    catch (IOException e)
+                    {
+                        Trace.WriteLine(e.Message);
+                    }
                 }
                 _portName = value; 
                 InitializeSerialPort(); 
@@ -71,7 +78,15 @@ namespace S1lightcycle.Communication
             if (_portName != null)
             {
                 _serialPort.PortName = _portName;
-                _serialPort.Open();
+                try
+                {
+                    _serialPort.Open();
+                }
+                catch (IOException e)
+                {
+                    Trace.WriteLine(e.Message);
+                }
+                
                 if (_serialPort.IsOpen)
                 {
                     Trace.WriteLine("Connected to serial port " + _serialPort.PortName);

@@ -47,9 +47,9 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
-                <Button Content="Start Calibration" MinWidth="95" Height="21" Click="Calibration_Button_Click" IsCancel="True" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <Button Content="Start Calibration" MinWidth="95" Height="23" Click="Calibration_Button_Click" IsCancel="True" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,10,0"/>
             </Grid>
         </GroupBox>
-        <Button Content="Save Settings" Height="21" Click="OK_Button_Click" Margin="10,10,10,0"/>
+        <Button Content="Save Settings" Height="23" Click="OK_Button_Click" Margin="10,10,10,0"/>
     </StackPanel>
 </Window>
