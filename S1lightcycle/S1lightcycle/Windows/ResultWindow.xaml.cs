@@ -17,11 +17,11 @@ namespace S1lightcycle.Windows
 
         private void Revanche_Button_Click(object sender, RoutedEventArgs e)
         {
-            Controller.Instance.InitGame();
+            Controller.Instance.PlaceRobots();
             Close();
         }
 
-        private void NewGame_Button_Click(object sender, RoutedEventArgs e)
+        private void Menu_Button_Click(object sender, RoutedEventArgs e)
         {
             Controller.Instance.ResetPlayerPoints();
             Application.Current.MainWindow.Show();

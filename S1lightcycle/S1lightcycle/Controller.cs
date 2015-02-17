@@ -5,6 +5,7 @@ using S1lightcycle.Objecttracker;
 using System.Diagnostics;
 using System.Windows.Input;
 using S1lightcycle.Communication;
+using System.Threading;
 
 namespace S1lightcycle {
     public partial class Controller {
@@ -26,7 +27,7 @@ namespace S1lightcycle {
         private WallColor[][] _walls;
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
-        private const int TimerIntervall = 1000;    // in ms  berechnen 
+        private const int TimerIntervall = 50;    // in ms  berechnen 
         public const int RobotSize = 120;        //test value; robotsize = gridsize
         private int _roiHeight;
         private int _roiWidth;
@@ -116,14 +117,18 @@ namespace S1lightcycle {
 
         public void StartGame()
         {
+            /*_communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_REVERSE, 0));
+            Thread.Sleep(500);
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
+            Thread.Sleep(500);
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
+            */
+
             //Start object tracking
             InitTracking();
             _player1.Robot = _objTracker.FirstCar;
             _player2.Robot = _objTracker.SecondCar;
             _timer.Start();
-            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
-            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
-            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
             _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
         }
 
@@ -154,7 +159,7 @@ namespace S1lightcycle {
                 {
                     if ((i == 0) || (j == 0) || (i == _walls.Length - 1) || (j == _walls[i].Length - 1))
                     {
-                        _walls[i][j] = WallColor.Black;
+                        _walls[i][j] = WallColor.Black; //TODO change
                     }
                     else
                     {
@@ -185,8 +190,11 @@ namespace S1lightcycle {
             if (player.Robot.Coord.Count > 0)
             {
                 Coordinate tempPos = DoPositionCompensation(player.Robot.Coord.Dequeue());
-                if (IsValidPosition(player, tempPos))
-                {
+                player.CurPos.Column = tempPos.XCoord / RobotSize;
+                player.CurPos.Row = tempPos.YCoord / RobotSize;
+
+                //if (IsValidPosition(player, tempPos))
+                //{
                     if (IsCollision(player)) {
                         if (player == _player1) {
                             Player2Points++;
@@ -197,24 +205,19 @@ namespace S1lightcycle {
                         return;
                     }
 
-                    //player.CurPos.Column = tempPos.XCoord / RobotSize;
-                    //player.CurPos.Row = tempPos.YCoord / RobotSize;
-
-                    player.CurPos.Column = tempPos.XCoord / RobotSize;
-                    player.CurPos.Row = tempPos.YCoord / RobotSize;
-
                     GenerateWall(player);
                     //determine player position on grid
                     
 
                     //Console.WriteLine("X: " + carPos.XCoord + " | Y: " + carPos.YCoord);
                     //Console.WriteLine("column: " + player.CurPos.Column + " | row: " + player.CurPos.Row);
-                }
+                //}
             }
         }
 
         private void GoToResults()
         {
+            _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _timer.Stop();
             _objTracker.StopTracking();
@@ -226,8 +229,8 @@ namespace S1lightcycle {
         private Coordinate DoPositionCompensation(Coordinate coordinates) {
             int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(_roiWidth) * Convert.ToDouble(GameWidth));
             int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(_roiHeight) * Convert.ToDouble(GameHeight));
-            Console.WriteLine("x: " + x + " y: " + y);
-            Console.WriteLine("xcoord: " + coordinates.XCoord + " ycoord: " + coordinates.YCoord);
+            //Console.WriteLine("x: " + x + " y: " + y);
+            //Console.WriteLine("xcoord: " + coordinates.XCoord + " ycoord: " + coordinates.YCoord);
             if (x == -1 || y == -1) return null;
 
             x = (x / RobotSize) * RobotSize;
@@ -258,10 +261,12 @@ namespace S1lightcycle {
 
         private bool IsCollision(Player player)
         {
+            Console.WriteLine(player.Color + " " + _walls[player.CurPos.Column][player.CurPos.Row]);
             if ((_walls[player.CurPos.Column][player.CurPos.Row] == player.Color) || (_walls[player.CurPos.Column][player.CurPos.Row] == WallColor.White))
             {
                 return false;
             }
+            Trace.WriteLine("Collision detected");
             return true;
         }
 

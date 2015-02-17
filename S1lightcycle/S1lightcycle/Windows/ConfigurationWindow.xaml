@@ -1,13 +1,17 @@
 ﻿<Window x:Class="S1lightcycle.Windows.ConfigurationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ConfigurationWindow" WindowState="Maximized" KeyDown="Window_KeyDown" WindowStyle="None" MouseDown="Window_MouseDown">
+        Title="ConfigurationWindow" WindowState="Maximized" KeyDown="Window_KeyDown" WindowStyle="None" MouseDown="Window_MouseDown" Icon="/S1lightcycle;component/Resources/lightcycle.ico">
     <Grid>
-        <Rectangle VerticalAlignment="Center" HorizontalAlignment="Left" Fill="Red"  Height="150" Width ="150" />
-        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="150" Content="1"></Label>
-        <Rectangle VerticalAlignment="Center" HorizontalAlignment="Right"  Fill="Blue" Height="150" Width="150"/>
-        <Label VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="150" Content="2"></Label>
-        <Label Content="Place your Lightcycles!" Name="lblRobot" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="72" Margin="0,0,0,30"/>
-        <Label Name="lblCountdown" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="100" Content="Start"></Label>
+        <Rectangle VerticalAlignment="Center" HorizontalAlignment="Left" Fill="Red"  Height="150" Width ="150" Margin="120,0,0,0"  />
+        <Label VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="150" Content="1" Margin="150,0,0,0"></Label>
+        <Rectangle VerticalAlignment="Center" HorizontalAlignment="Right"  Fill="Blue" Height="150" Width="150" Margin="0,0,120,0"/>
+        <Label VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="150" Content="2" Margin="0,0,150,0"></Label>
+        <Label Name="lblCountdown" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="100" Content="Start" Margin="0,0,0,0"></Label>
+        <Rectangle VerticalAlignment="Top" Fill="Orange" Height="120" ></Rectangle>
+        <Rectangle HorizontalAlignment="Right" Fill="Orange" Width="120" ></Rectangle>
+        <Rectangle HorizontalAlignment="Left" Fill="Orange" Width="120" ></Rectangle>
+        <Rectangle VerticalAlignment="Bottom" Fill="Orange" Height="120" ></Rectangle>
+        <Label Content="Place your Lightcycles!" x:Name="lblRobot" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="72" Margin="0,0,0,150"/>
     </Grid>
 </Window>
