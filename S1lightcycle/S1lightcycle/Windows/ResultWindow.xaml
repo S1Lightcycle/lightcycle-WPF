@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Content="Revanche" Grid.Column="0" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Click="Revanche_Button_Click" Width="75"/>
-            <Button Content="Menu" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Click="NewGame_Button_Click" Width="75"/>
+            <Button Content="Menu" Grid.Column="1" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Click="Menu_Button_Click" Width="75"/>
             <Button Content="Quit" Grid.Column="2" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Click="Quit_Button_Click" Width="75"/>
         </Grid>
     </Grid>

@@ -99,21 +99,25 @@ namespace S1lightcycle.Communication
 
         private void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            //Console.WriteLine(_serialPort.ReadExisting()); 
+            try {
+                //Console.WriteLine(_serialPort.ReadExisting()); 
 
-            //Initialize a buffer to hold the received data 
-            byte[] buffer = new byte[_serialPort.ReadBufferSize];
+                //Initialize a buffer to hold the received data 
+                byte[] buffer = new byte[_serialPort.ReadBufferSize];
 
-            //There is no accurate method for checking how many bytes are read 
-            //unless you check the return from the Read method 
-            int bytesRead = _serialPort.Read(buffer, 0, buffer.Length);
+                //There is no accurate method for checking how many bytes are read 
+                //unless you check the return from the Read method 
+                int bytesRead = _serialPort.Read(buffer, 0, buffer.Length);
 
-            if (bytesRead == 2)
-            {
-                LcProtocol msg = new LcProtocol(buffer[LcProtocol.HI], buffer[LcProtocol.LO]);
-                Trace.TraceInformation("received command: address = {0}, command = {1}, parameter = {2}", msg.Address, msg.Command, msg.Parameter);
-                OnPackageReceived(msg);
+                if (bytesRead == 2) {
+                    LcProtocol msg = new LcProtocol(buffer[LcProtocol.HI], buffer[LcProtocol.LO]);
+                    Trace.TraceInformation("received command: address = {0}, command = {1}, parameter = {2}", msg.Address, msg.Command, msg.Parameter);
+                    OnPackageReceived(msg);
+                }
+            } catch (IOException ex) {
+                Trace.WriteLine(ex.StackTrace);
             }
+
         }
 
         public String[] GetSerialPorts()

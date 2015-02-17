@@ -34,7 +34,7 @@ namespace S1lightcycle.Windows {
                 GridHeight = j;
             }
 
-            int wideness = 10;
+            int wideness = gridSize;
             //top
             Rectangle rect1 = InitRect((int)Width, wideness);
             Canvas.SetLeft(rect1, 0);

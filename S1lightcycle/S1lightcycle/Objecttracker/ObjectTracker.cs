@@ -4,6 +4,7 @@ using OpenCvSharp.Blob;
 using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
+using System;
 
 namespace S1lightcycle.Objecttracker
 {
@@ -66,7 +67,7 @@ namespace S1lightcycle.Objecttracker
             CvWindow roiWindow = new CvWindow("roi");
             int roiHeight = Properties.Settings.Default.RoiHeight;
             int roiWidth = Properties.Settings.Default.RoiWidth;
-            while (_isTracking) { 
+            while (_isTracking) {
                 _frame = new Mat();
 
                 //get new _frame from camera
@@ -101,14 +102,17 @@ namespace S1lightcycle.Objecttracker
                 _blobs = new CvBlobs();
                 _blobs.Label(src);
 
+                var blobList = SortBlobsBySize(_blobs);
+                //printBlobs(blobList);
                 _blobs.FilterByArea(BlobMinSize, BlobMaxSize);
 
-                var blobList = SortBlobsBySize(_blobs);
+                
 
                 CvBlob largest = null;
                 CvBlob secondLargest = null;
 
                 CvBlobs blobs = _blobs.Clone();
+                
 
                 if (blobList.Count >= 1)
                 {
@@ -126,7 +130,7 @@ namespace S1lightcycle.Objecttracker
                 
                 _blobs.RenderBlobs(src, render);
                 blobs.RenderBlobs(render, render);
-                _blobWindow.ShowImage(render);
+                //_blobWindow.ShowImage(render);
 
                 Cv2.WaitKey(1);
                 if ((largest != null) && (secondLargest != null))
@@ -134,8 +138,16 @@ namespace S1lightcycle.Objecttracker
                     LinearPrediction(largest, secondLargest);
                 } else if ((largest != null) && (secondLargest == null))
                 {
-                    LinearPrediction(largest);
+                    //LinearPrediction(largest);
                 }
+            }
+        }
+
+        private void printBlobs(List<CvBlob> blobs) {
+            Console.WriteLine("Blob list...");
+            foreach (CvBlob blob in blobs) {
+                
+                Console.WriteLine("Blob size: " + Math.Abs(blob.MaxX - blob.MinX) * Math.Abs(blob.MaxY - blob.MinY));
             }
         }
 
@@ -148,6 +160,8 @@ namespace S1lightcycle.Objecttracker
         /// <param name="secondLargest">Second largest detected blob</param>
         private void LinearPrediction(CvBlob largest, CvBlob secondLargest)
         {
+
+
             if (largest != null)
             {
                 CvPoint largestCenter = largest.CalcCentroid();
@@ -165,14 +179,30 @@ namespace S1lightcycle.Objecttracker
                         EnqueuePlayers(new Coordinate(secondCenter), new Coordinate(largestCenter));
                     }
                     _arePlayersInitialized = true;
+                    return;
                 }
+                double distanceRobots = largestCenter.DistanceTo(secondCenter);
+                
+                if (distanceRobots <= 80) {
+                    if (_oldFirstCar.DistanceTo(largestCenter) < _oldSecondCar.DistanceTo(largestCenter)){
+                        EnqueuePlayers(new Coordinate(largestCenter), null);
+                    } else {
+                        EnqueuePlayers(null, new Coordinate(largestCenter));
+                    }
+                    System.Console.WriteLine("distance between robots: " + distanceRobots);    
+                    return;
+                }
+                /*Console.WriteLine("distance oldfirstcar to largest center: " +  _oldFirstCar.DistanceTo(largestCenter));
+                Console.WriteLine("distance oldfirstcar to small center: " + _oldFirstCar.DistanceTo(secondCenter));
+
+                Console.WriteLine("distance oldsecondcar to largest center: " + _oldSecondCar.DistanceTo(largestCenter));
+                Console.WriteLine("distance oldsecondcar to small center: " + _oldSecondCar.DistanceTo(secondCenter));*/
 
                 if ((_oldFirstCar == CvPoint.Empty) || 
                     ((_oldFirstCar.DistanceTo(largestCenter) < _oldFirstCar.DistanceTo(secondCenter)) && 
                     _oldSecondCar.DistanceTo(largestCenter) > _oldSecondCar.DistanceTo(secondCenter)))
                 {
-                    _oldFirstCar = largestCenter;
-                    _oldSecondCar = secondCenter;
+                    
                     
                     FirstCar.Width = CalculateDiameter(largest.MaxX, largest.MinX);
                     FirstCar.Height = CalculateDiameter(largest.MaxY, largest.MinY);
@@ -184,8 +214,6 @@ namespace S1lightcycle.Objecttracker
                 }
                 else
                 {
-                    _oldFirstCar = secondCenter;
-                    _oldSecondCar = largestCenter;
 
                     SecondCar.Width = CalculateDiameter(largest.MaxX, largest.MinX);
                     SecondCar.Height = CalculateDiameter(largest.MaxY, largest.MinY);
@@ -219,11 +247,13 @@ namespace S1lightcycle.Objecttracker
                 if (firstPlayer != null)
                 {
                     FirstCar.Coord.Enqueue(firstPlayer);
+                    _oldFirstCar = new CvPoint(firstPlayer.XCoord, firstPlayer.YCoord);
                 }
 
                 if (secondPlayer != null)
                 {
                     SecondCar.Coord.Enqueue(secondPlayer);
+                    _oldSecondCar = new CvPoint(secondPlayer.XCoord, secondPlayer.YCoord);
                 }
             }
         }
