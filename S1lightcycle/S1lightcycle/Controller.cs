@@ -26,7 +26,7 @@ namespace S1lightcycle {
         private WallColor[][] _walls;
         private Stopwatch _stopWatch;
         private int _countTicks = 0;
-        private const int TimerIntervall = 10;    // in ms  berechnen 
+        private const int TimerIntervall = 1000;    // in ms  berechnen 
         public const int RobotSize = 120;        //test value; robotsize = gridsize
         private int _roiHeight;
         private int _roiWidth;
