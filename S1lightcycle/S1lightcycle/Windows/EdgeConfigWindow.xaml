@@ -1,11 +1,11 @@
 ﻿<Window x:Class="S1lightcycle.Windows.EdgeConfigWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="EdgeConfigWindow" WindowStyle="None" WindowState="Maximized" MouseDown="Window_MouseDown">
+        Title="EdgeConfigWindow" WindowStyle="None" WindowState="Maximized" MouseDown="Window_MouseDown" Icon="/S1lightcycle;component/Resources/lightcycle.ico">
     <Grid>
         <Rectangle HorizontalAlignment="Left" VerticalAlignment="Top" Height="40px" Width="40px" Fill="Red" />
         <Rectangle HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="40px" Width="40px" Fill="Red" />
-        <TextBlock TextWrapping="Wrap" Text="Click on the red quares in the screenshot" VerticalAlignment="Center" FontSize="100" TextAlignment="Center"/>
+        <TextBlock TextWrapping="Wrap" Text="Click on the red squares in the screenshot" VerticalAlignment="Center" FontSize="100" TextAlignment="Center"/>
         
     </Grid>
 </Window>
