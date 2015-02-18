@@ -3,9 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Options" Height="350" Width="325" Icon="/S1lightcycle;component/Resources/lightcycle.ico">
     <StackPanel Orientation="Vertical">
-
-
-
         <GroupBox Header="Object Tracking" Margin="10,0" VerticalAlignment="Top" Height="130">
             <Grid Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
@@ -13,16 +10,19 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
                 <Label Content="Learning Rate" Grid.Column="0" Grid.Row="0"/>
                 <Label Content="Min Blobsize" Grid.Column="0" Grid.Row="1"/>
                 <Label Content="Max Blobsize" Grid.Column="0" Grid.Row="2"/>
+                <Label Content="Mean Blobsize" Grid.Column="0" Grid.Row="3"/>
                 <TextBox Height="23" TextWrapping="Wrap" Name ="LearningRateBox" Text="" MinWidth="95" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                 <TextBox Height="23" TextWrapping="Wrap" Name ="MinBlobSizeBox" Text="" MinWidth="95" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                 <TextBox Height="23"  TextWrapping="Wrap" Name ="MaxBlobSizeBox" Text="" MinWidth="95" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <Label Height="23" Name="lblBlobMean" MinWidth="95" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,10,0"></Label>
             </Grid>
         </GroupBox>
         <GroupBox Header="Communication" Margin="10,0" VerticalAlignment="Top">

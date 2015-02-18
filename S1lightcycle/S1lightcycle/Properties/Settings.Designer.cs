@@ -118,5 +118,17 @@ namespace S1lightcycle.Properties {
                 this["ComPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public ulong BlobMean {
+            get {
+                return ((ulong)(this["BlobMean"]));
+            }
+            set {
+                this["BlobMean"] = value;
+            }
+        }
     }
 }

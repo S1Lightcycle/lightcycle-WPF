@@ -14,6 +14,7 @@ namespace S1lightcycle.Windows {
             LearningRateBox.Text = Properties.Settings.Default.LearningRate.ToString();
             MinBlobSizeBox.Text = Properties.Settings.Default.MinBlobSize.ToString();
             MaxBlobSizeBox.Text = Properties.Settings.Default.MaxBlobSize.ToString();
+            lblBlobMean.Content = Properties.Settings.Default.BlobMean.ToString();
             foreach (String name in Controller.Instance.GetSerialPorts())
             {
                 cmbSerialPort.Items.Add(name);

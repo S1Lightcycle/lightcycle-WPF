@@ -102,17 +102,16 @@ namespace S1lightcycle.Objecttracker
                 _blobs = new CvBlobs();
                 _blobs.Label(src);
 
-                var blobList = SortBlobsBySize(_blobs);
-                //printBlobs(blobList);
-                _blobs.FilterByArea(BlobMinSize, BlobMaxSize);
+                ComputeMean();
 
-                
+                //PrintBlobs(blobList);
+                _blobs.FilterByArea(BlobMinSize, BlobMaxSize);
+                var blobList = SortBlobsBySize(_blobs);
 
                 CvBlob largest = null;
                 CvBlob secondLargest = null;
 
                 CvBlobs blobs = _blobs.Clone();
-                
 
                 if (blobList.Count >= 1)
                 {
@@ -143,7 +142,23 @@ namespace S1lightcycle.Objecttracker
             }
         }
 
-        private void printBlobs(List<CvBlob> blobs) {
+        private void ComputeMean()
+        {
+            if (_blobs.Count > 0)
+            {
+                ulong mean = 0;
+                foreach (CvBlob blob in _blobs.Values)
+                {
+                    mean = mean + (ulong) blob.Area;
+                }
+                //add the previous mean as one blob to the current mean
+                mean += Properties.Settings.Default.BlobMean;
+                Properties.Settings.Default.BlobMean = mean/(ulong) _blobs.Count + 1;
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void PrintBlobs(List<CvBlob> blobs) {
             Console.WriteLine("Blob list...");
             foreach (CvBlob blob in blobs) {
                 
