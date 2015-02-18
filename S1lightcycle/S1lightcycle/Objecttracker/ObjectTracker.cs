@@ -1,4 +1,5 @@
-﻿using OpenCvSharp.CPlusPlus;
+﻿using System.Security.Cryptography.X509Certificates;
+using OpenCvSharp.CPlusPlus;
 using OpenCvSharp;
 using OpenCvSharp.Blob;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ namespace S1lightcycle.Objecttracker
         private const int CaptureHeightProperty = 4;
         public int CamResolutionWidth = 1280;
         public int CamResolutionHeight = 720;
+        private BlobStatistic _blobStatistic;
         private readonly static object Lock = new object();
 
         private bool _arePlayersInitialized;
@@ -46,6 +48,7 @@ namespace S1lightcycle.Objecttracker
             SecondCar = new Robot(-1, -1);
 
             _arePlayersInitialized = false;
+            _blobStatistic = new BlobStatistic(BlobMinSize, BlobMaxSize);
         }
 
         public override void StartTracking() {
@@ -60,6 +63,7 @@ namespace S1lightcycle.Objecttracker
         public override void StopTracking() {
             _isTracking = false;
             _trackingThread.Abort();
+            _blobStatistic.Stop();
         }
 
         public override void Track()
@@ -102,7 +106,7 @@ namespace S1lightcycle.Objecttracker
                 _blobs = new CvBlobs();
                 _blobs.Label(src);
 
-                ComputeMean();
+                _blobStatistic.AddBlobs(_blobs.Values.ToArray());
 
                 //PrintBlobs(blobList);
                 _blobs.FilterByArea(BlobMinSize, BlobMaxSize);
@@ -142,29 +146,6 @@ namespace S1lightcycle.Objecttracker
             }
         }
 
-        private void ComputeMean()
-        {
-            if (_blobs.Count > 0)
-            {
-                ulong mean = 0;
-                foreach (CvBlob blob in _blobs.Values)
-                {
-                    mean = mean + (ulong) blob.Area;
-                }
-                if (Properties.Settings.Default.BlobMean > 0)
-                {
-                    //add the previous mean as one blob to the current mean
-                    mean += Properties.Settings.Default.BlobMean;
-                    Properties.Settings.Default.BlobMean = mean/(ulong) _blobs.Count + 1;
-                }
-                else
-                {
-                    Properties.Settings.Default.BlobMean = mean / (ulong)_blobs.Count;
-                }
-                Properties.Settings.Default.Save();
-            }
-        }
-
         private void PrintBlobs(List<CvBlob> blobs) {
             Console.WriteLine("Blob list...");
             foreach (CvBlob blob in blobs) {
@@ -182,7 +163,6 @@ namespace S1lightcycle.Objecttracker
         /// <param name="secondLargest">Second largest detected blob</param>
         private void LinearPrediction(CvBlob largest, CvBlob secondLargest)
         {
-
 
             if (largest != null)
             {
