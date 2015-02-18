@@ -35,11 +35,15 @@ namespace S1lightcycle.Objecttracker
             {
                 mean += (ulong) blobSize;
             }
-            return mean / (ulong)_blobSizeList.Count();
+            if (_blobSizeList.Count > 0)
+            {
+                return mean/(ulong) _blobSizeList.Count();
+            }
+            return 0;
         }
 
         //Not saved yet
-        private ulong CalulateConstrainedMean()
+        private ulong CalculateConstrainedMean()
         {
             ulong mean = 0;
             ulong count = 0;
@@ -51,7 +55,11 @@ namespace S1lightcycle.Objecttracker
                     count++;
                 }
             }
-            return mean / count;
+            if (count > 0)
+            {
+                return mean/count;
+            }
+            return 0;
         }
 
         public void Stop()
