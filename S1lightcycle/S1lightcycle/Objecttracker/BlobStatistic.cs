@@ -62,9 +62,30 @@ namespace S1lightcycle.Objecttracker
             return 0;
         }
 
+        private Dictionary<int, int> CreateHistogram()
+        {
+            var histogram = new Dictionary<int, int>();
+            int histogramInterval = 1000;
+
+            foreach (int blobArea in _blobSizeList)
+            {
+                int blobInterval = (blobArea/histogramInterval)*histogramInterval;
+                if (histogram.ContainsKey(blobInterval))
+                {
+                    histogram[blobInterval] += 1;
+                }
+                else
+                {
+                    histogram.Add(blobInterval, 1);
+                }
+            }
+            return histogram;
+        }
+
         public void Stop()
         {
             Properties.Settings.Default.BlobMean = CalculateMean();
+            var asdf = CreateHistogram();
             Properties.Settings.Default.Save();
 
             _blobSizeList = new List<int>();
