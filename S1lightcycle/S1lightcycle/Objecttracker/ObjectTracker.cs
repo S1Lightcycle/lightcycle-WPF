@@ -151,8 +151,11 @@ namespace S1lightcycle.Objecttracker
                 {
                     mean = mean + (ulong) blob.Area;
                 }
-                //add the previous mean as one blob to the current mean
-                mean += Properties.Settings.Default.BlobMean;
+                if (Properties.Settings.Default.BlobMean > 0)
+                {
+                    //add the previous mean as one blob to the current mean
+                    mean += Properties.Settings.Default.BlobMean;
+                }
                 Properties.Settings.Default.BlobMean = mean/(ulong) _blobs.Count + 1;
                 Properties.Settings.Default.Save();
             }

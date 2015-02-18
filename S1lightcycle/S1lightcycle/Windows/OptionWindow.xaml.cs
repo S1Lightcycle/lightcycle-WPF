@@ -66,5 +66,12 @@ namespace S1lightcycle.Windows {
         {
             Controller.Instance.SetSerialPort((String)cmbSerialPort.SelectedItem);
         }
+
+        private void BlobMeanResetButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.BlobMean = 0;
+            Properties.Settings.Default.Save();
+            lblBlobMean.Content = 0;
+        }
     }
 }
