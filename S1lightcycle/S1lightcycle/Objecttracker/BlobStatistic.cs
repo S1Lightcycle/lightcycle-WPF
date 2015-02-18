@@ -62,10 +62,17 @@ namespace S1lightcycle.Objecttracker
             return 0;
         }
 
-        private Dictionary<int, int> CreateHistogram()
+        /// <summary>
+        /// Creates a histogram from the blobArea data
+        /// Key     = one histogram slice
+        /// Value   = amount of blobs with areas that fall into that slice 
+        /// Example: Key: 0, Value: 12 = 12 blobs with areas between 0 and the passed histogramInterval
+        /// </summary>
+        /// <param name="histogramInterval">Size of one histogram slice</param>
+        /// <returns></returns>
+        private Dictionary<int, int> CreateHistogram(int histogramInterval)
         {
             var histogram = new Dictionary<int, int>();
-            int histogramInterval = 1000;
 
             foreach (int blobArea in _blobSizeList)
             {
@@ -85,7 +92,7 @@ namespace S1lightcycle.Objecttracker
         public void Stop()
         {
             Properties.Settings.Default.BlobMean = CalculateMean();
-            var asdf = CreateHistogram();
+            var asdf = CreateHistogram(1000);
             Properties.Settings.Default.Save();
 
             _blobSizeList = new List<int>();
