@@ -169,7 +169,7 @@ namespace S1lightcycle
         {
             if (_objTracker == null)
             {
-                _objTracker = new ObjectTracker();
+                _objTracker = new ObjectTracker(Properties.Settings.Default.MinBlobSize, Properties.Settings.Default.MaxBlobSize);
             }
             _objTracker.LearningRate = Properties.Settings.Default.LearningRate;
             _objTracker.BlobMaxSize = Properties.Settings.Default.MaxBlobSize;

@@ -52,7 +52,8 @@ namespace S1lightcycle.Objecttracker
             
         }
 
-        public ObjectTracker() {
+        public ObjectTracker(int blobMinSize, int blobMaxSize) 
+        {
             //webcam
             _capture = new VideoCapture(0);
 
@@ -70,10 +71,13 @@ namespace S1lightcycle.Objecttracker
             SecondCar = new Robot(-1, -1);
 
             _arePlayersInitialized = false;
-            _blobStatistic = new BlobStatistic(BlobMinSize, BlobMaxSize);
+            _blobStatistic = new BlobStatistic(blobMinSize, blobMaxSize);
+            _blobMinSize = blobMinSize;
+            _blobMaxSize = blobMaxSize;
         }
 
-        public override void StartTracking() {
+        public override void StartTracking() 
+        {
             _oldFirstCar = CvPoint.Empty;
             _oldSecondCar = CvPoint.Empty;
             _trackingThread = new Thread(Track);
@@ -82,7 +86,8 @@ namespace S1lightcycle.Objecttracker
             _trackingThread.Start();
         }
 
-        public override void StopTracking() {
+        public override void StopTracking() 
+        {
             _isTracking = false;
             _trackingThread.Abort();
             _blobStatistic.Stop();
@@ -93,7 +98,8 @@ namespace S1lightcycle.Objecttracker
             CvWindow roiWindow = new CvWindow("roi");
             int roiHeight = Properties.Settings.Default.RoiHeight;
             int roiWidth = Properties.Settings.Default.RoiWidth;
-            while (_isTracking) {
+            while (_isTracking) 
+            {
                 _frame = new Mat();
 
                 //get new _frame from camera
@@ -168,10 +174,11 @@ namespace S1lightcycle.Objecttracker
             }
         }
 
-        private void PrintBlobs(List<CvBlob> blobs) {
+        private void PrintBlobs(List<CvBlob> blobs) 
+        {
             Console.WriteLine("Blob list...");
-            foreach (CvBlob blob in blobs) {
-                
+            foreach (CvBlob blob in blobs) 
+            {
                 Console.WriteLine("Blob size: " + Math.Abs(blob.MaxX - blob.MinX) * Math.Abs(blob.MaxY - blob.MinY));
             }
         }
@@ -207,13 +214,17 @@ namespace S1lightcycle.Objecttracker
                 }
                 double distanceRobots = largestCenter.DistanceTo(secondCenter);
                 
-                if (distanceRobots <= 80) {
-                    if (_oldFirstCar.DistanceTo(largestCenter) < _oldSecondCar.DistanceTo(largestCenter)){
+                if (distanceRobots <= 80) 
+                {
+                    if (_oldFirstCar.DistanceTo(largestCenter) < _oldSecondCar.DistanceTo(largestCenter))
+                    {
                         EnqueuePlayers(new Coordinate(largestCenter), null);
-                    } else {
+                    } 
+                    else 
+                    {
                         EnqueuePlayers(null, new Coordinate(largestCenter));
                     }
-                    System.Console.WriteLine("distance between robots: " + distanceRobots);    
+                    Console.WriteLine("distance between robots: " + distanceRobots);    
                     return;
                 }
                 /*Console.WriteLine("distance oldfirstcar to largest center: " +  _oldFirstCar.DistanceTo(largestCenter));
@@ -226,24 +237,21 @@ namespace S1lightcycle.Objecttracker
                     ((_oldFirstCar.DistanceTo(largestCenter) < _oldFirstCar.DistanceTo(secondCenter)) && 
                     _oldSecondCar.DistanceTo(largestCenter) > _oldSecondCar.DistanceTo(secondCenter)))
                 {
-                    
-                    
-                    FirstCar.Width = CalculateDiameter(largest.MaxX, largest.MinX);
-                    FirstCar.Height = CalculateDiameter(largest.MaxY, largest.MinY);
+                    FirstCar.Width = largest.MaxX - largest.MinX;
+                    FirstCar.Height = largest.MaxY - largest.MinY;
 
-                    SecondCar.Width = CalculateDiameter(secondLargest.MaxX, secondLargest.MinX);
-                    SecondCar.Height = CalculateDiameter(secondLargest.MaxY, secondLargest.MinY);
+                    SecondCar.Width = secondLargest.MaxX - secondLargest.MinX;
+                    SecondCar.Height = secondLargest.MaxY - secondLargest.MinY;
 
                     EnqueuePlayers(new Coordinate(largestCenter), new Coordinate(secondCenter));
                 }
                 else
                 {
+                    SecondCar.Width = largest.MaxX - largest.MinX;
+                    SecondCar.Height = largest.MaxY - largest.MinY;
 
-                    SecondCar.Width = CalculateDiameter(largest.MaxX, largest.MinX);
-                    SecondCar.Height = CalculateDiameter(largest.MaxY, largest.MinY);
-
-                    FirstCar.Width = CalculateDiameter(secondLargest.MaxX, secondLargest.MinX);
-                    FirstCar.Height = CalculateDiameter(secondLargest.MaxY, secondLargest.MinY);
+                    FirstCar.Width = secondLargest.MaxX - secondLargest.MinX;
+                    FirstCar.Height = secondLargest.MaxY - secondLargest.MinY;
 
                     EnqueuePlayers(new Coordinate(secondCenter), new Coordinate(largestCenter));
                 }
@@ -280,11 +288,6 @@ namespace S1lightcycle.Objecttracker
                     _oldSecondCar = new CvPoint(secondPlayer.XCoord, secondPlayer.YCoord);
                 }
             }
-        }
-
-        private int CalculateDiameter(int max, int min)
-        {
-            return max - min;
         }
 
         private List<CvBlob> SortBlobsBySize(CvBlobs blobs)
