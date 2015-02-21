@@ -16,13 +16,7 @@ namespace S1lightcycle.Communication
             if (PackageReceived != null)
                 PackageReceived(this, package);
         }
-
-        private Timer timer = new Timer();
-
-        private LcProtocol heartbeatPackage = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0);
-
-        private const int HEARTBEAT_INTERVALL = 2000;
-
+        private Timer _heartbeatTimer;
         private SerialPort _serialPort = new SerialPort();
 
         private string _portName;
@@ -49,15 +43,11 @@ namespace S1lightcycle.Communication
 
         public Communicator()
         {
-            timer.Elapsed += new ElapsedEventHandler(heartbeat_tick);
-            timer.Interval = HEARTBEAT_INTERVALL;
+            _heartbeatTimer = new Timer();
+            _heartbeatTimer.Elapsed +=
+                (sender, e) => SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0));
+            _heartbeatTimer.Interval = 2000;
             PortName = SerialPort.GetPortNames().FirstOrDefault();
-        }
-
-        private void heartbeat_tick(object sender, ElapsedEventArgs e)
-        {
-            LcProtocol package = new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0);
-            //_communicator.SendPackage(package);
         }
 
         private void InitializeSerialPort()
@@ -90,8 +80,8 @@ namespace S1lightcycle.Communication
                 if (_serialPort.IsOpen)
                 {
                     Trace.WriteLine("Connected to serial port " + _serialPort.PortName);
-                    timer.Enabled = true;
-                    timer.Start();
+                    _heartbeatTimer.Enabled = true;
+                    _heartbeatTimer.Start();
                     Trace.WriteLine("Heartbeat started");
                 }
             }
