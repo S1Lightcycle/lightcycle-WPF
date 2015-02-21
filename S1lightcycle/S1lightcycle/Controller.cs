@@ -112,11 +112,6 @@ namespace S1lightcycle {
             _roiWidth = Properties.Settings.Default.RoiWidth;
             _roiHeight = Properties.Settings.Default.RoiHeight;
 
-            StartGame();
-        }
-
-        public void StartGame()
-        {
             /*_communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_REVERSE, 0));
             Thread.Sleep(500);
             _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_FORWARD, 0));
