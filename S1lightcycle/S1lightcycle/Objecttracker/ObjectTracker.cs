@@ -1,4 +1,5 @@
-﻿using OpenCvSharp.CPlusPlus;
+﻿using System.Security.RightsManagement;
+using OpenCvSharp.CPlusPlus;
 using OpenCvSharp;
 using OpenCvSharp.Blob;
 using System.Collections.Generic;
@@ -28,6 +29,29 @@ namespace S1lightcycle.Objecttracker
         private bool _arePlayersInitialized;
 
         private Thread _trackingThread;
+
+        private int _blobMaxSize;
+        public override int BlobMaxSize
+        {
+            get { return _blobMaxSize; }
+            set
+            {
+                _blobMaxSize = value;
+                _blobStatistic.MaxBlobSize = value;
+            }
+        }
+
+        private int _blobMinSize;
+        public override int BlobMinSize
+        {
+            get { return _blobMinSize; }
+            set
+            {
+                _blobMinSize = value;
+                _blobStatistic.MinBlobSize = value;
+            }
+            
+        }
 
         public ObjectTracker() {
             //webcam

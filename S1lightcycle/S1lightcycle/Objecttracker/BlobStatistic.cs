@@ -9,16 +9,17 @@ namespace S1lightcycle.Objecttracker
 {
     class BlobStatistic
     {
-        private int _minBlobSize;
-        private int _maxBlobSize;
-
         private List<int> _blobSizeList; 
         public BlobStatistic(int blobMinSize, int blobMaxSize)
         {
-            _minBlobSize = blobMinSize;
-            _maxBlobSize = blobMaxSize;
+            MinBlobSize = blobMinSize;
+            MaxBlobSize = blobMaxSize;
             _blobSizeList = new List<int>();
         }
+
+        public int MinBlobSize { get; set; }
+
+        public int MaxBlobSize { get; set; }
 
         public void AddBlobs(CvBlob[] blobs)
         {
@@ -49,7 +50,7 @@ namespace S1lightcycle.Objecttracker
             ulong count = 0;
             foreach (int blobSize in _blobSizeList)
             {
-                if (blobSize <= _maxBlobSize && blobSize >= _minBlobSize)
+                if (blobSize <= MaxBlobSize && blobSize >= MinBlobSize)
                 {
                     mean += (ulong) blobSize;
                     count++;

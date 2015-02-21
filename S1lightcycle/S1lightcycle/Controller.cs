@@ -169,16 +169,12 @@ namespace S1lightcycle
         {
             if (_objTracker == null)
             {
-                _objTracker = new ObjectTracker
-                {
-                    LearningRate = Properties.Settings.Default.LearningRate,
-                    BlobMaxSize = Properties.Settings.Default.MaxBlobSize,
-                    BlobMinSize = Properties.Settings.Default.MinBlobSize
-                };
+                _objTracker = new ObjectTracker();
             }
-
+            _objTracker.LearningRate = Properties.Settings.Default.LearningRate;
+            _objTracker.BlobMaxSize = Properties.Settings.Default.MaxBlobSize;
+            _objTracker.BlobMinSize = Properties.Settings.Default.MinBlobSize;
             _objTracker.StartTracking();
-
         }
 
         private void UpdatePlayerPosition(Player player)
