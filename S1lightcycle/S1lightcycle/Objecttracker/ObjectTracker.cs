@@ -1,5 +1,4 @@
-﻿using System.Security.RightsManagement;
-using OpenCvSharp.CPlusPlus;
+﻿using OpenCvSharp.CPlusPlus;
 using OpenCvSharp;
 using OpenCvSharp.Blob;
 using System.Collections.Generic;
