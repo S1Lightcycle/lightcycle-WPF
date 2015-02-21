@@ -5,10 +5,11 @@ using S1lightcycle.Objecttracker;
 using System.Diagnostics;
 using System.Windows.Input;
 using S1lightcycle.Communication;
-using System.Threading;
 
-namespace S1lightcycle {
-    public partial class Controller {
+namespace S1lightcycle 
+{
+    public partial class Controller 
+    {
 
         public delegate void ConnectedEventHandler(object sender);
         public event ConnectedEventHandler Connected;
@@ -26,7 +27,6 @@ namespace S1lightcycle {
         private ResultWindow _resultWindow;
         private WallColor[][] _walls;
         private Stopwatch _stopWatch;
-        private int _countTicks = 0;
         private const int TimerIntervall = 50;    // in ms  berechnen 
         public const int RobotSize = 120;        //test value; robotsize = gridsize
         private int _roiHeight;
@@ -94,7 +94,8 @@ namespace S1lightcycle {
             new ConfigurationWindow().Show();
         }
 
-        public void InitGame() {
+        public void InitGame() 
+        {
             InitGameWindow();
 
             //init wall - collision
@@ -129,8 +130,8 @@ namespace S1lightcycle {
 
         private void InitPlayers()
         {
-            _player1 = new Player(Direction.Right, new Grid(1, 1), WallColor.Red);
-            _player2 = new Player(Direction.Left, new Grid(2, 2), WallColor.Blue);
+            _player1 = new Player(new Grid(1, 1), WallColor.Red);
+            _player2 = new Player(new Grid(2, 2), WallColor.Blue);
         }
 
         private void InitGameWindow()
@@ -221,7 +222,8 @@ namespace S1lightcycle {
             _resultWindow.Show();
         }
 
-        private Coordinate DoPositionCompensation(Coordinate coordinates) {
+        private Coordinate DoPositionCompensation(Coordinate coordinates) 
+        {
             int x = Convert.ToInt32(Convert.ToDouble(coordinates.XCoord) / Convert.ToDouble(_roiWidth) * Convert.ToDouble(GameWidth));
             int y = Convert.ToInt32(Convert.ToDouble(coordinates.YCoord) / Convert.ToDouble(_roiHeight) * Convert.ToDouble(GameHeight));
             //Console.WriteLine("x: " + x + " y: " + y);
@@ -234,20 +236,23 @@ namespace S1lightcycle {
             return new Coordinate(x, y);
         }
 
-        private bool IsValidPosition(Player player, Coordinate coordinates) {
+        private bool IsValidPosition(Player player, Coordinate coordinates) 
+        {
             if (coordinates == null) return false;
             //coordinates are outside the canvas (gamefield)
             if (coordinates.XCoord < 0 || coordinates.XCoord > GameWidth) return false;
             if (coordinates.YCoord < 0 || coordinates.YCoord > GameHeight) return false;
 
             //old position equals new position -> no redrawing needed
-            if (player.CurPos.Column == (coordinates.XCoord/RobotSize) && player.CurPos.Row == (coordinates.YCoord/RobotSize)) {
+            if (player.CurPos.Column == (coordinates.XCoord/RobotSize) && player.CurPos.Row == (coordinates.YCoord/RobotSize)) 
+            {
                 return false;
             }
             return true;
         }
 
-        private void GenerateWall(Player player) {
+        private void GenerateWall(Player player) 
+        {
             if (player.CurPos == null) return;
             _gameWindow.DrawWall(new Coordinate(player.CurPos.Column, player.CurPos.Row), player.Color);
             

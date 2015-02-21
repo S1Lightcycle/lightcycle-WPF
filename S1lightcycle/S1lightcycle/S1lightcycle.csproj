@@ -166,7 +166,6 @@
       <DependentUpon>ResultWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controller.cs" />
-    <Compile Include="Direction.cs" />
     <Compile Include="Grid.cs" />
     <ApplicationDefinition Include="Windows\App.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -26,7 +26,6 @@ namespace ProtocolTest2
                 LcProtocol package = new LcProtocol(Byte.Parse(split[0]), Byte.Parse(split[1]), 0);
                 communicator.SendPackage(package);
             }
-            Console.Read();
         }
     }
 }

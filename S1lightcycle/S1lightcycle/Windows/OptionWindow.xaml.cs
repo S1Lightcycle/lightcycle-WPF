@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using S1lightcycle.Communication;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 
@@ -8,7 +6,8 @@ namespace S1lightcycle.Windows {
     /// <summary>
     /// Interaction logic for OptionWindow.xaml
     /// </summary>
-    public partial class OptionWindow : Window {
+    public partial class OptionWindow : Window 
+    {
         public OptionWindow() {
             InitializeComponent();
             LearningRateBox.Text = Properties.Settings.Default.LearningRate.ToString();
@@ -53,7 +52,8 @@ namespace S1lightcycle.Windows {
         }
 
 
-        private void Calibration_Button_Click(object sender, RoutedEventArgs e) {
+        private void Calibration_Button_Click(object sender, RoutedEventArgs e) 
+        {
             new EdgeConfigWindow().Show();
             Hide();
         }

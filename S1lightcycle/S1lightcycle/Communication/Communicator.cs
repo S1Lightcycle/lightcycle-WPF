@@ -44,8 +44,8 @@ namespace S1lightcycle.Communication
         public Communicator()
         {
             _heartbeatTimer = new Timer();
-            _heartbeatTimer.Elapsed +=
-                (sender, e) => SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0));
+            /*_heartbeatTimer.Elapsed +=
+                (sender, e) => SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_HEARTBEAT, 0));*/
             _heartbeatTimer.Interval = 2000;
             PortName = SerialPort.GetPortNames().FirstOrDefault();
         }
@@ -117,7 +117,6 @@ namespace S1lightcycle.Communication
 
         public void SendPackage(LcProtocol package)
         {
-
             byte[] data = package.BuildProtocolData();
             try
             {

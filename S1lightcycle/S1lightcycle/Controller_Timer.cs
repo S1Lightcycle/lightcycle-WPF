@@ -47,10 +47,7 @@ namespace S1lightcycle
                 UpdatePlayerPosition(_player1);
                 UpdatePlayerPosition(_player2);
 
-                _countTicks += 1;
                 _stopWatch.Stop();
-
-                //Console.WriteLine("ellapsed time in ms: " + _stopWatch.ElapsedMilliseconds);
                 _stopWatch.Reset();
             }
         }

@@ -1,36 +1,30 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using S1lightcycle.Objecttracker;
 using System.Timers;
 using System;
 using System.Threading.Tasks;
 
-namespace S1lightcycle.Windows {
-
-    
-
+namespace S1lightcycle.Windows 
+{
     /// <summary>
     /// Interaction logic for EdgeConfigWindow.xaml
     /// </summary>
     public partial class EdgeConfigWindow : Window {
 
-        private Timer timer = new Timer();
+        private Timer _timer;
 
         public EdgeConfigWindow() {
             InitializeComponent();
-            timer.Interval = 100;
-            timer.Elapsed += timer_Elapsed;
-            timer.Start();
+            _timer = new Timer();
+            _timer.Interval = 100;
+            _timer.Elapsed += timer_Elapsed;
+            _timer.Start();
         }
 
         void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            timer.Stop();
+            _timer.Stop();
             Task.Factory.StartNew(() => ConfigureEdges());
-        }
-
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e) {
-           
         }
 
         private void ConfigureEdges()

@@ -6,7 +6,8 @@ using System.Windows.Shapes;
 using S1lightcycle.Objecttracker;
 using System.Windows.Media;
 
-namespace S1lightcycle.Windows {
+namespace S1lightcycle.Windows 
+{
     /// <summary>
     /// Interaction logic for GameWindow.xaml
     /// </summary>
@@ -15,11 +16,13 @@ namespace S1lightcycle.Windows {
         public int GridWidth { get; private set; }
         public int GridHeight { get; private set; }
          
-        public GameWindow() {
+        public GameWindow() 
+        {
             InitializeComponent();
         }
 
-        public void DrawGrid(int gridSize) {
+        public void DrawGrid(int gridSize) 
+        {
             Console.WriteLine("width: " + Width + " height: " + Height);
 
             //vertical grid
@@ -71,7 +74,8 @@ namespace S1lightcycle.Windows {
             return rect;
         }
 
-        public void DrawGridLine(double x1, double x2, double y1, double y2) {
+        public void DrawGridLine(double x1, double x2, double y1, double y2) 
+        {
             Line gridLine = new Line();
             gridLine.Stroke = Brushes.Black;
             gridLine.StrokeThickness = 3;
@@ -84,7 +88,8 @@ namespace S1lightcycle.Windows {
             GameFieldCanvas.Children.Add(gridLine);
         }
 
-        public void DrawWall(Coordinate coordinates, WallColor color) {
+        public void DrawWall(Coordinate coordinates, WallColor color) 
+        {
             Rectangle newWall = new Rectangle();
 
             switch (color)
@@ -113,9 +118,7 @@ namespace S1lightcycle.Windows {
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-           
             Controller.Instance.Move(e.Key);
-            
         }
      }
 }

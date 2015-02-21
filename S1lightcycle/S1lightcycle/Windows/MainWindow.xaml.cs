@@ -5,7 +5,8 @@ namespace S1lightcycle.Windows {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class MainWindow : Window 
+    {
         public MainWindow() {
             InitializeComponent();
             // enable events
