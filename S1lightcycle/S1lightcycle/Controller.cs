@@ -200,8 +200,11 @@ namespace S1lightcycle
                     }
 
                     GenerateWall(player);
-                    //determine player position on grid
-                    
+
+                    if (player.OldPositions.Count >= 3) {
+                        player.OldPositions.Dequeue();
+                    }
+                    player.OldPositions.Enqueue(new Grid(player.CurPos.Column, player.CurPos.Row));
 
                     //Console.WriteLine("X: " + carPos.XCoord + " | Y: " + carPos.YCoord);
                     //Console.WriteLine("column: " + player.CurPos.Column + " | row: " + player.CurPos.Row);
@@ -244,7 +247,7 @@ namespace S1lightcycle
             if (coordinates.YCoord < 0 || coordinates.YCoord > GameHeight) return false;
 
             //old position equals new position -> no redrawing needed
-            if (player.CurPos.Column == (coordinates.XCoord/RobotSize) && player.CurPos.Row == (coordinates.YCoord/RobotSize)) 
+            if (player.CurPos.Column == coordinates.XCoord && player.CurPos.Row == coordinates.YCoord) 
             {
                 return false;
             }
