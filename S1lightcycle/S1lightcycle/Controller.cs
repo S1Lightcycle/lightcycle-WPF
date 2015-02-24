@@ -262,7 +262,7 @@ namespace S1lightcycle
         private bool IsCollision(Player player)
         {
             Console.WriteLine(player.Color + " " + _walls[player.CurPos.Column][player.CurPos.Row]);
-            if ((_walls[player.CurPos.Column][player.CurPos.Row] == player.Color) || (_walls[player.CurPos.Column][player.CurPos.Row] == WallColor.White))
+            if (_walls[player.CurPos.Column][player.CurPos.Row] == WallColor.White)
             {
                 return false;
             }
