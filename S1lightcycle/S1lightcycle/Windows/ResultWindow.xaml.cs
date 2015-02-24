@@ -18,14 +18,14 @@ namespace S1lightcycle.Windows
         private void Revanche_Button_Click(object sender, RoutedEventArgs e)
         {
             Controller.Instance.PlaceRobots();
-            Close();
+            Hide();
         }
 
         private void Menu_Button_Click(object sender, RoutedEventArgs e)
         {
             Controller.Instance.ResetPlayerPoints();
             Application.Current.MainWindow.Show();
-			Close();
+            Hide();
         }
 
         private void Quit_Button_Click(object sender, RoutedEventArgs e)

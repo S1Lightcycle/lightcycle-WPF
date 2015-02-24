@@ -182,11 +182,13 @@ namespace S1lightcycle
             if (player.Robot.Coord.Count > 0)
             {
                 Coordinate tempPos = DoPositionCompensation(player.Robot.Coord.Dequeue());
-                player.CurPos.Column = tempPos.XCoord / RobotSize;
-                player.CurPos.Row = tempPos.YCoord / RobotSize;
 
-                //if (IsValidPosition(player, tempPos))
-                //{
+
+                if (IsValidPosition(player, tempPos))
+                {
+                    player.CurPos.Column = tempPos.XCoord;
+                    player.CurPos.Row = tempPos.YCoord;
+
                     if (IsCollision(player)) {
                         if (player == _player1) {
                             Player2Points++;
@@ -203,7 +205,7 @@ namespace S1lightcycle
 
                     //Console.WriteLine("X: " + carPos.XCoord + " | Y: " + carPos.YCoord);
                     //Console.WriteLine("column: " + player.CurPos.Column + " | row: " + player.CurPos.Row);
-                //}
+               }
             }
         }
 
@@ -213,7 +215,9 @@ namespace S1lightcycle
             _communicator.SendPackage(new LcProtocol(LcProtocol.ADDRESS_BROADCAST, LcProtocol.CMD_STOP, 0));
             _timer.Stop();
             _objTracker.StopTracking();
-            _resultWindow = new ResultWindow();
+            if (_resultWindow == null) {
+                _resultWindow = new ResultWindow();
+            }
             _gameWindow.Close();
             _resultWindow.Show();
         }
@@ -226,8 +230,8 @@ namespace S1lightcycle
             //Console.WriteLine("xcoord: " + coordinates.XCoord + " ycoord: " + coordinates.YCoord);
             if (x == -1 || y == -1) return null;
 
-            x = (x / RobotSize) * RobotSize;
-            y = (y / RobotSize) * RobotSize;
+            x = (x / RobotSize);
+            y = (y / RobotSize);
 
             return new Coordinate(x, y);
         }

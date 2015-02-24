@@ -9,5 +9,21 @@
             Row = x;
             Column = y;
         }
+        
+
+        public override bool Equals(object obj) 
+        {
+            Grid newGrid = obj as Grid;
+            if (newGrid == null)
+            {
+                return false;
+            }
+            if (newGrid.Row != this.Row || newGrid.Column != this.Column) 
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

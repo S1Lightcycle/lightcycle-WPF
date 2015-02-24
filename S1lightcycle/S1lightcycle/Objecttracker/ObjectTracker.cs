@@ -84,6 +84,8 @@ namespace S1lightcycle.Objecttracker
             _isTracking = true;
             _trackingThread.Priority = ThreadPriority.Highest;
             _trackingThread.Start();
+            FirstCar.Coord = new Queue<Coordinate>();
+            SecondCar.Coord = new Queue<Coordinate>();
         }
 
         public override void StopTracking() 
@@ -137,7 +139,7 @@ namespace S1lightcycle.Objecttracker
                 _blobStatistic.AddBlobs(_blobs.Values.ToArray());
 
                 //PrintBlobs(blobList);
-                _blobs.FilterByArea(BlobMinSize, BlobMaxSize);
+                //_blobs.FilterByArea(BlobMinSize, BlobMaxSize);
                 var blobList = SortBlobsBySize(_blobs);
 
                 CvBlob largest = null;
