@@ -61,7 +61,7 @@ namespace S1lightcycle.Objecttracker
             _capture.Set(CaptureWidthProperty, CamResolutionWidth);
             _capture.Set(CaptureHeightProperty, CamResolutionHeight);
 
-            _blobWindow = new CvWindow("_blobs");
+            //_blobWindow = new CvWindow("_blobs");
 
             //Background _subtractor, alternatives: MOG, GMG
             _subtractor = new BackgroundSubtractorMOG2();
@@ -97,7 +97,7 @@ namespace S1lightcycle.Objecttracker
 
         public override void Track()
         {
-            CvWindow roiWindow = new CvWindow("roi");
+            //CvWindow roiWindow = new CvWindow("roi");
             int roiHeight = Properties.Settings.Default.RoiHeight;
             int roiWidth = Properties.Settings.Default.RoiWidth;
             while (_isTracking) 
@@ -121,7 +121,7 @@ namespace S1lightcycle.Objecttracker
                 Mat srcRoi = _frame.Clone(roiRect);
 
                 IplImage tmpImg = srcRoi.ToIplImage().Clone();
-                roiWindow.ShowImage(tmpImg);
+                //roiWindow.ShowImage(tmpImg);
 
                 //perform background subtraction with selected _subtractor.
                 _subtractor.Run(srcRoi, sub, LearningRate);

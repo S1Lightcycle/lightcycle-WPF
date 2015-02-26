@@ -186,6 +186,7 @@ namespace S1lightcycle
 
                 if (IsValidPosition(player, tempPos))
                 {
+                    //player.CurPos = new Grid(tempPos.XCoord, tempPos.YCoord);
                     player.CurPos.Column = tempPos.XCoord;
                     player.CurPos.Row = tempPos.YCoord;
 
@@ -201,7 +202,7 @@ namespace S1lightcycle
 
                     GenerateWall(player);
 
-                    if (player.OldPositions.Count >= 3) {
+                    if (player.OldPositions.Count >= 5) {
                         player.OldPositions.Dequeue();
                     }
                     player.OldPositions.Enqueue(new Grid(player.CurPos.Column, player.CurPos.Row));
@@ -223,6 +224,7 @@ namespace S1lightcycle
             }
             _gameWindow.Close();
             _resultWindow.Show();
+            _resultWindow.UpdateResults();
         }
 
         private Coordinate DoPositionCompensation(Coordinate coordinates) 
@@ -233,8 +235,8 @@ namespace S1lightcycle
             //Console.WriteLine("xcoord: " + coordinates.XCoord + " ycoord: " + coordinates.YCoord);
             if (x == -1 || y == -1) return null;
 
-            x = (x / RobotSize);
-            y = (y / RobotSize);
+            x = x / RobotSize;
+            y = y / RobotSize;
 
             return new Coordinate(x, y);
         }
@@ -264,8 +266,8 @@ namespace S1lightcycle
 
         private bool IsCollision(Player player)
         {
-            Console.WriteLine(player.Color + " " + _walls[player.CurPos.Column][player.CurPos.Row]);
-            if (_walls[player.CurPos.Column][player.CurPos.Row] == WallColor.White)
+            Trace.WriteLine(player.Color + " " + _walls[player.CurPos.Column][player.CurPos.Row] + " " + player.IsOldPosition());
+            if (_walls[player.CurPos.Column][player.CurPos.Row] == WallColor.White || player.Color == _walls[player.CurPos.Column][player.CurPos.Row]) //|| player.IsOldPosition())
             {
                 return false;
             }

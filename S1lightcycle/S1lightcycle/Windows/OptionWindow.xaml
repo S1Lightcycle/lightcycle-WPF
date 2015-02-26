@@ -1,7 +1,7 @@
 ﻿<Window x:Class="S1lightcycle.Windows.OptionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Options" Height="359.292" Width="325" Icon="/S1lightcycle;component/Resources/lightcycle.ico">
+        Title="Options" Height="370" Width="325" Icon="/S1lightcycle;component/Resources/lightcycle.ico">
     <StackPanel Orientation="Vertical">
         <GroupBox Header="Object Tracking" Margin="10,0" VerticalAlignment="Top" Height="130">
             <Grid Margin="0,10,0,0">

@@ -121,7 +121,7 @@ namespace S1lightcycle.Communication
             try
             {
                 _serialPort.Write(data, 0, 2);
-                Trace.TraceInformation("send package: address = {0}, command = {1}, parameter = {2}; raw: bin {3} {4}, hex {5} {6}, dec {7} {8}", package.Address, package.Command, package.Parameter, Convert.ToString(data[LcProtocol.HI], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.LO], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.HI], 16).PadLeft(2, '0'), Convert.ToString(data[LcProtocol.LO], 16).PadLeft(2, '0'), data[LcProtocol.HI], data[LcProtocol.LO]);
+                //Trace.TraceInformation("send package: address = {0}, command = {1}, parameter = {2}; raw: bin {3} {4}, hex {5} {6}, dec {7} {8}", package.Address, package.Command, package.Parameter, Convert.ToString(data[LcProtocol.HI], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.LO], 2).PadLeft(8, '0'), Convert.ToString(data[LcProtocol.HI], 16).PadLeft(2, '0'), Convert.ToString(data[LcProtocol.LO], 16).PadLeft(2, '0'), data[LcProtocol.HI], data[LcProtocol.LO]);
             }
             catch (Exception e)
             {

@@ -1,4 +1,5 @@
-﻿namespace S1lightcycle 
+﻿using System.Diagnostics;
+namespace S1lightcycle 
 {
     public class Grid {
         public int Row;
@@ -18,6 +19,7 @@
             {
                 return false;
             }
+            Trace.WriteLine(newGrid.Row + " " + newGrid.Column);
             if (newGrid.Row != this.Row || newGrid.Column != this.Column) 
             {
                 return false;

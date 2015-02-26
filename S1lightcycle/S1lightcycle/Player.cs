@@ -1,5 +1,6 @@
 ﻿using S1lightcycle.Objecttracker;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace S1lightcycle 
 {
@@ -14,15 +15,18 @@ namespace S1lightcycle
         {
             CurPos = curPos;
             Color = color;
-            OldPositions = new Queue<Grid>(3);
+            OldPositions = new Queue<Grid>(5);
         }
 
         public bool IsOldPosition()
         {
-            foreach (Grid g in OldPositions) 
+            foreach (Grid g in OldPositions)
             {
-                if (CurPos.Equals(g)) 
+                Trace.WriteLine("old-Position: column: " + g.Column + " row: " + g.Row + "new-Position: column: " + CurPos.Column + " row: " + CurPos.Row);
+                //Trace.WriteLine("new-Position: column: " + CurPos.Column + " row: " + CurPos.Row);
+                if (CurPos.Equals(g))
                 {
+                    Trace.WriteLine("is old position");
                     return true;
                 }
             }

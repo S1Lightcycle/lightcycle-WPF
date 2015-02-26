@@ -11,8 +11,7 @@ namespace S1lightcycle.Windows
         public ResultWindow()
         {
             InitializeComponent();
-            Player1ResultLabel.Content = Controller.Instance.Player1Points;
-            Player2ResultLabel.Content = Controller.Instance.Player2Points;
+            
         }
 
         private void Revanche_Button_Click(object sender, RoutedEventArgs e)
@@ -32,5 +31,11 @@ namespace S1lightcycle.Windows
         {
             Environment.Exit(Environment.ExitCode);
         }
+
+        public void UpdateResults() {
+            Player1ResultLabel.Content = Controller.Instance.Player1Points;
+            Player2ResultLabel.Content = Controller.Instance.Player2Points;
+        }
+        
     }
 }

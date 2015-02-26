@@ -15,7 +15,7 @@ namespace S1lightcycle.Windows {
 
         void Connected(object sender)
         {
-            lbl_connecting.Dispatcher.BeginInvoke((Action)(() => lbl_connecting.Visibility = Visibility.Collapsed));
+            //lbl_connecting.Dispatcher.BeginInvoke((Action)(() => lbl_connecting.Visibility = Visibility.Collapsed));
             btnStartGame.Dispatcher.BeginInvoke((Action)(() => btnStartGame.IsEnabled = true));
         }
 
